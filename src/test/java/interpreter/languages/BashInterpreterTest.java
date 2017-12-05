@@ -3,6 +3,7 @@ package interpreter.languages;
 import interpreter.Interpreter;
 import interpreter.Result;
 
+import java.io.File;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,13 +23,10 @@ class BashInterpreterTest {
 
     @org.junit.jupiter.api.Test
     void interpretationResult() {
-        Result desired = new Result(
-                "bash!",
-                "err!",
-                Duration.ofSeconds(8)
-        );
-
-        assert interpreter.interpretationResult(null).equals(desired);
+        Result result = interpreter.interpretationResult(new File("testCodes/bash_test.sh"));
+        System.out.println(result.getStdOut());
+        System.out.println(result.getStdErr());
+        System.out.println(result.getExecutionTime());
 
     }
 
