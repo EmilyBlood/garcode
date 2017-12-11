@@ -1,7 +1,7 @@
-package definiowanieZadan.databaseProvider.dao;
+package exerciseCreator.databaseProvider.dao;
 
-import definiowanieZadan.databaseProvider.entity.Exercise;
-import definiowanieZadan.databaseProvider.entity.TestCase;
+import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.databaseProvider.entity.TestCase;
 
 import java.util.List;
 

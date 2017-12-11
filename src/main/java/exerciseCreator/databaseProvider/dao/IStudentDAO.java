@@ -1,6 +1,6 @@
-package definiowanieZadan.databaseProvider.dao;
+package exerciseCreator.databaseProvider.dao;
 
-import definiowanieZadan.databaseProvider.entity.Student;
+import exerciseCreator.databaseProvider.entity.Student;
 
 public interface IStudentDAO {
 

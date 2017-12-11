@@ -1,4 +1,4 @@
-package definiowanieZadan.databaseProvider.entity;
+package exerciseCreator.databaseProvider.entity;
 
 import javax.persistence.*;
 

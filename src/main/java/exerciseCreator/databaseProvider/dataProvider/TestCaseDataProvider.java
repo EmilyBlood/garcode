@@ -1,9 +1,9 @@
-package definiowanieZadan.databaseProvider.dataProvider;
+package exerciseCreator.databaseProvider.dataProvider;
 
-import definiowanieZadan.databaseProvider.dao.ITestCaseDAO;
-import definiowanieZadan.databaseProvider.dao.impl.TestCaseHibernateDAO;
-import definiowanieZadan.databaseProvider.entity.TestCase;
-import definiowanieZadan.databaseProvider.session.HibernateSession;
+import exerciseCreator.databaseProvider.dao.ITestCaseDAO;
+import exerciseCreator.databaseProvider.dao.impl.TestCaseHibernateDAO;
+import exerciseCreator.databaseProvider.entity.TestCase;
+import exerciseCreator.databaseProvider.session.HibernateSession;
 
 public class TestCaseDataProvider {
 

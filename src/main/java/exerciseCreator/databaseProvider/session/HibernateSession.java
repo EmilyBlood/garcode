@@ -1,4 +1,4 @@
-package definiowanieZadan.databaseProvider.session;
+package exerciseCreator.databaseProvider.session;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

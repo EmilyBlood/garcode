@@ -1,10 +1,10 @@
-package definiowanieZadan.databaseProvider.dataProvider;
+package exerciseCreator.databaseProvider.dataProvider;
 
-import definiowanieZadan.databaseProvider.dao.IExerciseDAO;
-import definiowanieZadan.databaseProvider.dao.impl.ExerciseHibernateDAO;
-import definiowanieZadan.databaseProvider.entity.Exercise;
-import definiowanieZadan.databaseProvider.entity.TestCase;
-import definiowanieZadan.databaseProvider.session.HibernateSession;
+import exerciseCreator.databaseProvider.dao.IExerciseDAO;
+import exerciseCreator.databaseProvider.dao.impl.ExerciseHibernateDAO;
+import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.databaseProvider.entity.TestCase;
+import exerciseCreator.databaseProvider.session.HibernateSession;
 
 import java.util.List;
 

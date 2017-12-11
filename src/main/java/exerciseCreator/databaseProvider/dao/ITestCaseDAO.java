@@ -1,6 +1,6 @@
-package definiowanieZadan.databaseProvider.dao;
+package exerciseCreator.databaseProvider.dao;
 
-import definiowanieZadan.databaseProvider.entity.TestCase;
+import exerciseCreator.databaseProvider.entity.TestCase;
 
 public interface ITestCaseDAO {
 

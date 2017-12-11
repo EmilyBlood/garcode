@@ -1,9 +1,9 @@
-package definiowanieZadan.databaseProvider.dataProvider;
+package exerciseCreator.databaseProvider.dataProvider;
 
-import definiowanieZadan.databaseProvider.dao.IStudentDAO;
-import definiowanieZadan.databaseProvider.dao.impl.StudentHibernateDAO;
-import definiowanieZadan.databaseProvider.entity.Student;
-import definiowanieZadan.databaseProvider.session.HibernateSession;
+import exerciseCreator.databaseProvider.dao.IStudentDAO;
+import exerciseCreator.databaseProvider.dao.impl.StudentHibernateDAO;
+import exerciseCreator.databaseProvider.entity.Student;
+import exerciseCreator.databaseProvider.session.HibernateSession;
 
 public class StudentDataProvider {
 

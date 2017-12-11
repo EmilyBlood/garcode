@@ -9,8 +9,8 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="definiowanieZadan.databaseProvider.entity.Student" />
-        <mapping class="definiowanieZadan.databaseProvider.entity.Exercise" />
-        <mapping class="definiowanieZadan.databaseProvider.entity.TestCase" />
+        <mapping class="exerciseCreator.databaseProvider.entity.Student" />
+        <mapping class="exerciseCreator.databaseProvider.entity.Exercise" />
+        <mapping class="exerciseCreator.databaseProvider.entity.TestCase" />
     </session-factory>
 </hibernate-configuration>

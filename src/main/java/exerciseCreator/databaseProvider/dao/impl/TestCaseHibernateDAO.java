@@ -1,7 +1,7 @@
-package definiowanieZadan.databaseProvider.dao.impl;
+package exerciseCreator.databaseProvider.dao.impl;
 
-import definiowanieZadan.databaseProvider.dao.ITestCaseDAO;
-import definiowanieZadan.databaseProvider.entity.TestCase;
+import exerciseCreator.databaseProvider.dao.ITestCaseDAO;
+import exerciseCreator.databaseProvider.entity.TestCase;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
