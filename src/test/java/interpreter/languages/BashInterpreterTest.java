@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BashInterpreterTest {
 
-    private Interpreter interpreter;
+    private BashInterpreter interpreter;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
@@ -24,9 +24,9 @@ class BashInterpreterTest {
     @org.junit.jupiter.api.Test
     void interpretationResult() {
         Result result = interpreter.interpretationResult(new File("testCodes/bash_test.sh"));
-        System.out.println(result.getStdOut());
-        System.out.println(result.getStdErr());
-        System.out.println(result.getExecutionTime());
+        assert(result.getStdOut().contains("/home/marcin/Dropbox/Studia/Technologie Obiektowe/garcode"));
+        assert(result.getStdErr().contains("error!"));
+//        System.out.println(result.getExecutionTime());
 
     }
 

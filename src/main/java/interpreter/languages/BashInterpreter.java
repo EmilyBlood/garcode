@@ -1,11 +1,14 @@
 package interpreter.languages;
 
 import interpreter.Interpreter;
+import interpreter.processing.ProcessWrapper;
 import interpreter.Result;
 
 import java.io.*;
 import java.time.Duration;
+import java.time.Period;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BashInterpreter implements Interpreter {
@@ -18,50 +21,28 @@ public class BashInterpreter implements Interpreter {
     }
 
     @Override
-    public Result interpretationResult(File sourceCode, Map<String, String> arguments) {
+    public Result interpretationResult(File sourceCode, String arguments, Map<String, String> environment, Duration timeout) {
 
         processBuilder = new ProcessBuilder(
                 shellPath,
                 sourceCode.getAbsolutePath()
         );
-        try {
-            long startTime = System.nanoTime();
-            Process p = processBuilder.start();
 
-            BufferedReader outBufferedReader = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
 
-            BufferedReader errBufferedReader = new BufferedReader(
-                    new InputStreamReader(p.getErrorStream())
-            );
+        long startTime = System.nanoTime();
+        ProcessWrapper wrapper = new ProcessWrapper(processBuilder);
 
-            StringBuilder outStringBuilder = new StringBuilder();
-            StringBuilder errStringBuilder = new StringBuilder();
-            String line;
+        return new Result(
+                wrapper.stdOut(),
+                wrapper.stdErr(),
+                Duration.ofNanos(System.nanoTime() - startTime)
+        );
 
-            while ((line = outBufferedReader.readLine()) != null){
-                outStringBuilder.append(line).append("\n");
-            }
 
-            while ((line = errBufferedReader.readLine()) != null){
-                errStringBuilder.append(line).append("\n");
-            }
-
-            return new Result(
-                    outStringBuilder.toString(),
-                    errStringBuilder.toString(),
-                    Duration.ofNanos(System.nanoTime() - startTime)
-            );
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
-    @Override
     public Result interpretationResult(File sourceCode) {
-        return interpretationResult(sourceCode, new HashMap<>());
+        return interpretationResult(sourceCode, "", new HashMap<>(), Duration.ofDays(1));
     }
 
 }

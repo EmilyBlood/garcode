@@ -6,7 +6,7 @@ public class Result {
     private final String stdOut;
     private final String stdErr;
     private final Duration executionTime;
-
+//    private final int errno; //if program run correctly, 0, else errno that was returned by process
 
     public Result(String stdOut, String stdErr, Duration executionTime) {
         this.stdOut = stdOut;
