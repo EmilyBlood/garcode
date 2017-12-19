@@ -24,7 +24,7 @@ public class Student {
     private String email;
 
     @OneToMany(mappedBy = "student")
-    private Set<CheckedExercise> exercises;
+    private Set<CheckedExercise> exercises = new HashSet<>();
 
     public Student(){
     }
@@ -34,7 +34,6 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.exercises = new HashSet<>();
     }
 
     public Integer getId() {

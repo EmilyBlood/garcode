@@ -4,12 +4,12 @@ package notifications;
  * Created by mblaszkiewicz on 12.12.2017.
  */
 public class MailConfiguration {
-    String senderMail, password, host, sslFactory;
+    String username, password, host, sslFactory;
     Boolean authentication;
     Integer sslPort, smtpPort;
 
-    public MailConfiguration(String senderMail, String password, String host, Boolean authentication, String sslFactory, Integer sslPort, Integer smtpPort) {
-        this.senderMail = senderMail;
+    public MailConfiguration(String username, String password, String host, Boolean authentication, Integer smtpPort) {
+        this.username = username;
         this.password = password;
         this.host = host;
         this.authentication = authentication;
@@ -18,8 +18,8 @@ public class MailConfiguration {
         this.smtpPort = smtpPort;
     }
 
-    public MailConfiguration(String senderMail, String host, String sslFactory, Integer sslPort, Integer smtpPort) {
-        this.senderMail = senderMail;
+    public MailConfiguration(String username, String host, String sslFactory, Integer sslPort, Integer smtpPort) {
+        this.username = username;
         this.host = host;
         this.sslFactory = sslFactory;
         this.sslPort = sslPort;

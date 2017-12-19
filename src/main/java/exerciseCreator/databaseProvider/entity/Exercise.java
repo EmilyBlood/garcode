@@ -19,7 +19,7 @@ public class Exercise {
     private String description;
 
     @OneToMany(cascade = CascadeType.REMOVE)
-    private List<TestCase> testCases;
+    private List<TestCase> testCases = new ArrayList<>();
 
     @OneToMany(mappedBy = "exercise")
     private Set<CheckedExercise> checkedExercises;
@@ -30,7 +30,6 @@ public class Exercise {
     public Exercise(String title, String description) {
         this.title = title;
         this.description = description;
-        this.testCases = new ArrayList<>();
         this.checkedExercises = new HashSet<>();
     }
 

@@ -7,21 +7,20 @@ import java.util.Properties;
  * Created by mblaszkiewicz on 12.12.2017.
  */
 public class MailConnector {
-    String to;
-    Properties properties;
-    MailConfiguration mailConfiguration;
+    Session session;
 
-    public MailConnector(String to, MailConfiguration mailConfiguration) {
-        this.to = to;
-        this.mailConfiguration = mailConfiguration;
+    public MailConnector(MailConfiguration mailConfiguration) {
+        Properties props = System.getProperties();
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", mailConfiguration.host);
+        props.put("mail.smtp.user", mailConfiguration.username);
+        props.put("mail.smtp.password", mailConfiguration.password);
+        props.put("mail.smtp.port", mailConfiguration.smtpPort);
+        props.put("mail.smtp.auth", mailConfiguration.authentication.toString());
+        session = Session.getDefaultInstance(props);
     }
 
-    public Session sessionCreate() {
-        this.properties = new Properties();
-        this.properties.setProperty("mail.user", mailConfiguration.senderMail);
-        this.properties.setProperty("mail.password", mailConfiguration.password);
-        this.properties.setProperty("mail.smtp.host", mailConfiguration.host);
-        this.properties.setProperty("mail.smtp.port", mailConfiguration.smtpPort.toString());
-        return Session.getDefaultInstance(properties);
+    public Session getSession() {
+        return session;
     }
 }
