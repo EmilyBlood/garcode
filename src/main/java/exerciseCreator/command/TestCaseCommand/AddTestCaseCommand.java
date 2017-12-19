@@ -1,4 +1,4 @@
-package exerciseCreator.command;
+package exerciseCreator.command.TestCaseCommand;
 
 
 import exerciseCreator.model.Task;

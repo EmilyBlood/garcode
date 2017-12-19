@@ -21,13 +21,14 @@ public class ModelToEntity {
 
     public void addTaskAndTestCasesToDatabase(Task task){
         Exercise exercise = TaskToExercise(task);
-        exerciseDataProvider.createExercise(exercise);
+
         for (exerciseCreator.databaseProvider.entity.TestCase testCase: exercise.getTestCases()
              ) {
             testCaseDataProvider.createTestCase(testCase);
-            exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
-
+           // exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
         }
+
+        exerciseDataProvider.createExercise(exercise);
     }
 
     private Exercise TaskToExercise(Task task) {
@@ -36,12 +37,12 @@ public class ModelToEntity {
         exercise.setTitle(task.getTitle());
         for (TestCase testCase : task.getTestCases()
                 ) {
-            exercise.addTestCase(ModelTestCasetoEntityTestCase(testCase));
+            exercise.addTestCase(ModelTestCaseToEntityTestCase(testCase));
         }
         return exercise;
     }
 
-    private exerciseCreator.databaseProvider.entity.TestCase ModelTestCasetoEntityTestCase(TestCase testCase) {
+    private exerciseCreator.databaseProvider.entity.TestCase ModelTestCaseToEntityTestCase(TestCase testCase) {
         exerciseCreator.databaseProvider.entity.TestCase etestCase = new exerciseCreator.databaseProvider.entity.TestCase();
         etestCase.setResultOutput(testCase.getResultOutput());
         etestCase.setParametersInput(testCase.getParametersInput());

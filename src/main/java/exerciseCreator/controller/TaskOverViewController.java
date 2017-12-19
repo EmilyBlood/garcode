@@ -1,6 +1,9 @@
 package exerciseCreator.controller;
 
-import exerciseCreator.command.*;
+import exerciseCreator.command.TestCaseCommand.AddTestCaseCommand;
+import exerciseCreator.command.TestCaseCommand.CommandRegistry;
+import exerciseCreator.command.TestCaseCommand.EditTestCaseCommand;
+import exerciseCreator.command.TestCaseCommand.RemoveTestCaseCommand;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 import javafx.beans.binding.Bindings;
@@ -162,7 +165,7 @@ public class TaskOverViewController {
     private boolean isInputValid() {
         if(!titleTextField.getText().isEmpty() &&
                 !descriptionTextArea.getText().isEmpty() &&
-                task.getTestCases().size() >= 5)
+                task.getTestCases().size() >= 2)
             return true;
         return false;
     }

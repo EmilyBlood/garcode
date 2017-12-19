@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="exerciseCreator.controller.TaskManagingController">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.AccountOverViewController">
    <top>
       <Label text="Zadania" BorderPane.alignment="CENTER">
          <font>
@@ -23,16 +22,19 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="108.0" layoutY="163.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tasksTable" layoutX="108.0" layoutY="163.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="415.0" text="Temat zadania" />
+                      <TableColumn fx:id="titleColumn" prefWidth="415.0" text="Temat zadania" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="302.0">
                <children>
-                  <Button fx:id="showAddTaskPaneButton" layoutX="34.0" layoutY="235.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="115.0" text="Dodaj zadanie" onAction="#showAddTaskAction" />
+                  <Button fx:id="showAddTaskPaneButton" layoutX="34.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleAddTaskAction" prefHeight="68.0" prefWidth="115.0" text="Dodaj zadanie" />
+                  <Button fx:id="gradeTaskButton"  onAction="#handleGradeTaskAction" layoutX="34.0" layoutY="331.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="115.0" text="Ocen Zadanie" />
+                  <Button fx:id="deleteTaskButton" onAction="#handleDeleteTaskAction" layoutX="33.0" layoutY="147.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="117.0" text="Usun Zadanie" />
+                  <Button fx:id="editTaskButton" onAction="#handleEditTaskAction" layoutX="33.0" layoutY="65.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="117.0" text="Edytuj Zadanie" />
                </children>
             </AnchorPane>
         </items>

@@ -1,6 +1,7 @@
-package exerciseCreator.command;
+package exerciseCreator.command.TestCaseCommand;
 
 
+import exerciseCreator.command.TestCaseCommand.Command;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 

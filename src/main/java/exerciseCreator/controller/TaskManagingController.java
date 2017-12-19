@@ -2,7 +2,7 @@ package exerciseCreator.controller;
 
 
 import exerciseCreator.EntityModel.ModelToEntity;
-import exerciseCreator.command.CommandRegistry;
+import exerciseCreator.command.TestCaseCommand.CommandRegistry;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.TestCaseDataProvider;
 import exerciseCreator.model.Task;
@@ -22,6 +22,8 @@ public class TaskManagingController {
     private TestCaseDataProvider testCaseDataProvider = new TestCaseDataProvider();
     private ModelToEntity modelToEntity = new ModelToEntity(testCaseDataProvider, exerciseDataProvider);
     private CommandRegistry commandRegistry = new CommandRegistry();
+
+
 
     public boolean showTestCaseAction(TestCase testcase) {
         try{
@@ -47,11 +49,10 @@ public class TaskManagingController {
         }
     }
 
-    public void showAddTaskAction(ActionEvent event) {
+    public boolean showAddTaskAction(Task task) {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../AddTaskPane.fxml"));
-
-             Parent root1 = (Parent) fxmlLoader.load();
+            Parent root1 = (Parent) fxmlLoader.load();
 
 
 
@@ -61,7 +62,6 @@ public class TaskManagingController {
 
             TaskOverViewController controller = fxmlLoader.getController();
             controller.setAppController(this);
-            Task task = new Task();
             controller.setData(task);
             controller.setCommandRegistry(commandRegistry);
             controller.setDialogStage(stage);
@@ -74,8 +74,11 @@ public class TaskManagingController {
             }
 
 
-        }catch (IOException ex){
-            ex.printStackTrace();
+            return controller.isApproved();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
