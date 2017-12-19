@@ -60,6 +60,10 @@ public class Task {
         this.testCases.add(testCase);
     }
 
+    public static final Task newTask() {
+        return new Task();
+    }
+
     public void removeTestCase(TestCase testCase) {
         this.testCases.remove(testCase);
     }

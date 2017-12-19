@@ -1,7 +1,10 @@
 package exerciseCreator.controller;
 
 
+import exerciseCreator.EntityModel.ModelToEntity;
 import exerciseCreator.command.CommandRegistry;
+import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
+import exerciseCreator.databaseProvider.dataProvider.TestCaseDataProvider;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 import exerciseCreator.presenter.TestCasePanePresenter;
@@ -15,7 +18,9 @@ import java.io.IOException;
 
 public class TaskManagingController {
 
-
+    private ExerciseDataProvider exerciseDataProvider = new ExerciseDataProvider();
+    private TestCaseDataProvider testCaseDataProvider = new TestCaseDataProvider();
+    private ModelToEntity modelToEntity = new ModelToEntity(testCaseDataProvider, exerciseDataProvider);
     private CommandRegistry commandRegistry = new CommandRegistry();
 
     public boolean showTestCaseAction(TestCase testcase) {
@@ -48,15 +53,26 @@ public class TaskManagingController {
 
              Parent root1 = (Parent) fxmlLoader.load();
 
-            TaskOverViewController controller = fxmlLoader.getController();
-            controller.setAppController(this);
-            controller.setData(new Task());
-            controller.setCommandRegistry(commandRegistry);
+
 
             Stage stage = new Stage();
             stage.setTitle("Garcode - dodaj zadanie");
             stage.setScene(new Scene(root1));
+
+            TaskOverViewController controller = fxmlLoader.getController();
+            controller.setAppController(this);
+            Task task = new Task();
+            controller.setData(task);
+            controller.setCommandRegistry(commandRegistry);
+            controller.setDialogStage(stage);
+
+
             stage.showAndWait();
+
+            if(controller.isApproved()){
+                modelToEntity.addTaskAndTestCasesToDatabase(task);
+            }
+
 
         }catch (IOException ex){
             ex.printStackTrace();
