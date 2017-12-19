@@ -24,7 +24,7 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="532.0" prefWidth="395.0">
                <children>
-                  <TextField id="taskTitleTextField" layoutX="39.0" layoutY="60.0" prefHeight="25.0" prefWidth="335.0" />
+                  <TextField fx:id="titleTextField" layoutX="39.0" layoutY="60.0" prefHeight="25.0" prefWidth="335.0" />
                   <Label layoutX="164.0" layoutY="31.0" text="Tytuł zadania">
                      <font>
                         <Font size="15.0" />
@@ -35,7 +35,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextArea id="taskDetailsTextField" layoutX="42.0" layoutY="115.0" prefHeight="160.0" prefWidth="334.0" />
+                  <TextArea fx:id="descriptionTextArea" layoutX="42.0" layoutY="115.0" prefHeight="160.0" prefWidth="334.0" />
                   <TableView fx:id="testCasesTable" layoutX="39.0" layoutY="290.0" prefHeight="200.0" prefWidth="338.0">
                     <columns>
                       <TableColumn fx:id="parametersInputColumn" prefWidth="100.0" text="Wartość" />
@@ -43,7 +43,7 @@
                       <TableColumn fx:id="maxTimeColumn" prefWidth="111.0" text="Max Czas" />
                     </columns>
                   </TableView>
-                  <Button fx:id="AddTestCaseButton" layoutX="398.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleAddTestCaseAction" prefHeight="52.0" prefWidth="131.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="addTestCaseButton" layoutX="398.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleAddTestCaseAction" prefHeight="52.0" prefWidth="131.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
                   <Button fx:id="editTestCaseButton" layoutX="398.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleEditTestCaseAction" prefHeight="54.0" prefWidth="131.0" text="Edytuj przypadek testowy" />
                   <Button fx:id="deleteTestCaseButton" layoutX="397.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="132.0" text="Usun przypadek testowy" />
                   <Button fx:id="undoButton" layoutX="128.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleUndoAction" prefHeight="26.0" prefWidth="73.0" text="Cofnij" />
@@ -52,7 +52,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="537.0" prefWidth="198.0">
                     <children>
-                        <Button fx:id="AddTaskButton" layoutX="56.0" layoutY="235.0" mnemonicParsing="false" onAction="#onfinalAddTestCaseAction" prefHeight="68.0" prefWidth="121.0" text="Dodaj zadanie" />
+                        <Button fx:id="addTaskButton" layoutX="56.0" layoutY="235.0" mnemonicParsing="false" onAction="#onfinalAddTaskAction" prefHeight="68.0" prefWidth="121.0" text="Dodaj zadanie" />
                     </children>
                 </AnchorPane>
 

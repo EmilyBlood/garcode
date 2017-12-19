@@ -1,4 +1,4 @@
-package exerciseCreator.command;
+package exerciseCreator.command.TestCaseCommand;
 
 public interface Command {
 

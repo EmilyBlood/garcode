@@ -1,21 +1,31 @@
 package exerciseCreator.controller;
 
-import exerciseCreator.command.*;
+import exerciseCreator.command.TestCaseCommand.AddTestCaseCommand;
+import exerciseCreator.command.TestCaseCommand.CommandRegistry;
+import exerciseCreator.command.TestCaseCommand.EditTestCaseCommand;
+import exerciseCreator.command.TestCaseCommand.RemoveTestCaseCommand;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 
 public class TaskOverViewController {
 
-    private Task data;
+    private Task task;
 
     private TaskManagingController appController;
 
     private CommandRegistry commandRegistry;
+
+    @FXML
+    private TextField titleTextField;
+
+    @FXML
+    private TextArea descriptionTextArea;
 
     @FXML
     private TableView<TestCase> testCasesTable;
@@ -47,16 +57,35 @@ public class TaskOverViewController {
     @FXML
     private Button redoButton;
 
+    private Stage dialogStage;
+
+    private boolean approved;
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public void setData(Task task) {
+        this.task = task;
+        testCasesTable.setItems(task.getTestCases());
+        updateControls();
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+
     @FXML
     private void initialize() {
         testCasesTable.getSelectionModel().setSelectionMode(
                 SelectionMode.MULTIPLE);
 
-        parametersInputColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+        parametersInputColumn.setCellValueFactory(taskValue -> taskValue.getValue()
                 .getParametersInputProperty());
-        resultOutputColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+        resultOutputColumn.setCellValueFactory(taskValue -> taskValue.getValue()
                 .getResultOutputProperty());
-        maxTimeColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+        maxTimeColumn.setCellValueFactory(taskValue -> taskValue.getValue()
                 .getMaxTimeProperty());
         deleteTestCaseButton.disableProperty().bind(
                 Bindings.isEmpty(testCasesTable.getSelectionModel()
@@ -72,7 +101,7 @@ public class TaskOverViewController {
     private void handleDeleteTestCaseAction(ActionEvent event) {
         for (TestCase testCase : testCasesTable.getSelectionModel()
                 .getSelectedItems()) {
-            RemoveTestCaseCommand removeTestCaseCommand = new RemoveTestCaseCommand(testCase, data);
+            RemoveTestCaseCommand removeTestCaseCommand = new RemoveTestCaseCommand(testCase, task);
             commandRegistry.executeCommand(removeTestCaseCommand);
         }
     }
@@ -83,7 +112,7 @@ public class TaskOverViewController {
                 .getSelectedItem();
         if (testCase != null) {
             appController.showTestCaseAction(testCase);
-            EditTestCaseCommand editTestCaseCommand = new EditTestCaseCommand(testCase, data);
+            EditTestCaseCommand editTestCaseCommand = new EditTestCaseCommand(testCase, task);
             commandRegistry.executeCommand(editTestCaseCommand);
         }
     }
@@ -93,7 +122,7 @@ public class TaskOverViewController {
         TestCase testCase = TestCase.newTestCase();
 
         if (appController.showTestCaseAction(testCase)) {
-            AddTestCaseCommand addTestCaseCommand = new AddTestCaseCommand(testCase, data);
+            AddTestCaseCommand addTestCaseCommand = new AddTestCaseCommand(testCase, task);
             commandRegistry.executeCommand(addTestCaseCommand);
         }
     }
@@ -109,15 +138,14 @@ public class TaskOverViewController {
     }
 
     @FXML
-    private void onfinalAddTestCaseAction(ActionEvent event){
+    private void onfinalAddTaskAction(ActionEvent event) {
+        if (isInputValid()) {
+            updateModel();
+            approved = true;
+            dialogStage.close();
+        }
+    }
 
-    }
-    
-    
-    public void setData(Task data) {
-        this.data = data;
-        testCasesTable.setItems(data.getTestCases());
-    }
 
     public void setAppController(TaskManagingController appController) {
         this.appController = appController;
@@ -126,5 +154,31 @@ public class TaskOverViewController {
     public void setCommandRegistry(CommandRegistry commandRegistry) {
         this.commandRegistry = commandRegistry;
 
+    }
+
+
+    @FXML
+    private void handleCancelAction(ActionEvent event) {
+        dialogStage.close();
+    }
+
+    private boolean isInputValid() {
+        if(!titleTextField.getText().isEmpty() &&
+                !descriptionTextArea.getText().isEmpty() &&
+                task.getTestCases().size() >= 2)
+            return true;
+        return false;
+    }
+
+    private void updateModel() {
+        task.setTitle(titleTextField.getText());
+        task.setDescription(descriptionTextArea.getText());
+
+
+    }
+
+    private void updateControls() {
+        titleTextField.setText(task.getTitle());
+        descriptionTextArea.setText(task.getDescription());
     }
 }

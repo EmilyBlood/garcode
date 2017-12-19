@@ -20,6 +20,11 @@ public class Account {
         this.tasks = FXCollections.observableArrayList();
     }
 
+    public Account() {
+        this.name = new SimpleStringProperty("");
+        this.tasks = FXCollections.observableArrayList();
+    }
+
     public final String getName() {
         return name.getValue();
     }

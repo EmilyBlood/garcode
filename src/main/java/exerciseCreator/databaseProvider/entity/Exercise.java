@@ -2,7 +2,9 @@ package exerciseCreator.databaseProvider.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Exercise {
@@ -13,10 +15,14 @@ public class Exercise {
 
     private String title;
 
+    @Column(length = 1024)
     private String description;
 
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<TestCase> testCases = new ArrayList<>();
+
+    @OneToMany(mappedBy = "exercise")
+    private Set<CheckedExercise> checkedExercises;
 
     public Exercise(){
     }
@@ -24,7 +30,7 @@ public class Exercise {
     public Exercise(String title, String description) {
         this.title = title;
         this.description = description;
-       // this.testCases = new ArrayList<>();
+        this.checkedExercises = new HashSet<>();
     }
 
     public Integer getId() {
@@ -57,5 +63,9 @@ public class Exercise {
 
     public void addTestCase(TestCase testCase) {
         this.testCases.add(testCase);
+    }
+
+    public Set<CheckedExercise> getCheckedExercises() {
+        return checkedExercises;
     }
 }

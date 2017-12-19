@@ -1,5 +1,6 @@
-package exerciseCreator.command;
+package exerciseCreator.command.TestCaseCommand;
 
+import exerciseCreator.command.TestCaseCommand.Command;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
