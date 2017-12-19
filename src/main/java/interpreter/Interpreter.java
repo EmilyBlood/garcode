@@ -6,6 +6,6 @@ import java.util.Map;
 
 public interface Interpreter {
 
-    Result interpretationResult(File sourceCode, String arguments, Map<String, String> environment, Duration timeout);
+    Result executeSolution(File sourceCode, String arguments, Map<String, String> environment, Duration timeout);
 
 }

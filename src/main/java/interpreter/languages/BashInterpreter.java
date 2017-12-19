@@ -6,31 +6,28 @@ import interpreter.Result;
 
 import java.io.*;
 import java.time.Duration;
-import java.time.Period;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BashInterpreter implements Interpreter {
 
     private final String shellPath;
-    private ProcessBuilder processBuilder;
 
     public BashInterpreter(String shellPath) {
         this.shellPath = shellPath;
     }
 
     @Override
-    public Result interpretationResult(File sourceCode, String arguments, Map<String, String> environment, Duration timeout) {
+    public Result executeSolution(File sourceCode, String arguments, Map<String, String> environment, Duration timeout) {
 
-        processBuilder = new ProcessBuilder(
+        ProcessBuilder processBuilder = new ProcessBuilder(
                 shellPath,
                 sourceCode.getAbsolutePath()
         );
 
 
         long startTime = System.nanoTime();
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilder);
+        ProcessWrapper wrapper = new ProcessWrapper(processBuilder, timeout);
 
         return new Result(
                 wrapper.stdOut(),
@@ -42,7 +39,7 @@ public class BashInterpreter implements Interpreter {
     }
 
     public Result interpretationResult(File sourceCode) {
-        return interpretationResult(sourceCode, "", new HashMap<>(), Duration.ofDays(1));
+        return executeSolution(sourceCode, "", new HashMap<>(), Duration.ofSeconds(1));
     }
 
 }

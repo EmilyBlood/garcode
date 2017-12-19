@@ -1,14 +1,16 @@
 package interpreter;
 
 import java.time.Duration;
+import java.util.Optional;
+
 public class Result {
 
-    private final String stdOut;
-    private final String stdErr;
+    private final Optional<String> stdOut;
+    private final Optional<String> stdErr;
     private final Duration executionTime;
 //    private final int errno; //if program run correctly, 0, else errno that was returned by process
 
-    public Result(String stdOut, String stdErr, Duration executionTime) {
+    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
         this.executionTime = executionTime;
@@ -18,11 +20,11 @@ public class Result {
         return stdOut.equals(that.stdOut);
     }
 
-    public String getStdOut() {
+    public Optional<String> getStdOut() {
         return stdOut;
     }
 
-    public String getStdErr() {
+    public Optional<String> getStdErr() {
         return stdErr;
     }
 

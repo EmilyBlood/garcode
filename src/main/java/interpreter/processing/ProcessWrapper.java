@@ -3,13 +3,14 @@ package interpreter.processing;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.*;
+import java.time.Duration;
+import java.util.Optional;
 
 public class ProcessWrapper{
 
     private Process process;
 
-    public ProcessWrapper(ProcessBuilder processBuilder){
+    public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout){
 
         try {
             this.process = processBuilder.start();
@@ -17,18 +18,40 @@ public class ProcessWrapper{
             e.printStackTrace();
         }
 
+
+        new Thread(() -> {
+            try {
+                System.out.println(timeout.toMillis());
+                Thread.sleep(timeout.toMillis());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(process.isAlive()){
+                process.destroy();
+            }
+        }).start();
+
+
     }
 
-
-    public String stdOut(){
+    public Optional<String> stdOut(){
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         BufferedReader outBufferedReader = new BufferedReader(
                 new InputStreamReader(process.getInputStream()));
 
         return extractBuffer(outBufferedReader);
-
     }
 
-    public String stdErr(){
+    public Optional<String> stdErr(){
+        try {
+            process.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         BufferedReader errBufferedReader = new BufferedReader(
                 new InputStreamReader(process.getErrorStream())
         );
@@ -37,7 +60,7 @@ public class ProcessWrapper{
 
     }
 
-    private String extractBuffer(BufferedReader reader){
+    private Optional<String> extractBuffer(BufferedReader reader){
 
         StringBuilder builder = new StringBuilder();
 
@@ -47,12 +70,13 @@ public class ProcessWrapper{
             while ((line = reader.readLine()) != null){
                 builder.append(line).append("\n");
             }
-            return builder.toString();
+            return Optional.of(builder.toString());
+
+
         } catch (IOException e){
-            e.printStackTrace();
-            return null;
+            return Optional.empty();
         }
+
+
     }
-
-
 }
