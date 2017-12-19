@@ -12,5 +12,6 @@
         <mapping class="exerciseCreator.databaseProvider.entity.Student" />
         <mapping class="exerciseCreator.databaseProvider.entity.Exercise" />
         <mapping class="exerciseCreator.databaseProvider.entity.TestCase" />
+        <mapping class="exerciseCreator.databaseProvider.entity.CheckedExercise" />
     </session-factory>
 </hibernate-configuration>
