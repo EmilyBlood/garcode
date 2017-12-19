@@ -8,28 +8,36 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="327.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.TaskManagingController">
+<BorderPane prefHeight="327.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.presenter.TestCasePanePresenter">
     <center>
         <SplitPane dividerPositions="0.608433734939759" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="283.0">
                <children>
-                  <Label layoutX="81.0" layoutY="31.0" prefHeight="28.0" prefWidth="138.0" text="Wartość wejścowa">
+                  <Label layoutX="81.0" layoutY="31.0" prefHeight="28.0" prefWidth="169.0" text="Wartość wejściowa">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="76.0" layoutY="74.0" />
-                  <TextField layoutX="76.0" layoutY="209.0" />
-                  <Label layoutX="80.0" layoutY="163.0" text="Spodzewany wynik">
+                  <TextField fx:id="parametersInputTextField" layoutX="76.0" layoutY="74.0" />
+                  <Label layoutX="80.0" layoutY="121.0" text="Spodziewany wynik">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
+                   <TextField fx:id="resultOutputTextField" layoutX="76.0" layoutY="163.0" />
+                   <Label layoutX="76.0" layoutY="213.0" prefHeight="28.0" prefWidth="197.0" text="Maksymalny Czas (s)">
+                       <font>
+                           <Font size="17.0" />
+                       </font>
+                   </Label>
+                   <TextField fx:id="maxTimeTextField" layoutX="76.0" layoutY="253.0" prefHeight="20.0" prefWidth="171.0" />
+
                </children></AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="302.0">
                     <children>
-                        <Button fx:id="AddTestCaseButton" layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#addTestCaseAction" prefHeight="68.0" prefWidth="115.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="finalAddTestCaseButton" layoutX="38.0" layoutY="170.0" mnemonicParsing="false" onAction="#onfinaladdTestCaseAction" prefHeight="68.0" prefWidth="115.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
+                  <Button  layoutX="38.0" layoutY="68.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="116.0" text="Wróć" onAction="#onCancelAction" />
                     </children>
                 </AnchorPane>
             </items>
