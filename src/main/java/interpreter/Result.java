@@ -8,12 +8,14 @@ public class Result {
     private final Optional<String> stdOut;
     private final Optional<String> stdErr;
     private final Duration executionTime;
+    private final int errno;
 //    private final int errno; //if program run correctly, 0, else errno that was returned by process
 
-    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime) {
+    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime, int errno) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
         this.executionTime = executionTime;
+        this.errno = errno;
     }
 
     public boolean equals(Result that){
@@ -31,6 +33,8 @@ public class Result {
     public Duration getExecutionTime() {
         return executionTime;
     }
+
+    public int getErrno() { return errno; }
 
 
 }

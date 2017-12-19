@@ -1,5 +1,7 @@
 package interpreter.processing;
 
+import interpreter.Result;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,32 +11,35 @@ import java.util.Optional;
 public class ProcessWrapper{
 
     private Process process;
+    private final Duration executionTime;
 
     public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout){
+        long startTime = System.nanoTime();
 
         try {
             this.process = processBuilder.start();
-        } catch (IOException e) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(timeout.toMillis());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(process.isAlive()){
+                    process.destroy();
+                }
+            }).start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            this.executionTime = Duration.ofNanos(System.nanoTime() - startTime);
         }
-
-
-        new Thread(() -> {
-            try {
-                System.out.println(timeout.toMillis());
-                Thread.sleep(timeout.toMillis());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(process.isAlive()){
-                process.destroy();
-            }
-        }).start();
-
 
     }
 
-    public Optional<String> stdOut(){
+    public Result result(){ return new Result(stdOut(), stdErr(), executionTime, process.exitValue()); }
+
+    private Optional<String> stdOut(){
         try {
             process.waitFor();
         } catch (InterruptedException e) {
@@ -46,7 +51,7 @@ public class ProcessWrapper{
         return extractBuffer(outBufferedReader);
     }
 
-    public Optional<String> stdErr(){
+    private Optional<String> stdErr(){
         try {
             process.waitFor();
         } catch (InterruptedException e) {

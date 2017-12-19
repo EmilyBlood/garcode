@@ -4,26 +4,55 @@ import interpreter.Result;
 
 import java.io.File;
 
+import interpreter.processing.Errors;
+import org.junit.jupiter.api.*;
+
 
 class BashInterpreterTest {
 
     private BashInterpreter interpreter;
+    private String testCodes = "testCodes/bash/";
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         interpreter = new BashInterpreter("/bin/bash");
     }
 
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
     }
 
-    @org.junit.jupiter.api.Test
-    void interpretationResult() {
-        Result result = interpreter.interpretationResult(new File("testCodes/bash_test.sh"));
-        assert(result.getStdOut().orElse("").contains("/home/marcin/Dropbox/Studia/Technologie Obiektowe/garcode"));
-        assert(result.getStdErr().orElse("").contains("error!"));
-        System.out.println(result.getStdErr());
+    @Test
+    void interpretationResultStdOut() {
+        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
+        assert result.getStdOut().orElse("").contains("garcode");
+        assert result.getStdErr().orElse("").contains("error!");
     }
+
+    @Test
+    void interpretationResultStdErr() {
+        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
+        assert result.getStdErr().orElse("").contains("error!");
+    }
+
+    @Test
+    void interpretationResultErrno() {
+        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
+        assert result.getErrno() == Errors.NORMAL_EXECUTION;
+    }
+
+    @Test
+    void timeoutTest(){
+        Result result = interpreter.interpretationResult(new File(testCodes + "bash_infinite.sh"));
+        assert !result.getStdOut().isPresent();
+    }
+
+    @Test
+    void timeoutTestErrno(){
+        Result result = interpreter.interpretationResult(new File(testCodes + "bash_infinite.sh"));
+        assert result.getErrno() == Errors.SIGTERM;
+    }
+
+
 
 }

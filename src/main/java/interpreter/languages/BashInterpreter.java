@@ -24,19 +24,12 @@ public class BashInterpreter implements Interpreter {
                 shellPath,
                 sourceCode.getAbsolutePath()
         );
-
-
-        long startTime = System.nanoTime();
         ProcessWrapper wrapper = new ProcessWrapper(processBuilder, timeout);
 
-        return new Result(
-                wrapper.stdOut(),
-                wrapper.stdErr(),
-                Duration.ofNanos(System.nanoTime() - startTime)
-        );
-
-
+        return wrapper.result();
     }
+
+
 
     public Result interpretationResult(File sourceCode) {
         return executeSolution(sourceCode, "", new HashMap<>(), Duration.ofSeconds(1));
