@@ -26,7 +26,6 @@ class BashInterpreterTest {
     void interpretationResultStdOut() {
         Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
         assert result.getStdOut().orElse("").contains("garcode");
-        assert result.getStdErr().orElse("").contains("error!");
     }
 
     @Test
