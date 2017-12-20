@@ -4,7 +4,6 @@ import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.Result;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
