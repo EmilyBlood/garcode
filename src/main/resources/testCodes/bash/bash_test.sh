@@ -6,4 +6,3 @@ echo łopopo
 echo $PWD
 
 >&2 echo error!
-

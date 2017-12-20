@@ -1,17 +1,26 @@
 package interpreter.languages;
 
+import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.Result;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import interpreter.processing.Errors;
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class BashInterpreterTest {
 
     private BashInterpreter interpreter;
-    private String testCodes = "testCodes/bash/";
+    private String testCodes = "src/main/resources/testCodes/bash/";
+    private TestCase testCaseMock = new TestCase("", "", 1, 0);
+    private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
+
 
     @BeforeEach
     void setUp() {
@@ -23,36 +32,39 @@ class BashInterpreterTest {
     }
 
     @Test
+    void interpretationsResultsCount(){
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
+        assertTrue(results.size() == caseMocks.size());
+    }
+
+    @Test
     void interpretationResultStdOut() {
-        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
-        assert result.getStdOut().orElse("").contains("garcode");
-        assert result.getStdErr().orElse("").contains("error!");
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
+        assertTrue(results.get(0).getStdOut().orElse("").contains("garcode"));
+
     }
 
     @Test
     void interpretationResultStdErr() {
-        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
-        assert result.getStdErr().orElse("").contains("error!");
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
+        assertTrue(results.get(0).getStdErr().orElse("").contains("error!"));
     }
 
     @Test
     void interpretationResultErrno() {
-        Result result = interpreter.interpretationResult(new File(testCodes + "bash_test.sh"));
-        assert result.getErrno() == Errors.NORMAL_EXECUTION;
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
+        assertTrue(results.get(0).getErrno() == Errors.NORMAL_EXECUTION);
     }
 
     @Test
     void timeoutTest(){
-        Result result = interpreter.interpretationResult(new File(testCodes + "bash_infinite.sh"));
-        assert !result.getStdOut().isPresent();
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
+        assertFalse(results.get(0).getStdOut().isPresent());
     }
 
     @Test
     void timeoutTestErrno(){
-        Result result = interpreter.interpretationResult(new File(testCodes + "bash_infinite.sh"));
-        assert result.getErrno() == Errors.SIGTERM;
+        List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
+        assertTrue(results.get(0).getErrno() == Errors.SIGTERM);
     }
-
-
-
 }

@@ -1,13 +1,14 @@
 package interpreter.languages;
 
+import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.Interpreter;
 import interpreter.processing.ProcessWrapper;
 import interpreter.Result;
 
 import java.io.*;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BashInterpreter implements Interpreter {
 
@@ -18,21 +19,20 @@ public class BashInterpreter implements Interpreter {
     }
 
     @Override
-    public Result executeSolution(File sourceCode, String arguments, Map<String, String> environment, Duration timeout) {
+    public List<Result> executeSolution(File sourceCode, List<TestCase> testCases) {
 
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                shellPath,
-                sourceCode.getAbsolutePath()
-        );
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilder, timeout);
+        return testCases.parallelStream().map(
+                testCase -> {
 
-        return wrapper.result();
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    shellPath,
+                    sourceCode.getAbsolutePath()
+            );
+
+            ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+            return wrapper.result();
+
+        }).collect(Collectors.toList());
+
     }
-
-
-
-    public Result interpretationResult(File sourceCode) {
-        return executeSolution(sourceCode, "", new HashMap<>(), Duration.ofSeconds(1));
-    }
-
 }

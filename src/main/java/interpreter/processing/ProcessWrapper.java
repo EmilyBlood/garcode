@@ -21,14 +21,17 @@ public class ProcessWrapper{
             new Thread(() -> {
                 try {
                     Thread.sleep(timeout.toMillis());
+                    if(process.isAlive()){
+                        process.destroy();
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(process.isAlive()){
-                    process.destroy();
-                }
+
             }).start();
+
             process.waitFor();
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         } finally {

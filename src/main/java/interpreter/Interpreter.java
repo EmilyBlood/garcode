@@ -1,11 +1,11 @@
 package interpreter;
 
+import exerciseCreator.databaseProvider.entity.TestCase;
+
 import java.io.File;
-import java.time.Duration;
-import java.util.Map;
+import java.util.List;
 
 public interface Interpreter {
 
-    Result executeSolution(File sourceCode, String arguments, Map<String, String> environment, Duration timeout);
-
+    List<Result> executeSolution(File sourceCode, List<TestCase> testCases);
 }

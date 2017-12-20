@@ -1,6 +1,7 @@
 package interpreter;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Result {
@@ -18,8 +19,18 @@ public class Result {
         this.errno = errno;
     }
 
-    public boolean equals(Result that){
-        return stdOut.equals(that.stdOut);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result result = (Result) o;
+        return Objects.equals(stdOut, result.stdOut);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(stdOut);
     }
 
     public Optional<String> getStdOut() {
@@ -35,6 +46,5 @@ public class Result {
     }
 
     public int getErrno() { return errno; }
-
 
 }
