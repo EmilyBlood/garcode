@@ -1,5 +1,6 @@
 package exerciseCreator;
 
+import exerciseCreator.EntityModel.EntityToModel;
 import exerciseCreator.controller.AccountOverViewController;
 import exerciseCreator.controller.TaskManagingController;
 import exerciseCreator.controller.TaskOverViewController;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class Main extends Application {
 
     private Stage primaryStage;
+    private TaskManagingController taskManagingController;
 
     public static void main(String[] args) {
         launch(args);
@@ -24,29 +26,37 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("FXML Welcome");
+
+        this.taskManagingController = new TaskManagingController(primaryStage);
+        this.taskManagingController.initRootLayout();
+
         //Parent root = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("OverviewPane.fxml"));
-            //loader.setLocation(getClass().getResource("../OverviewPane.fxml"));
-            BorderPane rootLayout = (BorderPane) loader.load();
-            //root = FXMLLoader.load(getClass().getResource("OverviewPane.fxml"));
-
-
-        Scene scene = new Scene(rootLayout, 600, 600);
-
-        primaryStage.setTitle("FXML Welcome");
-        primaryStage.setScene(scene);
-
-        AccountOverViewController controller = loader.getController();
-        controller.setAppController(new TaskManagingController());
-        controller.setData(new Account());
-        controller.setDialogStage(primaryStage);
-
-
-        primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("OverviewPane.fxml"));
+//            //loader.setLocation(getClass().getResource("../OverviewPane.fxml"));
+//            BorderPane rootLayout = (BorderPane) loader.load();
+//            //root = FXMLLoader.load(getClass().getResource("OverviewPane.fxml"));
+//
+//
+//        Scene scene = new Scene(rootLayout, 600, 600);
+//
+//        primaryStage.setTitle("FXML Welcome");
+//        primaryStage.setScene(scene);
+//
+//        AccountOverViewController controller = loader.getController();
+//        controller.setAppController(new TaskManagingController());
+//            EntityToModel entityToModel = new EntityToModel();
+//        Account account =
+//        controller.setData(account);
+//        controller.setDialogStage(primaryStage);
+//
+//
+//        primaryStage.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 //    private void initRootLayout(Account account) {

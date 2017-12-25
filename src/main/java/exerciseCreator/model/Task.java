@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 
 public class Task {
 
+    private int id;
+
     private StringProperty title;
 
     private StringProperty description;
@@ -18,12 +20,14 @@ public class Task {
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
         this.testCases = FXCollections.observableArrayList();
+        this.id = -1;
     }
 
     public Task() {
         this.title = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
         this.testCases = FXCollections.observableArrayList();
+        this.id = -1;
     }
 
 
@@ -40,7 +44,7 @@ public class Task {
     }
 
     public void setDescription(String description) {
-        this.title.setValue(description);
+        this.description.setValue(description);
     }
 
     public final String getDescription() {
@@ -69,4 +73,11 @@ public class Task {
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

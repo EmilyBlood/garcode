@@ -1,5 +1,8 @@
 package exerciseCreator.controller;
 
+import exerciseCreator.EntityModel.ModelToEntity;
+import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
+import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.model.Account;
 import exerciseCreator.model.Task;
 import javafx.beans.binding.Bindings;
@@ -17,6 +20,9 @@ public class AccountOverViewController {
 
     private TaskManagingController appController;
 
+    private ModelToEntity modelToEntity;
+    private ExerciseDataProvider exerciseDataProvider;
+
     private Stage dialogStage;
 
     private boolean approved;
@@ -26,7 +32,9 @@ public class AccountOverViewController {
 
     @FXML
     private TableColumn<Task, String> titleColumn;
-    
+
+    @FXML
+    private TableColumn<Task, String> descriptionColumn;
 
     @FXML
     private Button handleAddTaskPaneButton;
@@ -57,6 +65,8 @@ public class AccountOverViewController {
 
         titleColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getTitleProperty());
+        descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getDescriptionProperty());
         
         deleteTaskButton.disableProperty().bind(
                 Bindings.isEmpty(tasksTable.getSelectionModel()
@@ -77,8 +87,8 @@ public class AccountOverViewController {
     private void handleDeleteTaskAction(ActionEvent event) {
         for (Task task : tasksTable.getSelectionModel()
                 .getSelectedItems()) {
-            //RemoveTaskCommand removeTaskCommand = new RemoveTaskCommand(task, account);
-            //commandRegistry.executeCommand(removeTaskCommand);
+            Exercise exercise = exerciseDataProvider.getExerciseById(task.getId());
+            exerciseDataProvider.removeExercise(exercise);
             account.removetask(task);
         }
     }
@@ -87,10 +97,15 @@ public class AccountOverViewController {
     private void handleEditTaskAction(ActionEvent event) {
         Task task = tasksTable.getSelectionModel()
                 .getSelectedItem();
-        if (task != null && appController.showAddTaskAction(task)) {
+        int exerciseIDbeforeEdit = task.getId();
 
-            //EditTaskCommand editTaskCommand = new EditTaskCommand(task, account);
-            //commandRegistry.executeCommand(editTaskCommand);
+
+        if (task != null && appController.showAddTaskAction(task)) {
+            Exercise exercise = exerciseDataProvider.getExerciseById(exerciseIDbeforeEdit);
+            exerciseDataProvider.removeExercise(exercise);
+
+            modelToEntity.addTaskAndTestCasesToDatabase(task);
+
         }
     }
 
@@ -99,7 +114,7 @@ public class AccountOverViewController {
         Task task = Task.newTask();
 
         if (appController.showAddTaskAction(task)) {
-            //AddTaskCommand addTaskCommand = new AddTaskCommand(task, account);
+            modelToEntity.addTaskAndTestCasesToDatabase(task);
             account.addtask(task);
         }
     }
@@ -120,5 +135,12 @@ public class AccountOverViewController {
         this.appController = appController;
     }
 
-   
+
+    public void setModelToEntity(ModelToEntity modelToEntity) {
+        this.modelToEntity = modelToEntity;
+    }
+
+    public void setExerciseDataProvider(ExerciseDataProvider exerciseDataProvider) {
+        this.exerciseDataProvider = exerciseDataProvider;
+    }
 }

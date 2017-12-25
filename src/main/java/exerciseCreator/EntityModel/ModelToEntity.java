@@ -29,6 +29,7 @@ public class ModelToEntity {
         }
 
         exerciseDataProvider.createExercise(exercise);
+        task.setId(exercise.getId().intValue());
     }
 
     private Exercise TaskToExercise(Task task) {
