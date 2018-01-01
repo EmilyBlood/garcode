@@ -3,16 +3,16 @@ package exerciseCreator;
 public class Outcome {
 
     private final float grade;
-    private final String firstName;
-    private final String lastName;
-    private final String studentData;
+    private final String FirstName;
+    private final String LastName;
+    private final String StudentData;
     private final String comments;
 
-    public Outcome(float grade, String firstName, String lastName, String studentData, String comments){
+    public Outcome(float grade, String FirsName, String LastName, String StudentData, String comments){
         this.grade = grade;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.studentData = studentData;
+        this.FirstName = FirsName;
+        this.LastName = LastName;
+        this.StudentData = StudentData;
         this.comments = comments;
     }
 
@@ -21,15 +21,15 @@ public class Outcome {
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return LastName;
     }
 
     public String getStudentData() {
-        return studentData;
+        return StudentData;
     }
 
     public String getComments() {
