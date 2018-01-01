@@ -1,28 +1,43 @@
 package interpreter;
 
 import java.time.Duration;
+import java.util.Objects;
+import java.util.Optional;
+
 public class Result {
 
-    private final String stdOut;
-    private final String stdErr;
+    private final Optional<String> stdOut;
+    private final Optional<String> stdErr;
     private final Duration executionTime;
+    private final int errno;
+//    private final int errno; //if program run correctly, 0, else errno that was returned by process
 
-
-    public Result(String stdOut, String stdErr, Duration executionTime) {
+    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime, int errno) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
         this.executionTime = executionTime;
+        this.errno = errno;
     }
 
-    public boolean equals(Result that){
-        return stdOut.equals(that.stdOut);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result result = (Result) o;
+        return Objects.equals(stdOut, result.stdOut);
     }
 
-    public String getStdOut() {
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(stdOut);
+    }
+
+    public Optional<String> getStdOut() {
         return stdOut;
     }
 
-    public String getStdErr() {
+    public Optional<String> getStdErr() {
         return stdErr;
     }
 
@@ -30,5 +45,6 @@ public class Result {
         return executionTime;
     }
 
+    public int getErrno() { return errno; }
 
 }

@@ -1,67 +1,38 @@
 package interpreter.languages;
 
+import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.Interpreter;
+import interpreter.processing.ProcessWrapper;
 import interpreter.Result;
 
 import java.io.*;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BashInterpreter implements Interpreter {
 
     private final String shellPath;
-    private ProcessBuilder processBuilder;
 
     public BashInterpreter(String shellPath) {
         this.shellPath = shellPath;
     }
 
     @Override
-    public Result interpretationResult(File sourceCode, Map<String, String> arguments) {
+    public List<Result> executeSolution(File sourceCode, List<TestCase> testCases) {
 
-        processBuilder = new ProcessBuilder(
-                shellPath,
-                sourceCode.getAbsolutePath()
-        );
-        try {
-            long startTime = System.nanoTime();
-            Process p = processBuilder.start();
+        return testCases.parallelStream().map(
+                testCase -> {
 
-            BufferedReader outBufferedReader = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
-
-            BufferedReader errBufferedReader = new BufferedReader(
-                    new InputStreamReader(p.getErrorStream())
+            ProcessBuilder processBuilder = new ProcessBuilder(
+                    shellPath,
+                    sourceCode.getAbsolutePath()
             );
 
-            StringBuilder outStringBuilder = new StringBuilder();
-            StringBuilder errStringBuilder = new StringBuilder();
-            String line;
+            ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+            return wrapper.result();
 
-            while ((line = outBufferedReader.readLine()) != null){
-                outStringBuilder.append(line).append("\n");
-            }
+        }).collect(Collectors.toList());
 
-            while ((line = errBufferedReader.readLine()) != null){
-                errStringBuilder.append(line).append("\n");
-            }
-
-            return new Result(
-                    outStringBuilder.toString(),
-                    errStringBuilder.toString(),
-                    Duration.ofNanos(System.nanoTime() - startTime)
-            );
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
-
-    @Override
-    public Result interpretationResult(File sourceCode) {
-        return interpretationResult(sourceCode, new HashMap<>());
-    }
-
 }
