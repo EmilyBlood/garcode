@@ -10,7 +10,10 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 
 public class TaskOverViewController {
@@ -23,6 +26,9 @@ public class TaskOverViewController {
 
     @FXML
     private TextField titleTextField;
+
+    @FXML
+    private TextField pathTextField;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -44,6 +50,9 @@ public class TaskOverViewController {
 
     @FXML
     private Button editTestCaseButton;
+
+    @FXML
+    private Button pathButton;
 
     @FXML
     private Button addTestCaseButton;
@@ -95,6 +104,16 @@ public class TaskOverViewController {
                 Bindings.size(
                         testCasesTable.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
+    }
+
+    @FXML
+    private void handlePathSettingAction(ActionEvent event){
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("JavaFX Projects");
+        File defaultDirectory = new File("/");
+        chooser.setInitialDirectory(defaultDirectory);
+        File selectedDirectory = chooser.showDialog(new Stage());
+        pathTextField.setText(selectedDirectory.getAbsolutePath());
     }
 
     @FXML
@@ -159,6 +178,7 @@ public class TaskOverViewController {
 
     @FXML
     private void handleCancelAction(ActionEvent event) {
+        //cofnij wszystkie dodane przypadki testowe
         dialogStage.close();
     }
 
@@ -173,12 +193,13 @@ public class TaskOverViewController {
     private void updateModel() {
         task.setTitle(titleTextField.getText());
         task.setDescription(descriptionTextArea.getText());
-
+        task.setPathToStudentAnswers(pathTextField.getText());
 
     }
 
     private void updateControls() {
         titleTextField.setText(task.getTitle());
         descriptionTextArea.setText(task.getDescription());
+        pathTextField.setText(task.getPathToStudentAnswers());
     }
 }

@@ -37,6 +37,7 @@ public class EntityToModel {
         task.setId(exercise.getId().intValue());
         task.setDescription(exercise.getDescription());
         task.setTitle(exercise.getTitle());
+        //task.setPathToStudentAnswers(exercise.getPath());
         for (exerciseCreator.databaseProvider.entity.TestCase testCase : exercise.getTestCases()
                 ) {
             task.addTestCase(EntityTestCaseToModelTestCase(testCase));

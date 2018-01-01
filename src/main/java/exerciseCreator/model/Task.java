@@ -14,12 +14,15 @@ public class Task {
 
     private StringProperty description;
 
+    private StringProperty pathToStudentAnswers;
+
     private ObservableList<TestCase> testCases;
 
     public Task(String title, String description) {
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
         this.testCases = FXCollections.observableArrayList();
+        this.pathToStudentAnswers = new SimpleStringProperty("");
         this.id = -1;
     }
 
@@ -27,6 +30,7 @@ public class Task {
         this.title = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
         this.testCases = FXCollections.observableArrayList();
+        this.pathToStudentAnswers = new SimpleStringProperty("");
         this.id = -1;
     }
 
@@ -55,6 +59,8 @@ public class Task {
         return description;
     }
 
+
+
    
     public final ObservableList<TestCase> getTestCases() {
         return testCases;
@@ -79,5 +85,17 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPathToStudentAnswers() {
+        return pathToStudentAnswers.get();
+    }
+
+    public StringProperty pathToStudentAnswersProperty() {
+        return pathToStudentAnswers;
+    }
+
+    public void setPathToStudentAnswers(String pathToStudentAnswers) {
+        this.pathToStudentAnswers.set(pathToStudentAnswers);
     }
 }
