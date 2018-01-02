@@ -3,6 +3,7 @@ package interpreter.detectors;
 import interpreter.Interpreter;
 import interpreter.LanguageDetector;
 import interpreter.languages.BashInterpreter;
+import interpreter.languages.PythonInterpreter;
 
 import java.io.File;
 public class ExtensionLanguageDetector implements LanguageDetector {
@@ -12,7 +13,9 @@ public class ExtensionLanguageDetector implements LanguageDetector {
         String extension = split[split.length -1];
         switch (extension){
             case "sh":
-                return new BashInterpreter("/bin/bash");
+                return new BashInterpreter();
+            case "py":
+                return new PythonInterpreter();
             default:
                 throw new IllegalArgumentException("Invalid extension: " + extension);
         }

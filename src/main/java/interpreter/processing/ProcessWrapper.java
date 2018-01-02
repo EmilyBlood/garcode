@@ -92,9 +92,12 @@ public class ProcessWrapper{
     }
 
     private ExitValue exitValueFromInt(int processExitValue){
+        System.out.println(processExitValue);
         switch (processExitValue){
             case 0:
                 return ExitValue.NORMAL_EXECUTION;
+            case 1:
+                return ExitValue.COMMON_ERR;
             case 143:
                 return ExitValue.TERMINATED;
             default:

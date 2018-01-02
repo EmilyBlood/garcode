@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class BashInterpreterIntegrationTest {
 
     private BashInterpreter interpreter;
-    private String testCodes = "src/main/resources/testCodes/bash/";
+    private String testCodes = "src/test/resources/testCodes/bash/";
     private TestCase testCaseMock = new TestCase("", "", 1, 0);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
@@ -66,6 +66,7 @@ class BashInterpreterIntegrationTest {
     @Test
     void timeoutTestErrno(){
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
+
         assertTrue(results.get(0).getExitValue() == ExitValue.TERMINATED);
     }
 }

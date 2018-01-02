@@ -14,6 +14,10 @@ public class BashInterpreter implements Interpreter {
 
     private final String shellPath;
 
+    public BashInterpreter() {
+        this.shellPath = "bash";
+    }
+
     public BashInterpreter(String shellPath) {
         this.shellPath = shellPath;
     }
@@ -25,6 +29,7 @@ public class BashInterpreter implements Interpreter {
                 testCase -> {
 
             ProcessBuilder processBuilder = new ProcessBuilder(
+                    "/usr/bin/env",
                     shellPath,
                     sourceCode.getAbsolutePath()
             );
