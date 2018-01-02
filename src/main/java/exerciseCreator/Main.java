@@ -1,18 +1,13 @@
 package exerciseCreator;
 
-import exerciseCreator.EntityModel.EntityToModel;
-import exerciseCreator.controller.AccountOverViewController;
+
 import exerciseCreator.controller.TaskManagingController;
-import exerciseCreator.controller.TaskOverViewController;
-import exerciseCreator.model.Account;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.File;
+
 
 public class Main extends Application {
 
@@ -25,6 +20,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+//        DirectoryChooser chooser = new DirectoryChooser();
+//        chooser.setTitle("JavaFX Projects");
+//        File defaultDirectory = new File("/");
+//        chooser.setInitialDirectory(defaultDirectory);
+//        File selectedDirectory = chooser.showDialog(primaryStage);
+//        System.out.println(selectedDirectory.getAbsolutePath());
+
+
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("FXML Welcome");

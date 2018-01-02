@@ -25,7 +25,7 @@ public class ModelToEntity {
 
         for (exerciseCreator.databaseProvider.entity.TestCase testCase: exercise.getTestCases()) {
             testCaseDataProvider.createTestCase(testCase);
-            exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
+           // exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
         }
 
         exerciseDataProvider.createExercise(exercise);
@@ -49,7 +49,7 @@ public class ModelToEntity {
         exerciseCreator.databaseProvider.entity.TestCase etestCase = new exerciseCreator.databaseProvider.entity.TestCase();
         etestCase.setResultOutput(testCase.getResultOutput());
         etestCase.setParametersInput(testCase.getParametersInput());
-        //etestCase.getMaxTime(testCase.getMaxTime());
+        //etestCase.setMaxTime(testCase.getMaxTime());
         return etestCase;
     }
 }
