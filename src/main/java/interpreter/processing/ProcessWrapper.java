@@ -1,5 +1,6 @@
 package interpreter.processing;
 
+import interpreter.ExitValue;
 import interpreter.Result;
 
 import java.io.BufferedReader;
@@ -40,7 +41,9 @@ public class ProcessWrapper{
 
     }
 
-    public Result result(){ return new Result(stdOut(), stdErr(), executionTime, process.exitValue()); }
+
+    public Result result(){
+        return new Result(stdOut(), stdErr(), executionTime, exitValueFromInt(process.exitValue())); }
 
     private Optional<String> stdOut(){
         try {
@@ -86,5 +89,18 @@ public class ProcessWrapper{
         }
 
 
+    }
+
+    private ExitValue exitValueFromInt(int processExitValue){
+        switch (processExitValue){
+            case 0:
+                return ExitValue.NORMAL_EXECUTION;
+            case 143:
+                return ExitValue.TERMINATED;
+            default:
+                return ExitValue.UNKNOWN;
+
+
+        }
     }
 }
