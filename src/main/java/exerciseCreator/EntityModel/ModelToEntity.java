@@ -3,6 +3,7 @@ package exerciseCreator.EntityModel;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.TestCaseDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 
@@ -22,10 +23,9 @@ public class ModelToEntity {
     public void addTaskAndTestCasesToDatabase(Task task){
         Exercise exercise = TaskToExercise(task);
 
-        for (exerciseCreator.databaseProvider.entity.TestCase testCase: exercise.getTestCases()
-             ) {
+        for (exerciseCreator.databaseProvider.entity.TestCase testCase: exercise.getTestCases()) {
             testCaseDataProvider.createTestCase(testCase);
-           // exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
+            exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
         }
 
         exerciseDataProvider.createExercise(exercise);
@@ -36,9 +36,11 @@ public class ModelToEntity {
         Exercise exercise = new Exercise();
         exercise.setDescription(task.getDescription());
         exercise.setTitle(task.getTitle());
-        for (TestCase testCase : task.getTestCases()
-                ) {
+        for (TestCase testCase : task.getTestCases()) {
             exercise.addTestCase(ModelTestCaseToEntityTestCase(testCase));
+        }
+        for (Threshold threshold : task.getThresholds()) {
+            exercise.addThreshold(threshold);
         }
         return exercise;
     }

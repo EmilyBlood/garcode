@@ -1,6 +1,7 @@
 package exerciseCreator.model;
 
 
+import exerciseCreator.databaseProvider.entity.Threshold;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -16,17 +17,29 @@ public class Task {
 
     private ObservableList<TestCase> testCases;
 
+    private ObservableList<Threshold> thresholds;
+
     public Task(String title, String description) {
         this.title = new SimpleStringProperty(title);
         this.description = new SimpleStringProperty(description);
         this.testCases = FXCollections.observableArrayList();
+        this.thresholds = FXCollections.observableArrayList();
         this.id = -1;
+    }
+
+    public ObservableList<Threshold> getThresholds() {
+        return thresholds;
+    }
+
+    public void setThresholds(ObservableList<Threshold> thresholds) {
+        this.thresholds = thresholds;
     }
 
     public Task() {
         this.title = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
         this.testCases = FXCollections.observableArrayList();
+        this.thresholds = FXCollections.observableArrayList();
         this.id = -1;
     }
 
@@ -62,6 +75,10 @@ public class Task {
 
     public final void addTestCase(TestCase testCase) {
         this.testCases.add(testCase);
+    }
+
+    public final void addThreshold(Threshold threshold) {
+        this.thresholds.add(threshold);
     }
 
     public static final Task newTask() {

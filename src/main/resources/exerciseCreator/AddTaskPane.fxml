@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.TaskOverViewController">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.TaskOverViewController">
     <top>
         <Label text="Dodaj zadanie" BorderPane.alignment="CENTER">
             <font>
@@ -48,6 +48,7 @@
                   <Button fx:id="deleteTestCaseButton" layoutX="397.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="132.0" text="Usun przypadek testowy" />
                   <Button fx:id="undoButton" layoutX="128.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleUndoAction" prefHeight="26.0" prefWidth="73.0" text="Cofnij" />
                   <Button fx:id="redoButton" layoutX="215.0" layoutY="494.0" mnemonicParsing="false" onAction="#handleRedoAction" text="Odcofnij" />
+                  <Button fx:id="addThresholdButton" layoutX="397.0" layoutY="166.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="132.0" onAction="#handleAddThresholdAction" text="Progi punktowe ocen" />
                </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="537.0" prefWidth="198.0">

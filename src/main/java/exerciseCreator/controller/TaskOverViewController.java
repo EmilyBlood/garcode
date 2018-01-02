@@ -4,6 +4,7 @@ import exerciseCreator.command.TestCaseCommand.AddTestCaseCommand;
 import exerciseCreator.command.TestCaseCommand.CommandRegistry;
 import exerciseCreator.command.TestCaseCommand.EditTestCaseCommand;
 import exerciseCreator.command.TestCaseCommand.RemoveTestCaseCommand;
+import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 import javafx.beans.binding.Bindings;
@@ -23,6 +24,7 @@ public class TaskOverViewController {
 
     @FXML
     private TextField titleTextField;
+
 
     @FXML
     private TextArea descriptionTextArea;
@@ -44,6 +46,9 @@ public class TaskOverViewController {
 
     @FXML
     private Button editTestCaseButton;
+
+    @FXML
+    public Button thresholdButton;
 
     @FXML
     private Button addTestCaseButton;
@@ -128,6 +133,14 @@ public class TaskOverViewController {
     }
 
     @FXML
+    private void handleAddThresholdAction(ActionEvent event) {
+        Threshold threshold = new Threshold();
+        if (appController.showAddThresholdAction(task)) {
+
+        }
+    }
+
+    @FXML
     private void handleUndoAction(ActionEvent event) {
         commandRegistry.undo();
     }
@@ -163,9 +176,9 @@ public class TaskOverViewController {
     }
 
     private boolean isInputValid() {
-        if(!titleTextField.getText().isEmpty() &&
+        if (!titleTextField.getText().isEmpty() &&
                 !descriptionTextArea.getText().isEmpty() &&
-                task.getTestCases().size() >= 2)
+                task.getTestCases().size() >= 0)
             return true;
         return false;
     }
@@ -182,3 +195,5 @@ public class TaskOverViewController {
         descriptionTextArea.setText(task.getDescription());
     }
 }
+
+

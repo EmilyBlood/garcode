@@ -21,12 +21,13 @@ import java.io.IOException;
 
 public class TaskManagingController {
 
-    private final Stage primaryStage;
+    private final Stage primaryStage ;
     private ExerciseDataProvider exerciseDataProvider = new ExerciseDataProvider();
     private TestCaseDataProvider testCaseDataProvider = new TestCaseDataProvider();
     private ModelToEntity modelToEntity = new ModelToEntity(testCaseDataProvider, exerciseDataProvider);
     private EntityToModel entityToModel = new EntityToModel(testCaseDataProvider, exerciseDataProvider);
     private CommandRegistry commandRegistry = new CommandRegistry();
+
 
     public TaskManagingController(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -84,6 +85,33 @@ public class TaskManagingController {
         }
     }
 
+    public boolean showAddThresholdAction(Task task) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ThresholdPane.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Garcode - dodaj zadanie");
+            stage.setScene(new Scene(root1));
+
+            ThresholdConroller controller = fxmlLoader.getController();
+            controller.setAppController(this);
+            controller.setData(task);
+            controller.setCommandRegistry(commandRegistry);
+            controller.setDialogStage(stage);
+
+
+            stage.showAndWait();
+
+//            return controller.isApproved();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean showAddTaskAction(Task task) {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../AddTaskPane.fxml"));
@@ -112,4 +140,8 @@ public class TaskManagingController {
         }
     }
 
+
+
+    public void setThresholds(ActionEvent event) {
+    }
 }
