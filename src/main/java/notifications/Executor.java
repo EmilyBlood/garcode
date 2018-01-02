@@ -13,7 +13,8 @@ public class Executor {
 //        sender1.sendFromGMail();
 
         Content content = new Content(hostMail, "dwudzieste zadanie", "19/20");
-        Sender sender2 = new Sender(content); // Dependency injection
+        MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);
+        Sender sender2 = new Sender(content, mailConfiguration); // Dependency injection
         sender2.sendFromGMail();
     }
 }

@@ -13,21 +13,24 @@ public class Sender {
     private String recipientMail;
     private String mailSubject;
     private String mailContent;
+    private MailConfiguration mailConfiguration;
 
-    public Sender(String recipientMail, String mailSubject, String testResult) {
+    public Sender(String recipientMail, String mailSubject, String testResult, MailConfiguration mConf) {
         this.recipientMail = recipientMail;
         this.mailSubject = mailSubject;
         this.mailContent = testResult;
+        this.mailConfiguration = mConf;
     }
 
-    public Sender(Content content){
+    public Sender(Content content, MailConfiguration mConf){
         this.recipientMail = content.getParticipantEmail();
         this.mailSubject = content.getTaskName();
         this.mailContent = content.getTestResult();
+        this.mailConfiguration = mConf;
     }
 
     public void sendFromGMail() {
-        MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);
+//        MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);
         MailConnector mailConnector = new MailConnector(mailConfiguration);
 
         Session session = mailConnector.getSession();
