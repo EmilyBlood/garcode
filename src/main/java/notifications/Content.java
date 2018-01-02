@@ -4,22 +4,12 @@ package notifications;
  * Created by Michał on 19.12.2017.
  */
 public class Content {
-    private String participantEmail;
     private String taskName;
     private String testResult;
 
-    public Content(String participantEmail, String taskName, String testResult) {
-        this.participantEmail = participantEmail;
+    public Content(String taskName, String testResult) {
         this.taskName = taskName;
         this.testResult = testResult;
-    }
-
-    public String getParticipantEmail() {
-        return participantEmail;
-    }
-
-    public void setParticipantEmail(String participantEmail) {
-        this.participantEmail = participantEmail;
     }
 
     public String getTaskName() {
