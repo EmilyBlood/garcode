@@ -2,21 +2,29 @@ package exerciseCreator;
 
 public class Outcome {
 
-    private final int grade;
     private final String firstName;
     private final String lastName;
-    private final String studentData;
-    private final String comments;
+    private final String phoneNumber;
+    private final String email;
+    private final String titleDesc;
+    private final String exerciseDesc;
+    private final String grade;
+    private final int points;
+    private final int maxPoints;
 
-    public Outcome(int grade, String firstName, String lastName, String studentData, String comments){
+    public Outcome(String grade, String firstName, String lastName, String phoneNumber, String email, String exerciseDesc, String titleDesc, int points, int maxPoints){
         this.grade = grade;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.studentData = studentData;
-        this.comments = comments;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.exerciseDesc = exerciseDesc;
+        this.titleDesc = titleDesc;
+        this.points = points;
+        this.maxPoints = maxPoints;
     }
 
-    public float getGrade() {
+    public String getGrade() {
         return grade;
     }
 
@@ -28,11 +36,27 @@ public class Outcome {
         return lastName;
     }
 
-    public String getStudentData() {
-        return studentData;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public String getComments() {
-        return comments;
+    public String getEmail() {
+        return email;
+    }
+
+    public String getExerciseDesc() {
+        return exerciseDesc;
+    }
+
+    public String getTitleDesc() {
+        return titleDesc;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getMaxPoints() {
+        return maxPoints;
     }
 }
