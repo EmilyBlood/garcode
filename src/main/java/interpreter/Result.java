@@ -6,8 +6,6 @@ import java.util.Optional;
 
 public class Result {
 
-
-
     private final Optional<String> stdOut;
     private final Optional<String> stdErr;
     private final Duration executionTime;
@@ -49,4 +47,7 @@ public class Result {
     public ExitValue getExitValue() {
         return exitValue;
     }
+
 }
+
+

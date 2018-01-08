@@ -66,7 +66,6 @@ class BashInterpreterIntegrationTest {
     @Test
     void timeoutTestErrno(){
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
-
         assertTrue(results.get(0).getExitValue() == ExitValue.TERMINATED);
     }
 }

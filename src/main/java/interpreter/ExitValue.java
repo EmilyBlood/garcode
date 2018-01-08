@@ -7,11 +7,6 @@ public enum ExitValue {
     NORMAL_EXECUTION,
 
     /*
-    Probably an error in interpretation - when interpreter returns 1
-     */
-    COMMON_ERR,
-
-    /*
     Process returns this value if terminated.
     We terminate it in case of timeout, so if errno == SIGTERM, it can be assumed that timeout occured.
      */
@@ -22,6 +17,10 @@ public enum ExitValue {
      */
     IMPORT_ERR,
 
+    /*
+    IO error, for example if called program doesn't exist (might happen in compiled languages)
+     */
+    IO_ERR,
 
     UNKNOWN
 }

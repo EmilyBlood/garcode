@@ -29,4 +29,9 @@ class ExtensionLanguageDetectorTest {
     void detectPython() {
         assertTrue(detector.detectLanguage(new File("whatever.py")).getClass().equals(PythonInterpreter.class));
     }
+
+    @Test
+    void detectElse() {
+        assertThrows(IllegalArgumentException.class, () -> detector.detectLanguage(new File("whatever.zip")));
+    }
 }

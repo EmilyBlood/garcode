@@ -59,7 +59,7 @@ class PythonInterpreterIntegrationTest {
     @Test
     void interpretationResultErrno2() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.COMMON_ERR);
+        assertTrue(results.get(0).getExitValue() == ExitValue.UNKNOWN);
     }
 
     @Test

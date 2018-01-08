@@ -5,6 +5,9 @@ import interpreter.ExitValue;
 import interpreter.Interpreter;
 import interpreter.Result;
 import interpreter.processing.ProcessWrapper;
+import interpreter.processing.exceptions.ExceptionUtilities;
+import interpreter.processing.exceptions.ProcessCommonException;
+import interpreter.processing.exceptions.ProcessException;
 
 import java.io.File;
 import java.time.Duration;
@@ -39,27 +42,38 @@ public class PythonInterpreter implements Interpreter{
                             sourceCode.getAbsolutePath()
                     );
 
-                    ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
-                    Result result = wrapper.result();
+                    Result result;
+                    ProcessWrapper wrapper;
+                    try{
+                        wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+                        result = new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
 
-                    if (missingLibrary(result).isPresent()){
-                        return new Result(result.getStdOut(),result.getStdErr(), result.getExecutionTime(), ExitValue.IMPORT_ERR);
+                    }  catch (ProcessCommonException e){
+                        if (missingLibrary(e.getStdErr()).isPresent()){
+                            result = new Result(Optional.empty(), e.getStdErr(), Duration.ZERO, ExitValue.IMPORT_ERR);
+                        } else {
+                            result = new Result(Optional.empty(), e.getStdErr(), Duration.ZERO, ExitValue.UNKNOWN);
+                        }
+                    } catch (ProcessException e){
+                        ExceptionUtilities utilities = new ExceptionUtilities();
+                        result = utilities.toResult(e);
                     }
                     return result;
+
+
 
                 }).collect(Collectors.toList());
     }
 
-    private Optional<String> missingLibrary(Result result){
-        return result.getStdErr().map(
-                stdErr -> {
+    private Optional<String> missingLibrary(Optional<String> stdErr){
+        return stdErr.map(
+                s -> {
                     Pattern pattern = Pattern.compile("No module named '(\\w+)'");
-                    Matcher matcher =pattern.matcher(stdErr);
-                    matcher.find();
-
-                    try {
+                    Matcher matcher =pattern.matcher(s);
+                    if(matcher.find()){
                         return matcher.group(1);
-                    } catch (IllegalStateException e){
+
+                    } else {
                         return null;
                     }
                 }

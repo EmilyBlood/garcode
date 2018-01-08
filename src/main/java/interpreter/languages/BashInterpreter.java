@@ -1,9 +1,11 @@
 package interpreter.languages;
 
 import exerciseCreator.databaseProvider.entity.TestCase;
+import interpreter.ExitValue;
 import interpreter.Interpreter;
 import interpreter.processing.ProcessWrapper;
 import interpreter.Result;
+import interpreter.processing.exceptions.*;
 
 import java.io.*;
 import java.time.Duration;
@@ -34,10 +36,18 @@ public class BashInterpreter implements Interpreter {
                     sourceCode.getAbsolutePath()
             );
 
-            ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
-            return wrapper.result();
+            Result result;
+            try{
+                ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+                result = new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
 
-        }).collect(Collectors.toList());
+            } catch (ProcessException e){
+                ExceptionUtilities utilities = new ExceptionUtilities();
+                return utilities.toResult(e);
+            }
+            return result;
+
+                }).collect(Collectors.toList());
 
     }
 }
