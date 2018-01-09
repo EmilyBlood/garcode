@@ -17,7 +17,7 @@ public class Executor {
 
     public static void main(String[] args) throws Exception {
         SmsSender smsSender = new SmsSender();
-        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "726498829", "test@test.com", "Excellent", "Title", 16, 20);
+        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "xxx", "test@test.com", "Excellent", "Title", 16, 20);
         smsSender.sendResults(outcome);
     }
 //    public static void main(String[] args) {
