@@ -3,6 +3,7 @@ package notifications; /**
  */
 
 import exerciseCreator.Outcome;
+import notifications.MessageComposers.MailMessageComposer;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -21,7 +22,7 @@ public class MailSender implements Notifier {
 
     public void sendResults(Outcome outcome) {
         MailConnector mailConnector = new MailConnector(mailConfiguration);
-        MessageComposer messageComposer = new MessageComposer(outcome);
+        MailMessageComposer mailMessageComposer = new MailMessageComposer(outcome);
         Session session = mailConnector.getSession();
         MimeMessage message = new MimeMessage(session);
 
@@ -30,7 +31,7 @@ public class MailSender implements Notifier {
             InternetAddress toAddress = new InternetAddress(participantEmail);
             message.addRecipient(Message.RecipientType.TO, toAddress);
             message.setSubject("Garcode - zgłoszenie");
-            message.setText(messageComposer.composeMessage());
+            message.setText(mailMessageComposer.composeMessage());
             Transport transport = session.getTransport("smtp");
             transport.connect(mailConfiguration.host, mailConfiguration.username, mailConfiguration.password);
             transport.sendMessage(message, message.getAllRecipients());

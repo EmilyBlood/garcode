@@ -19,7 +19,7 @@ class FileExporterTest {
         String filename = "results.txt";
         Path filepath = Paths.get(filename);
         fileExporter = new FileExporter(filepath, filename);
-        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
+        outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
     }
 
     @Test
