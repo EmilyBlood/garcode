@@ -1,2 +1,2 @@
 %name% %surname%,
-Ocena: %grade%,
+Ocena: %grade%

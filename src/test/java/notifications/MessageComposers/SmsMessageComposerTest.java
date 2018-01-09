@@ -1,4 +1,4 @@
-package notifications;
+package notifications.MessageComposers;
 
 import exerciseCreator.Outcome;
 
