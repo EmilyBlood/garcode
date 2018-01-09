@@ -9,14 +9,13 @@ public class Result {
     private final Optional<String> stdOut;
     private final Optional<String> stdErr;
     private final Duration executionTime;
-    private final int errno;
-//    private final int errno; //if program run correctly, 0, else errno that was returned by process
+    private final ExitValue exitValue;
 
-    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime, int errno) {
+    public Result(Optional<String> stdOut, Optional<String> stdErr, Duration executionTime, ExitValue exitValue) {
         this.stdOut = stdOut;
         this.stdErr = stdErr;
         this.executionTime = executionTime;
-        this.errno = errno;
+        this.exitValue = exitValue;
     }
 
     @Override
@@ -45,6 +44,10 @@ public class Result {
         return executionTime;
     }
 
-    public int getErrno() { return errno; }
+    public ExitValue getExitValue() {
+        return exitValue;
+    }
 
 }
+
+
