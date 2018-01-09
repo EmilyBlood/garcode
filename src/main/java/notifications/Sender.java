@@ -10,6 +10,8 @@ public class Sender implements Notifier{
     public void sendResults(Outcome outcome) {
         if(outcome.getPhoneNumber() != null) {
             // TODO Send SMS
+            SmsSender smsSender = new SmsSender();
+            smsSender.sendResults(outcome);
         }
         if(outcome.getEmail() != null) {
             MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);

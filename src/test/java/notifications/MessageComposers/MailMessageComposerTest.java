@@ -1,4 +1,4 @@
-package notifications;
+package notifications.MessageComposers;
 
 import exerciseCreator.Outcome;
 import notifications.MessageComposers.MailMessageComposer;
@@ -30,7 +30,7 @@ class MailMessageComposerTest {
 
     @Test
     void composeMessage() {
-        assertEquals("Szanowny Adam Adamiak\nTwoje zgłoszenie zostało ocenione. \n\nOcena: 10.0\nKomentarze: Doskonale\n", mailMessageComposer.composeMessage());
+        assertEquals("Szanowny Adam Adamiak,\nTwoje zgłoszenie zostało ocenione.\nOcena: 10\nKomentarze: Excellent\nDziękujemy za nadesłanie zgłoszenia,\nTeam Garcode\n", mailMessageComposer.composeMessage());
     }
 
 }
