@@ -16,10 +16,10 @@ public class TestCase {
     @Column(name = "RESULT_OUTPUT", nullable = false)
     private String resultOutput;
 
-//    @Column(name = "TIME_LIMIT", nullable = false)
+    @Column(name = "TIME_LIMIT", nullable = false)
     private Integer timeLimit;
 
-//    @Column(name = "POINTS_FOR_TEST", nullable = false)
+    @Column(name = "POINTS_FOR_TEST")
     private Integer pointsForTest;
 
     public TestCase(){

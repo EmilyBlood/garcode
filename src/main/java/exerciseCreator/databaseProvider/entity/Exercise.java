@@ -18,9 +18,9 @@ public class Exercise {
     @Column(length = 1024)
     private String description;
 
+    private String pathToExercises;
 
-
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<TestCase> testCases = new ArrayList<>();
 
     @OneToMany(mappedBy = "exercise")
@@ -61,6 +61,14 @@ public class Exercise {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPathToExercises() {
+        return pathToExercises;
+    }
+
+    public void setPathToExercises(String pathToExercises) {
+        this.pathToExercises = pathToExercises;
     }
 
     public List<TestCase> getTestCases() {
