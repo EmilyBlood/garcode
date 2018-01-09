@@ -1,44 +1,24 @@
-package notifications; /**
- * Created by Michał on 19.12.2017.
- */
+package notifications;
 
 import exerciseCreator.Outcome;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Properties;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-public class Sender implements Notifier {
-    private MailConfiguration mailConfiguration;
-    private String participantEmail;
-
-    public Sender(MailConfiguration mConf, String participantEmail){
-        this.mailConfiguration = mConf;
-        this.participantEmail = participantEmail;
-    }
-
+public class Sender implements Notifier{
+    @Override
     public void sendResults(Outcome outcome) {
-        MailConnector mailConnector = new MailConnector(mailConfiguration);
-        MessageComposer messageComposer = new MessageComposer(outcome);
-        Session session = mailConnector.getSession();
-        MimeMessage message = new MimeMessage(session);
-
-        try {
-            message.setFrom(new InternetAddress(mailConfiguration.username));
-            InternetAddress toAddress = new InternetAddress(participantEmail);
-            message.addRecipient(Message.RecipientType.TO, toAddress);
-            message.setSubject("Garcode - zgłoszenie");
-            message.setText(messageComposer.composeMessage());
-            Transport transport = session.getTransport("smtp");
-            transport.connect(mailConfiguration.host, mailConfiguration.username, mailConfiguration.password);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
+        if(outcome.getPhoneNumber() != null) {
+            // TODO Send SMS
         }
-        catch (Exception me) {
-            me.printStackTrace();
+        if(outcome.getEmail() != null) {
+            MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);
+            MailSender sender = new MailSender(mailConfiguration, outcome.getEmail());
+            sender.sendResults(outcome);
         }
+        String filename = outcome.getLastName() + outcome.getTitleDesc() + "results.txt";
+        Path filepath = Paths.get(filename);
+        FileExporter fileExporter = new FileExporter(filepath, filename);
+        fileExporter.sendResults(outcome);
     }
 }

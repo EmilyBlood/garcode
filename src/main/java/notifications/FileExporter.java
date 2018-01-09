@@ -1,8 +1,12 @@
 package notifications;
 
 import exerciseCreator.Outcome;
+import notifications.MessageComposers.FileMessageComposer;
+import notifications.MessageComposers.MailMessageComposer;
+import notifications.MessageComposers.MessageComposer;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +22,7 @@ public class FileExporter implements Notifier {
 
     @Override
     public void sendResults(Outcome outcome) {
-        MessageComposer message = new MessageComposer(outcome);
+        FileMessageComposer message = new FileMessageComposer(outcome);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(message.composeMessage());
         } catch (IOException e) {

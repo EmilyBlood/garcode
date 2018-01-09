@@ -1,12 +1,18 @@
 package notifications;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Created by Michał on 19.12.2017.
  */
 public class Executor {
     public static void main(String[] args) {
-        String hostMail = "mdarul618@gmail.com";
-
+        //String hostMail = "mdarul618@gmail.com";
 //        String subject = "testujemy123";
 //        String body = "burżuazja lorem ipsum test";
 //        Sender sender1 = new Sender(hostMail, subject, body);

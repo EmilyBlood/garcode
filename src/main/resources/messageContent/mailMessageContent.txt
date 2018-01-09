@@ -1,0 +1,6 @@
+Szanowny %name% %surname%,
+Twoje zgłoszenie zostało ocenione.
+Ocena: %grade%
+Komentarze: %comment%
+Dziękujemy za nadesłanie zgłoszenia,
+Team Garcode
