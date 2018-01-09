@@ -1,6 +1,7 @@
 package interpreter.processing;
 
-import interpreter.Result;
+import interpreter.ExitValue;
+import interpreter.processing.exceptions.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,13 +12,21 @@ import java.util.Optional;
 public class ProcessWrapper{
 
     private Process process;
-    private final Duration executionTime;
 
-    public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout){
+
+
+    private final Duration executionTime;
+    private final ExceptionUtilities trigger = new ExceptionUtilities();
+    private final Optional<String> stdOut;
+    private final Optional<String> stdErr;
+
+
+    public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout) throws ProcessException {
         long startTime = System.nanoTime();
 
         try {
-            this.process = processBuilder.start();
+            process = processBuilder.start();
+
             new Thread(() -> {
                 try {
                     Thread.sleep(timeout.toMillis());
@@ -29,43 +38,37 @@ public class ProcessWrapper{
                 }
 
             }).start();
-
             process.waitFor();
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        } finally {
+        } catch (IOException e){
+            throw new ProcessIOException();
+        } catch (InterruptedException e) {
+            throw new ProcessTimeoutException();
+       } finally {
             this.executionTime = Duration.ofNanos(System.nanoTime() - startTime);
+            BufferedReader outBufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()));
+
+            this.stdOut = extractBuffer(outBufferedReader);
+            BufferedReader errBufferedReader = new BufferedReader(
+                    new InputStreamReader(process.getErrorStream())
+            );
+            this.stdErr = extractBuffer(errBufferedReader);
+            trigger.trigger(process.exitValue(), stdErr);
+
         }
 
     }
 
-    public Result result(){ return new Result(stdOut(), stdErr(), executionTime, process.exitValue()); }
-
-    private Optional<String> stdOut(){
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        BufferedReader outBufferedReader = new BufferedReader(
-                new InputStreamReader(process.getInputStream()));
-
-        return extractBuffer(outBufferedReader);
+    public Optional<String> getStdOut(){
+        return stdOut;
     }
 
-    private Optional<String> stdErr(){
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        BufferedReader errBufferedReader = new BufferedReader(
-                new InputStreamReader(process.getErrorStream())
-        );
+    public Optional<String> getStdErr(){
+        return stdErr;
+    }
 
-        return extractBuffer(errBufferedReader);
-
+    public Duration getExecutionTime() {
+        return executionTime;
     }
 
     private Optional<String> extractBuffer(BufferedReader reader){
@@ -79,12 +82,11 @@ public class ProcessWrapper{
                 builder.append(line).append("\n");
             }
             return Optional.of(builder.toString());
-
-
         } catch (IOException e){
             return Optional.empty();
         }
 
 
     }
+
 }

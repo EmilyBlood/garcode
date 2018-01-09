@@ -4,20 +4,21 @@ import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.Result;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import interpreter.processing.Errors;
+import interpreter.ExitValue;
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BashInterpreterTest {
+@Tag("IntegrationTest")
+class BashInterpreterIntegrationTest {
 
     private BashInterpreter interpreter;
-    private String testCodes = "src/main/resources/testCodes/bash/";
+    private String testCodes = "src/test/resources/testCodes/bash/";
     private TestCase testCaseMock = new TestCase("", "", 1, 0);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
@@ -53,7 +54,7 @@ class BashInterpreterTest {
     @Test
     void interpretationResultErrno() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
-        assertTrue(results.get(0).getErrno() == Errors.NORMAL_EXECUTION);
+        assertTrue(results.get(0).getExitValue() == ExitValue.NORMAL_EXECUTION);
     }
 
     @Test
@@ -65,6 +66,6 @@ class BashInterpreterTest {
     @Test
     void timeoutTestErrno(){
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
-        assertTrue(results.get(0).getErrno() == Errors.SIGTERM);
+        assertTrue(results.get(0).getExitValue() == ExitValue.TERMINATED);
     }
 }
