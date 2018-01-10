@@ -22,5 +22,10 @@ public enum ExitValue {
      */
     IO_ERR,
 
+    /*
+    For files which need compilation, if it fails.
+    */
+    COMPILATION_ERR,
+
     UNKNOWN
 }
