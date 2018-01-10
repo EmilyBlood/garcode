@@ -11,9 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CExecutorIntegrationTest {
     private Interpreter interpreter;
@@ -31,33 +30,33 @@ public class CExecutorIntegrationTest {
     }
 
     @Test
-    void interpretationsResultsCount() throws IOException {
+    void interpretationsResultsCount() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertTrue(results.size() == caseMocks.size());
+        assertEquals(caseMocks.size(), results.size());
     }
 
     @Test
-    void interpretationResultErrno1() throws IOException {
+    void interpretationResultErrno1() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.NORMAL_EXECUTION);
+        assertEquals(ExitValue.NORMAL_EXECUTION, results.get(0).getExitValue());
     }
 
     @Test
-    void interpretationResultErrno2() throws IOException {
+    void interpretationResultErrno2() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.COMPILATION_ERR);
+        assertEquals(ExitValue.COMPILATION_ERR, results.get(0).getExitValue());
     }
 
     @Test
-    void timeoutTest() throws IOException {
+    void timeoutTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
         assertFalse(results.get(0).getStdOut().isPresent());
     }
 
     @Test
-    void timeoutTestErrno() throws IOException {
+    void timeoutTestErrno() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.TERMINATED);
+        assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
     }
 }
 

@@ -11,8 +11,8 @@ import interpreter.ExitValue;
 import org.junit.jupiter.api.*;
 
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @Tag("IntegrationTest")
 class BashInterpreterIntegrationTest {
@@ -35,7 +35,7 @@ class BashInterpreterIntegrationTest {
     @Test
     void interpretationsResultsCount(){
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
-        assertTrue(results.size() == caseMocks.size());
+        assertEquals(caseMocks.size(), results.size());
     }
 
     @Test
@@ -54,7 +54,7 @@ class BashInterpreterIntegrationTest {
     @Test
     void interpretationResultErrno() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_test.sh"), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.NORMAL_EXECUTION);
+        assertEquals(ExitValue.NORMAL_EXECUTION, results.get(0).getExitValue());
     }
 
     @Test
@@ -66,6 +66,6 @@ class BashInterpreterIntegrationTest {
     @Test
     void timeoutTestErrno(){
         List<Result> results = interpreter.executeSolution(new File(testCodes + "bash_infinite.sh"), caseMocks);
-        assertTrue(results.get(0).getExitValue() == ExitValue.TERMINATED);
+        assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
     }
 }

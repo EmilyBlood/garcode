@@ -43,7 +43,7 @@ public class BashInterpreter implements Interpreter {
 
             } catch (ProcessException e){
                 ExceptionUtilities utilities = new ExceptionUtilities();
-                return utilities.toResult(e);
+                result = utilities.toResult(e);
             }
             return result;
 

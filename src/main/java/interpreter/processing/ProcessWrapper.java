@@ -1,6 +1,5 @@
 package interpreter.processing;
 
-import interpreter.ExitValue;
 import interpreter.processing.exceptions.*;
 
 import java.io.BufferedReader;
@@ -12,8 +11,6 @@ import java.util.Optional;
 public class ProcessWrapper{
 
     private Process process;
-
-
 
     private final Duration executionTime;
     private final ExceptionUtilities trigger = new ExceptionUtilities();
@@ -53,8 +50,7 @@ public class ProcessWrapper{
                     new InputStreamReader(process.getErrorStream())
             );
             this.stdErr = extractBuffer(errBufferedReader);
-            trigger.trigger(process.exitValue(), stdErr);
-
+            ProcessException.throwOnExitValue(process.exitValue(), stdErr);
         }
 
     }
@@ -85,8 +81,5 @@ public class ProcessWrapper{
         } catch (IOException e){
             return Optional.empty();
         }
-
-
     }
-
 }
