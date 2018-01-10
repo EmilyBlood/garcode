@@ -27,5 +27,8 @@ public enum ExitValue {
     */
     COMPILATION_ERR,
 
+    /*
+    Something else has happened - perhaps stdErr will give more insight?
+     */
     UNKNOWN
 }

@@ -10,44 +10,28 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class PythonInterpreterIntegrationTest {
 
+public class CStrategyIntegrationTest {
     private Interpreter interpreter;
-    private String testCodes = "src/test/resources/testCodes/python/";
+    private String testCodes = "src/test/resources/testCodes/C/";
     private TestCase testCaseMock = new TestCase("", "", 1, 0);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
-    private String example = "python_example.py";
-    private String syntaxErr = "python_syntaxerr.py";
-    private String infinite = "python_infinite.py";
-    private String badPackage = "python_package_err.py";
+    private String example = "C-example.c";
+    private String syntaxErr = "C-syntaxerr.c";
+    private String infinite = "C-infinite.c";
 
     @BeforeEach
     void setUp() {
-        this.interpreter = new PythonInterpreter();
+        this.interpreter = new Interpreter(new CStrategy());
     }
 
-
     @Test
-    void interpretationsResultsCount(){
+    void interpretationsResultsCount() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
         assertEquals(caseMocks.size(), results.size());
-    }
-
-    @Test
-    void interpretationResultStdOut() {
-        List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertTrue(results.get(0).getStdOut().orElse("").contains("python_example"));
-
-    }
-
-    @Test
-    void interpretationResultStdErr() {
-        List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
-        assertTrue(results.get(0).getStdErr().orElse("").contains("SyntaxError"));
     }
 
     @Test
@@ -59,27 +43,23 @@ class PythonInterpreterIntegrationTest {
     @Test
     void interpretationResultErrno2() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
-        assertEquals(ExitValue.UNKNOWN, results.get(0).getExitValue());
+        assertEquals(ExitValue.COMPILATION_ERR, results.get(0).getExitValue());
     }
 
     @Test
-    void timeoutTest(){
+    void timeoutTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
         assertFalse(results.get(0).getStdOut().isPresent());
     }
 
     @Test
-    void timeoutTestErrno(){
+    void timeoutTestErrno() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
         assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
     }
 
-    @Test
-    void badPackageTest(){
-        List<Result> results = interpreter.executeSolution(new File(testCodes + badPackage), caseMocks);
-        assertEquals(ExitValue.IMPORT_ERR, results.get(0).getExitValue());
-    }
-
-
-
 }
+
+
+
+

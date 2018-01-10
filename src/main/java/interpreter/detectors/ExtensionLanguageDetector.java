@@ -1,24 +1,26 @@
 package interpreter.detectors;
 
-import interpreter.Interpreter;
+import interpreter.InterpretingStrategy;
 import interpreter.LanguageDetector;
-import interpreter.languages.BashInterpreter;
-import interpreter.languages.CExecutor;
-import interpreter.languages.PythonInterpreter;
+import interpreter.languages.BashStrategy;
+import interpreter.languages.CStrategy;
+import interpreter.languages.PythonStrategy;
 
 import java.io.File;
+
+
 public class ExtensionLanguageDetector implements LanguageDetector {
 
-    public Interpreter detectLanguage(File sourceCode){
+    public InterpretingStrategy detectLanguage(File sourceCode){
         String[] split = sourceCode.getName().split("[.]");
         String extension = split[split.length -1];
         switch (extension){
             case "sh":
-                return new BashInterpreter();
+                return new BashStrategy();
             case "py":
-                return new PythonInterpreter();
+                return new PythonStrategy();
             case "c":
-                return new CExecutor();
+                return new CStrategy();
             default:
                 throw new IllegalArgumentException("Invalid extension: " + extension);
         }

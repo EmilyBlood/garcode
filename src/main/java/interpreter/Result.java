@@ -28,7 +28,6 @@ public class Result {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(stdOut);
     }
 
@@ -46,6 +45,10 @@ public class Result {
 
     public ExitValue getExitValue() {
         return exitValue;
+    }
+
+    public static Result badResult(Optional<String> stdErr, ExitValue exitValue){
+        return new Result(Optional.empty(), stdErr, Duration.ZERO, exitValue);
     }
 
 }
