@@ -2,7 +2,7 @@ package notifications; /**
  * Created by Michał on 19.12.2017.
  */
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.MailMessageComposer;
 
 import javax.mail.Message;

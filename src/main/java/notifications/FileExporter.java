@@ -1,6 +1,6 @@
 package notifications;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
 import notifications.MessageComposers.MailMessageComposer;
 import notifications.MessageComposers.MessageComposer;

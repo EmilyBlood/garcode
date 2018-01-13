@@ -1,6 +1,6 @@
 package notifications;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 public interface Notifier {
     void sendResults(Outcome outcome);

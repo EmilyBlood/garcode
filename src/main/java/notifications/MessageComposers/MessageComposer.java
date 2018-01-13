@@ -1,6 +1,6 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,15 +1,12 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileMessageComposerTest {
-    Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
+    Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
     FileMessageComposer fileMessageComposer;
 
     @BeforeEach

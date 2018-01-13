@@ -1,6 +1,6 @@
 package notifications;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,7 +9,6 @@ public class Sender implements Notifier{
     @Override
     public void sendResults(Outcome outcome) {
         if(outcome.getPhoneNumber() != null) {
-            // TODO Send SMS
             SmsSender smsSender = new SmsSender();
             smsSender.sendResults(outcome);
         }
@@ -18,9 +17,17 @@ public class Sender implements Notifier{
             MailSender sender = new MailSender(mailConfiguration, outcome.getEmail());
             sender.sendResults(outcome);
         }
-        String filename = outcome.getLastName() + outcome.getTitleDesc() + "results.txt";
-        Path filepath = Paths.get(filename);
-        FileExporter fileExporter = new FileExporter(filepath, filename);
+        FileConfiguration fileConfiguration = new FileConfiguration(outcome.getLastName(), outcome.getTitleDesc());
+        FileExporter fileExporter = new FileExporter(fileConfiguration.getFilepath(), fileConfiguration.getFilename());
         fileExporter.sendResults(outcome);
     }
 }
+
+//
+// Dziś 1,5 pkt
+// W klasie Sender:
+// - Przenieść tworzenie filename do oddzielnej klasy: coś jakby robić path tak jak mailconf;
+// Ma się pojawić wzorzec Hierarchia (Sendery) + wzorzec Bridge do Composerów
+// M test sendera z mockowaniem senderów
+// M wysyłanie maili do prowadzącego
+//

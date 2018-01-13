@@ -5,7 +5,7 @@ import com.nexmo.client.auth.AuthMethod;
 import com.nexmo.client.auth.TokenAuthMethod;
 import com.nexmo.client.sms.SmsSubmissionResult;
 import com.nexmo.client.sms.messages.TextMessage;
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.SmsMessageComposer;
 
 /**

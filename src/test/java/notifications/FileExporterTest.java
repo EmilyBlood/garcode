@@ -1,6 +1,6 @@
 package notifications;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class FileExporterTest {
         String filename = "results.txt";
         Path filepath = Paths.get(filename);
         fileExporter = new FileExporter(filepath, filename);
-        outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
+        outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
     }
 
     @Test

@@ -3,7 +3,7 @@
  */
 package notifications;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 public class Executor {
 

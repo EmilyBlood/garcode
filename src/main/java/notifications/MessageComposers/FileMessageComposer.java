@@ -1,6 +1,6 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
