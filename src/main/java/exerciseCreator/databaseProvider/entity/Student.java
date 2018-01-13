@@ -20,8 +20,9 @@ public class Student {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String email;
+
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "student")
     private Set<CheckedExercise> exercises = new HashSet<>();
@@ -29,11 +30,12 @@ public class Student {
     public Student(){
     }
 
-    public Student(String indexNumber, String firstName, String lastName, String email){
+    public Student(String indexNumber, String firstName, String lastName, String email, String phoneNumber){
         this.indexNumber = indexNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getId() {
@@ -74,6 +76,14 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Set<CheckedExercise> getCheckedExercises() {
