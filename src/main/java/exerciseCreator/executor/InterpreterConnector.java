@@ -19,10 +19,11 @@ public class InterpreterConnector {
 
     private List<Result> result;
 
-    public InterpreterConnector(String shellPath, Exercise exercise, File sourceCode){
+    public InterpreterConnector(Exercise exercise, File sourceCode){
         this.testCases = exercise.getTestCases();
         this.interpreter = new InterpreterMock();
-//        this.interpreter = new BashInterpreter(shellPath);
+//        this.interpreter = ;
+        //TODO dodac instancje interpretera
         sendExerciseToInterpreter(sourceCode);
     }
 
