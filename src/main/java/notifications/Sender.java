@@ -1,6 +1,9 @@
 package notifications;
 
 import exerciseCreator.executor.Outcome;
+import notifications.MessageComposers.FileMessageComposer;
+import notifications.MessageComposers.MailMessageComposer;
+import notifications.MessageComposers.SmsMessageComposer;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,18 +12,22 @@ public class Sender implements Notifier{
     @Override
     public void sendResults(Outcome outcome) {
         if(outcome.getPhoneNumber() != null) {
-            SmsSender smsSender = new SmsSender();
+            SmsMessageComposer smsMessageComposer = new SmsMessageComposer(outcome);
+            SmsSender smsSender = new SmsSender(smsMessageComposer);
             smsSender.sendResults(outcome);
         }
         if(outcome.getEmail() != null) {
             MailConfiguration mailConfiguration = new MailConfiguration("grabowszczakls", "Test12345", "smtp.gmail.com", true, 587);
-            MailSender sender = new MailSender(mailConfiguration, outcome.getEmail());
+            MailMessageComposer mailMessageComposer = new MailMessageComposer(outcome);
+            MailSender sender = new MailSender(mailConfiguration, outcome.getEmail(), mailMessageComposer);
             sender.sendResults(outcome);
         }
         FileConfiguration fileConfiguration = new FileConfiguration(outcome.getLastName(), outcome.getTitleDesc());
-        FileExporter fileExporter = new FileExporter(fileConfiguration.getFilepath(), fileConfiguration.getFilename());
+        FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
+        FileExporter fileExporter = new FileExporter(fileConfiguration.getFilepath(), fileConfiguration.getFilename(), fileMessageComposer);
         fileExporter.sendResults(outcome);
     }
+
 }
 
 //

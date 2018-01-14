@@ -14,17 +14,18 @@ import java.nio.file.Path;
 public class FileExporter implements Notifier {
     Path path;
     String filename;
+    private MessageComposer messageComposer;
 
-    public FileExporter(Path path, String filename) {
+    public FileExporter(Path path, String filename, MessageComposer mC) {
         this.path = path;
         this.filename = filename;
+        this.messageComposer = mC;
     }
 
     @Override
     public void sendResults(Outcome outcome) {
-        FileMessageComposer message = new FileMessageComposer(outcome);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(message.composeMessage());
+            writer.write(messageComposer.composeMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
