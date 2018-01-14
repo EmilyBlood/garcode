@@ -2,9 +2,7 @@ package interpreter.detectors;
 
 import interpreter.InterpretingStrategy;
 import interpreter.LanguageDetector;
-import interpreter.languages.BashStrategy;
-import interpreter.languages.CStrategy;
-import interpreter.languages.PythonStrategy;
+import interpreter.languages.*;
 
 import java.io.File;
 
@@ -21,6 +19,10 @@ public class ExtensionLanguageDetector implements LanguageDetector {
                 return new PythonStrategy();
             case "c":
                 return new CStrategy();
+            case "cpp":
+                return new CppStrategy();
+            case "icn":
+                return new IconStrategy();
             default:
                 throw new IllegalArgumentException("Invalid extension: " + extension);
         }
