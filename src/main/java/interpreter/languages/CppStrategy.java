@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 
 
-public class CppStrategy implements InterpretingStrategy{
+public class CppStrategy extends CStrategy{
     @Override
     public File binary(File sourceCode) throws SetupException {
 
@@ -34,20 +34,5 @@ public class CppStrategy implements InterpretingStrategy{
             throw new SetupException(e.getStdErr());
         } catch (ProcessException ignored) {}
         return new File(binaryPath);
-    }
-
-    @Override
-    public Result testCaseResult(File binary, TestCase testCase) throws ProcessException {
-
-        ProcessBuilder processBuilderCase = new ProcessBuilder(binary.getAbsolutePath());
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilderCase, Duration.ofSeconds(testCase.getTimeLimit()));
-        return new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
-    }
-
-    @Override
-    public void cleanup(File binary) {
-        try {
-            Files.delete(Paths.get(binary.getAbsolutePath()));
-        } catch (IOException ignored){}
     }
 }

@@ -25,9 +25,8 @@ public class IconStrategy implements InterpretingStrategy{
 
         //icont -o ~/binary sourcefile
 
-        String binaryPath = sourceCode.getAbsolutePath();
+        String binaryPath = sourceCode.getAbsolutePath() + ".out";
         ProcessBuilder processBuilder = new ProcessBuilder(
-//                "/usr/bin/env",
                 "icont",
                 "-o",
                 binaryPath,
@@ -48,7 +47,6 @@ public class IconStrategy implements InterpretingStrategy{
         //iconx binary
 
         ProcessBuilder processBuilder = new ProcessBuilder(
-//                "/usr/bin/env",
                 shellPath,
                 binary.getAbsolutePath()
         );
