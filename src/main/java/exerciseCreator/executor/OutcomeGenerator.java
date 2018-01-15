@@ -47,6 +47,7 @@ public class OutcomeGenerator {
         }
         outcome.setPoints(pointsForExercise);
         outcome.setGrade(calculateGrade(pointsForExercise));
+        System.out.println("[Create Outcome]: " + outcome.toString());
         return outcome;
     }
 
