@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -55,6 +56,13 @@ public class TaskManagingController {
 
             primaryStage.show();
         } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Oops, coś poszło nie tak");
+            alert.setContentText("Komunikat: " + e.getMessage());
+
+            alert.showAndWait();
             e.printStackTrace();
         }
 
