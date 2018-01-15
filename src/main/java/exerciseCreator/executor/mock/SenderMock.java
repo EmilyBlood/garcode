@@ -5,7 +5,7 @@ import notifications.Notifier;
 
 public class SenderMock implements Notifier {
 
-    @Override
+    //@Override
     public void sendResults(Outcome outcome) {
         System.out.println("First Name: " + outcome.getFirstName());
         System.out.println("Last Name: " + outcome.getLastName());

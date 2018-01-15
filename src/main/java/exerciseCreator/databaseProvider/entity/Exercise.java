@@ -18,7 +18,10 @@ public class Exercise {
     @Column(length = 1024)
     private String description;
 
-    private String pathToExercises;
+    //public static final String pathToExercises = "/home/kevin/SemesterV/TO2/Projekt/WprostDoGit/garcode/src/main/resources/studentExercises/";
+    public static final String pathToExercises =  "../../../src/main/resources/exerciseCreator/";
+    ///main/resources/studentExercises/
+    ///main/java/exerciseCreator/databaseProvider/entity/Exercise.java
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<TestCase> testCases = new ArrayList<>();
@@ -67,9 +70,9 @@ public class Exercise {
         return pathToExercises;
     }
 
-    public void setPathToExercises(String pathToExercises) {
-        this.pathToExercises = pathToExercises;
-    }
+//    public void setPathToExercises(String pathToExercises) {
+//        this.pathToExercises = pathToExercises;
+//    }
 
     public List<TestCase> getTestCases() {
         return testCases;

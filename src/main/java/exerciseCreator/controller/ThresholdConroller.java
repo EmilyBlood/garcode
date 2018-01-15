@@ -1,6 +1,5 @@
 package exerciseCreator.controller;
 
-import exerciseCreator.command.TestCaseCommand.CommandRegistry;
 import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Task;
 import javafx.event.ActionEvent;
@@ -15,8 +14,6 @@ public class ThresholdConroller {
     private Task task;
 
     private TaskManagingController appController;
-
-    private CommandRegistry commandRegistry;
 
     private Stage dialogStage;
 
@@ -44,10 +41,6 @@ public class ThresholdConroller {
         this.appController = appController;
     }
 
-    public void setCommandRegistry(CommandRegistry commandRegistry) {
-        this.commandRegistry = commandRegistry;
-
-    }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -71,6 +64,34 @@ public class ThresholdConroller {
 
     public void setData(Task task) {
         this.task = task;
+        updateControls();
     }
+
+
+    private void updateControls() {
+
+        for (Threshold threshold: task.getThresholds()){
+            switch(threshold.getGrade()){
+                case "3":
+                    grade3TextField.setText(Float.toString(threshold.getThreshold()));
+                    break;
+                case "3.5":
+                    grade35TextField.setText(Float.toString(threshold.getThreshold()));
+                    break;
+                case "4":
+                    grade4TextField.setText(Float.toString(threshold.getThreshold()));
+                    break;
+                case "4.5":
+                    grade45TextField.setText(Float.toString(threshold.getThreshold()));
+                    break;
+                case "5":
+                    grade5TextField.setText(Float.toString(threshold.getThreshold()));
+                    break;
+            }
+        }
+
+    }
+
+
 }
 

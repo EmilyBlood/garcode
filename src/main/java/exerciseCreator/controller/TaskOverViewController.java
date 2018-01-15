@@ -28,8 +28,8 @@ public class TaskOverViewController {
     @FXML
     private TextField titleTextField;
 
-    @FXML
-    private TextField pathTextField;
+  //  @FXML
+  //  private TextField pathTextField;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -52,8 +52,8 @@ public class TaskOverViewController {
     @FXML
     private Button editTestCaseButton;
 
-    @FXML
-    private Button pathButton;
+  //  @FXML
+  //  private Button pathButton;
 
     @FXML
     public Button thresholdButton;
@@ -110,15 +110,15 @@ public class TaskOverViewController {
                                 .getSelectedItems()).isNotEqualTo(1));
     }
 
-    @FXML
-    private void handlePathSettingAction(ActionEvent event){
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("JavaFX Projects");
-        File defaultDirectory = new File("/");
-        chooser.setInitialDirectory(defaultDirectory);
-        File selectedDirectory = chooser.showDialog(new Stage());
-        pathTextField.setText(selectedDirectory.getAbsolutePath());
-    }
+//    @FXML
+//    private void handlePathSettingAction(ActionEvent event){
+//        DirectoryChooser chooser = new DirectoryChooser();
+//        chooser.setTitle("JavaFX Projects");
+//        File defaultDirectory = new File("/");
+//        chooser.setInitialDirectory(defaultDirectory);
+//        File selectedDirectory = chooser.showDialog(new Stage());
+//        pathTextField.setText(selectedDirectory.getAbsolutePath());
+//    }
 
     @FXML
     private void handleDeleteTestCaseAction(ActionEvent event) {
@@ -205,13 +205,13 @@ public class TaskOverViewController {
     private void updateModel() {
         task.setTitle(titleTextField.getText());
         task.setDescription(descriptionTextArea.getText());
-        task.setPathToStudentAnswers(pathTextField.getText());
+      //  task.setPathToStudentAnswers(pathTextField.getText());
 
     }
 
     private void updateControls() {
         titleTextField.setText(task.getTitle());
         descriptionTextArea.setText(task.getDescription());
-        pathTextField.setText(task.getPathToStudentAnswers());
+       // pathTextField.setText(task.getPathToStudentAnswers());
     }
 }
