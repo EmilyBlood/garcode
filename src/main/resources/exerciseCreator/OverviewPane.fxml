@@ -33,7 +33,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="302.0">
                <children>
                   <Button fx:id="showAddTaskPaneButton" layoutX="34.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleAddTaskAction" prefHeight="68.0" prefWidth="115.0" text="Dodaj zadanie" />
-                  <Button fx:id="gradeTaskButton" layoutX="34.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleGradeTaskAction" prefHeight="68.0" prefWidth="115.0" text="Ocen Zadanie" />
+                  <Button fx:id="loadStudentDataButton" layoutX="34.0" layoutY="331.0" mnemonicParsing="false" onAction="#handleStudentDataAction" prefHeight="68.0" prefWidth="180.0" text="Zaladuj dane studentow" />
                   <Button fx:id="deleteTaskButton" layoutX="33.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleDeleteTaskAction" prefHeight="69.0" prefWidth="117.0" text="Usun Zadanie" />
                   <Button fx:id="editTaskButton" layoutX="33.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleEditTaskAction" prefHeight="67.0" prefWidth="117.0" text="Edytuj Zadanie" />
                </children>
