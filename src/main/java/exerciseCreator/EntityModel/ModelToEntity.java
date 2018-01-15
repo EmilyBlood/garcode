@@ -19,25 +19,20 @@ public class ModelToEntity {
 
     }
 
-
     public void addTaskAndTestCasesToDatabase(Task task){
-        Exercise exercise = TaskToExercise(task);
-
-        for (exerciseCreator.databaseProvider.entity.TestCase testCase: exercise.getTestCases()) {
-            testCaseDataProvider.createTestCase(testCase);
-           // exerciseDataProvider.addTestCaseForExercise(exercise,testCase);
-        }
+        Exercise exercise = convertTaskToExercise(task);
 
         exerciseDataProvider.createExercise(exercise);
-        task.setId(exercise.getId().intValue());
+        task.setId(exercise.getId());
     }
 
-    private Exercise TaskToExercise(Task task) {
+    private Exercise convertTaskToExercise(Task task) {
         Exercise exercise = new Exercise();
         exercise.setDescription(task.getDescription());
         exercise.setTitle(task.getTitle());
+        exercise.setPathToExercises(task.getPathToStudentAnswers());
         for (TestCase testCase : task.getTestCases()) {
-            exercise.addTestCase(ModelTestCaseToEntityTestCase(testCase));
+            exercise.addTestCase(convertModelTestCaseToEntityTestCase(testCase));
         }
         for (Threshold threshold : task.getThresholds()) {
             exercise.addThreshold(threshold);
@@ -45,11 +40,11 @@ public class ModelToEntity {
         return exercise;
     }
 
-    private exerciseCreator.databaseProvider.entity.TestCase ModelTestCaseToEntityTestCase(TestCase testCase) {
+    private exerciseCreator.databaseProvider.entity.TestCase convertModelTestCaseToEntityTestCase(TestCase testCase) {
         exerciseCreator.databaseProvider.entity.TestCase etestCase = new exerciseCreator.databaseProvider.entity.TestCase();
         etestCase.setResultOutput(testCase.getResultOutput());
         etestCase.setParametersInput(testCase.getParametersInput());
-        //etestCase.setMaxTime(testCase.getMaxTime());
+        etestCase.setTimeLimit(Integer.parseInt(testCase.getMaxTime()));
         return etestCase;
     }
 }

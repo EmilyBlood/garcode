@@ -3,6 +3,7 @@ package exerciseCreator.EntityModel;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.TestCaseDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Account;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
@@ -25,31 +26,33 @@ public class EntityToModel {
         List<Exercise> Exercises = exerciseDataProvider.getAllExercises();
         Account account = new  Account();
         for(Exercise exercise: Exercises){
-            account.addtask(ExerciseToTask(exercise));
+            account.addtask(convertExerciseToTask(exercise));
         }
         return account;
 
     }
 
-
-    private Task ExerciseToTask(Exercise exercise) {
+    private Task convertExerciseToTask(Exercise exercise) {
         Task task = new Task();
         task.setId(exercise.getId().intValue());
         task.setDescription(exercise.getDescription());
         task.setTitle(exercise.getTitle());
-        //task.setPathToStudentAnswers(exercise.getPath());
+        task.setPathToStudentAnswers(exercise.getPathToExercises());
         for (exerciseCreator.databaseProvider.entity.TestCase testCase : exercise.getTestCases()
                 ) {
-            task.addTestCase(EntityTestCaseToModelTestCase(testCase));
+            task.addTestCase(convertEntityTestCaseToModelTestCase(testCase));
+        }
+        for (Threshold threshold: exercise.getThresholds()){
+            task.addThreshold(threshold);
         }
         return task;
     }
 
-    private TestCase EntityTestCaseToModelTestCase(exerciseCreator.databaseProvider.entity.TestCase testCase) {
+    private TestCase convertEntityTestCaseToModelTestCase(exerciseCreator.databaseProvider.entity.TestCase testCase) {
         TestCase mtestCase = TestCase.newTestCase();
         mtestCase.setResultOutput(testCase.getResultOutput());
         mtestCase.setParametersInput(testCase.getParametersInput());
-        //mtestCase.getMaxTime(testCase.getTimeLimit());
+        mtestCase.setMaxTime(String.valueOf(testCase.getTimeLimit()));
         return mtestCase;
     }
 
