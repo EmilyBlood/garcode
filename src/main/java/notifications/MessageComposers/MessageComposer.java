@@ -1,6 +1,6 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,10 +22,12 @@ public abstract class MessageComposer {
         this.outcome = outcome;
     }
 
+    abstract public String composeMessage();
+
     public String composeMessage(Path path) {
         StringBuilder sb = new StringBuilder();
         try(Stream<String> stream = Files.lines(path)) {
-            stream.forEach(a -> sb.append(formatMessageText(a) + "\n"));
+            stream.forEach(a -> sb.append(formatMessageText(a)).append("\n"));
         } catch (IOException e) {
             e.printStackTrace();
         }

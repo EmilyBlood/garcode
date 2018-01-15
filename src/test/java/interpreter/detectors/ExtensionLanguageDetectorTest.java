@@ -1,6 +1,5 @@
 package interpreter.detectors;
 
-import antlr.PythonCharFormatter;
 import interpreter.LanguageDetector;
 import interpreter.languages.*;
 import org.junit.jupiter.api.*;
@@ -19,15 +18,14 @@ class ExtensionLanguageDetectorTest {
         detector = new ExtensionLanguageDetector();
     }
 
-
     @Test
     void detectBash() {
-        assertTrue(detector.detectLanguage(new File("whatever.sh")).getClass().equals(BashInterpreter.class));
+        assertTrue(detector.detectLanguage(new File("whatever.sh")) instanceof BashStrategy);
     }
 
     @Test
     void detectPython() {
-        assertTrue(detector.detectLanguage(new File("whatever.py")).getClass().equals(PythonInterpreter.class));
+        assertTrue(detector.detectLanguage(new File("whatever.py")) instanceof PythonStrategy);
     }
 
     @Test
