@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CStrategyIntegrationTest {
     private Interpreter interpreter;
     private String testCodes = "src/test/resources/testCodes/C/";
-    private TestCase testCaseMock = new TestCase("", "", 1, 0);
+    private TestCase testCaseMock = new TestCase("", "", 1);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
     private String example = "C-example.c";

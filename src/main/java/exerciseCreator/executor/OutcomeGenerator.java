@@ -36,9 +36,8 @@ public class OutcomeGenerator {
         for(TestCase testCase: testCaseResultMap.keySet()){
             if(testCaseResultMap.get(testCase).getStdOut().isPresent()){
                 String result = testCaseResultMap.get(testCase).getStdOut().get();
-                Integer maxPointsForTestCase = testCase.getPointsForTest();
                 if(abs(Double.parseDouble(result) - Double.parseDouble(testCase.getResultOutput())) < 10e-6){
-                    pointsForExercise += maxPointsForTestCase;
+                    pointsForExercise += 1;
                 }
             } else {
                 if(testCaseResultMap.get(testCase).getStdErr().isPresent()){
@@ -67,6 +66,6 @@ public class OutcomeGenerator {
                 return threshold.getGrade();
             }
         }
-        return "";
+        return "2.0";
     }
 }

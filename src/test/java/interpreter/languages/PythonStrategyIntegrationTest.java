@@ -2,7 +2,6 @@ package interpreter.languages;
 
 import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.ExitValue;
-import interpreter.Interpreter;
 import interpreter.InterpretingStrategy;
 import interpreter.Result;
 import interpreter.processing.exceptions.ProcessException;
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +17,7 @@ class PythonStrategyIntegrationTest {
 
     private InterpretingStrategy strategy = new PythonStrategy();
     private String testCodes = "src/test/resources/testCodes/python/";
-    private TestCase testCaseMock = new TestCase("", "", 1, 0);
+    private TestCase testCaseMock = new TestCase("", "", 1);
 
     private String example = "python_example.py";
     private String syntaxErr = "python_syntaxerr.py";
