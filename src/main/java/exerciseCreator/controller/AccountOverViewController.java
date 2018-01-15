@@ -10,10 +10,7 @@ import exerciseCreator.model.Task;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -115,9 +112,19 @@ public class AccountOverViewController {
     private void handleAddTaskAction(ActionEvent event) {
         Task task = Task.newTask();
 
-        if (appController.showAddTaskAction(task)) {
-            modelToEntity.addTaskAndTestCasesToDatabase(task);
-            account.addtask(task);
+        try {
+            if (appController.showAddTaskAction(task)) {
+                modelToEntity.addTaskAndTestCasesToDatabase(task);
+                account.addtask(task);
+            }
+        } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Oops, coś poszło nie tak!");
+            alert.setContentText("Komunikat: " + e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
