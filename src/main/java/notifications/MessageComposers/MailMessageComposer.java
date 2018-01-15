@@ -1,6 +1,6 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 
 import java.nio.file.Paths;
 
@@ -9,6 +9,7 @@ public class MailMessageComposer extends MessageComposer {
         super(outcome);
     }
 
+    @Override
     public String composeMessage() {
         return super.composeMessage(Paths.get("src/main/resources/messageContent/mailMessageContent.txt"));
     }

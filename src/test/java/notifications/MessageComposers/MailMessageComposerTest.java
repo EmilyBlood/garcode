@@ -1,6 +1,6 @@
 package notifications.MessageComposers;
 
-import exerciseCreator.Outcome;
+import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.MailMessageComposer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MailMessageComposerTest {
     MailMessageComposer mailMessageComposer;
-    Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
+    Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
 
     @BeforeEach
     void setUp() {
@@ -23,7 +23,7 @@ class MailMessageComposerTest {
 
     @Test
     void setOutcome() {
-        Outcome newOutcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20);
+        Outcome newOutcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
         mailMessageComposer.setOutcome(newOutcome);
         assertEquals(newOutcome, mailMessageComposer.getOutcome());
     }
