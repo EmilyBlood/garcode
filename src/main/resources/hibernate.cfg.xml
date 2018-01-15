@@ -7,7 +7,7 @@
         <property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
         <property name="connection.url">jdbc:derby://localhost/GarcodeDatabase</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <mapping class="exerciseCreator.databaseProvider.entity.Student" />
         <mapping class="exerciseCreator.databaseProvider.entity.Exercise" />
