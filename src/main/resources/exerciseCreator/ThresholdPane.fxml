@@ -19,7 +19,7 @@
                                 <Font size="17.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="grade3TextField" layoutX="76.0" layoutY="75.0" />
+                        <TextField fx:id="grade3TextField" layoutX="76.0" layoutY="75.0" text="50" />
                   <Label layoutX="28.0" layoutY="109.0" prefHeight="30.0" prefWidth="25.0" text="3.5">
                      <font>
                         <Font size="17.0" />
@@ -36,10 +36,10 @@
                      <font>
                         <Font size="17.0" />
                      </font></Label>
-                  <TextField fx:id="grade35TextField" layoutX="76.0" layoutY="112.0" />
-                  <TextField fx:id="grade4TextField"  layoutX="76.0" layoutY="150.0" />
-                  <TextField fx:id="grade45TextField"  layoutX="76.0" layoutY="194.0" />
-                  <TextField fx:id="grade5TextField" layoutX="76.0" layoutY="236.0" />
+                  <TextField fx:id="grade35TextField" layoutX="76.0" layoutY="112.0" text="60" />
+                  <TextField fx:id="grade4TextField" layoutX="76.0" layoutY="150.0" text="70" />
+                  <TextField fx:id="grade45TextField" layoutX="76.0" layoutY="194.0" text="80" />
+                  <TextField fx:id="grade5TextField" layoutX="76.0" layoutY="236.0" text="90" />
                   <Label layoutX="18.0" layoutY="34.0" prefHeight="26.0" prefWidth="56.0" text="Ocena">
                      <font>
                         <Font size="17.0" />
