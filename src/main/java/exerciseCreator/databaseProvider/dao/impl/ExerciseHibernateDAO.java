@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 public class ExerciseHibernateDAO implements IExerciseDAO{
@@ -35,6 +37,19 @@ public class ExerciseHibernateDAO implements IExerciseDAO{
         Transaction tx = session.beginTransaction();
         session.save(exercise);
         tx.commit();
+        File file = new File(Exercise.pathToExercises + exercise.getId().toString());
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                System.out.println("Directory is created!");
+                file.setExecutable(true, false);
+                file.setReadable(true, false);
+                file.setWritable(true, false);
+            }
+            else {
+                System.out.println("Failed to create directory!");
+            }
+
+        }
     }
 
     @Override

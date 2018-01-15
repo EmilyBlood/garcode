@@ -36,7 +36,7 @@
                      </font>
                   </Label>
                   <TextArea fx:id="descriptionTextArea" layoutX="42.0" layoutY="115.0" prefHeight="160.0" prefWidth="334.0" />
-                  <TableView fx:id="testCasesTable" layoutX="39.0" layoutY="290.0" prefHeight="200.0" prefWidth="338.0">
+                  <TableView fx:id="testCasesTable" layoutX="41.0" layoutY="298.0" prefHeight="259.0" prefWidth="338.0">
                     <columns>
                       <TableColumn fx:id="parametersInputColumn" prefWidth="100.0" text="Wartość" />
                       <TableColumn fx:id="resultOutputColumn" prefWidth="126.0" text="Spodz. wynik" />
@@ -44,13 +44,13 @@
                     </columns>
                   </TableView>
                   <Button fx:id="addTestCaseButton" layoutX="398.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleAddTestCaseAction" prefHeight="52.0" prefWidth="131.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
-                  <Button fx:id="editTestCaseButton" layoutX="398.0" layoutY="430.0" mnemonicParsing="false" onAction="#handleEditTestCaseAction" prefHeight="54.0" prefWidth="131.0" text="Edytuj przypadek testowy" />
-                  <Button fx:id="deleteTestCaseButton" layoutX="398.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="132.0" text="Usun przypadek testowy" />
+                  <Button fx:id="editTestCaseButton" layoutX="398.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleEditTestCaseAction" prefHeight="54.0" prefWidth="131.0" text="Edytuj przypadek testowy" />
+                  <Button fx:id="deleteTestCaseButton" layoutX="397.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="132.0" text="Usun przypadek testowy" />
                   <Button fx:id="undoButton" layoutX="128.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleUndoAction" prefHeight="26.0" prefWidth="73.0" text="Cofnij" />
                   <Button fx:id="redoButton" layoutX="215.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleRedoAction" text="Odcofnij" />
-                  <Button fx:id="pathButton" layoutX="398.0" layoutY="296.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Przegladaj" onAction="#handlePathSettingAction"/>
-                   <Button fx:id="addThresholdButton" layoutX="397.0" layoutY="166.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="132.0" onAction="#handleAddThresholdAction" text="Progi punktowe ocen" />
-                  <TextField fx:id="pathTextField" layoutX="43.0" layoutY="296.0" prefHeight="26.0" prefWidth="333.0" />
+                  <!--<Button fx:id="pathButton" layoutX="398.0" layoutY="296.0" mnemonicParsing="false" onAction="#handlePathSettingAction" prefHeight="26.0" prefWidth="128.0" text="Przegladaj" />-->
+                   <Button fx:id="addThresholdButton" layoutX="397.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleAddThresholdAction" prefHeight="58.0" prefWidth="132.0" text="Progi punktowe ocen" />
+                  <!--<TextField fx:id="pathTextField" layoutX="43.0" layoutY="296.0" prefHeight="26.0" prefWidth="333.0" />-->
                </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="537.0" prefWidth="198.0">

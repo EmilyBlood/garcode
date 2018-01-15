@@ -2,6 +2,7 @@ package exerciseCreator.executor;
 
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.databaseProvider.session.HibernateSession;
 import notifications.Notifier;
 import notifications.Sender;
 
@@ -28,5 +29,7 @@ public class Main {
         Outcome outcome = outcomeGenerator.generateOutcome();
         Notifier sender = new Sender();
         sender.sendResults(outcome);
+
+        HibernateSession.closeSession();
     }
 }
