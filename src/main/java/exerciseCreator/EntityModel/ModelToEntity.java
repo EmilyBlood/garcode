@@ -30,7 +30,7 @@ public class ModelToEntity {
         Exercise exercise = new Exercise();
         exercise.setDescription(task.getDescription());
         exercise.setTitle(task.getTitle());
-        exercise.setPathToExercises(task.getPathToStudentAnswers());
+        //exercise.setPathToExercises(task.getPathToStudentAnswers());
         for (TestCase testCase : task.getTestCases()) {
             exercise.addTestCase(convertModelTestCaseToEntityTestCase(testCase));
         }

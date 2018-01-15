@@ -95,7 +95,6 @@ public class TaskManagingController {
             ThresholdConroller controller = fxmlLoader.getController();
             controller.setAppController(this);
             controller.setData(task);
-            controller.setCommandRegistry(commandRegistry);
             controller.setDialogStage(stage);
 
             stage.showAndWait();
