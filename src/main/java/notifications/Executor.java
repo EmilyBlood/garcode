@@ -26,5 +26,9 @@ public class Executor {
 //        MailMessageComposer mailMessageComposer = new MailMessageComposer(outcome);
 //        MailSender instructorSender = new MailSender(mailConfiguration, instructorFetcher.getMail(), mailMessageComposer);
 //        instructorSender.sendResults(outcome);
+
+//        Sender sender = new Sender();
+//        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@example.com", "Excellent", "Title", 16, 20, "OK");
+//        sender.sendResults(outcome);
     }
 }
