@@ -108,4 +108,40 @@ public class Outcome {
     public void setErrorDesc(String errorDesc) {
         this.errorDesc = errorDesc;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("First Name: ");
+        builder.append(firstName);
+        builder.append(", ");
+        builder.append("Last Name: ");
+        builder.append(lastName);
+        builder.append(", ");
+        builder.append("E-mail: ");
+        builder.append(email);
+        builder.append(", ");
+        builder.append("Phone: ");
+        builder.append(phoneNumber);
+        builder.append(", ");
+        builder.append("Exercise title: ");
+        builder.append(titleDesc);
+        builder.append(", ");
+        builder.append("Exercise description: ");
+        builder.append(exerciseDesc);
+        builder.append(", ");
+        builder.append("Grade: ");
+        builder.append(grade);
+        builder.append(", ");
+        builder.append("Points: ");
+        builder.append(points);
+        builder.append(", ");
+        builder.append("Max points: ");
+        builder.append(maxPoints);
+        builder.append(", ");
+        builder.append("Error description: ");
+        builder.append(errorDesc);
+        builder.append(", ");
+        return builder.toString();
+    }
 }

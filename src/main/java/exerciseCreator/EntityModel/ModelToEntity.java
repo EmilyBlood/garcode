@@ -30,12 +30,16 @@ public class ModelToEntity {
         Exercise exercise = new Exercise();
         exercise.setDescription(task.getDescription());
         exercise.setTitle(task.getTitle());
-        exercise.setPathToExercises(task.getPathToStudentAnswers());
+        //exercise.setPathToExercises(task.getPathToStudentAnswers());
         for (TestCase testCase : task.getTestCases()) {
             exercise.addTestCase(convertModelTestCaseToEntityTestCase(testCase));
         }
+        exercise.getThresholds().clear();
         for (Threshold threshold : task.getThresholds()) {
-            exercise.addThreshold(threshold);
+            Threshold thresholdNew = new Threshold();
+            thresholdNew.setGrade(threshold.getGrade());
+            thresholdNew.setThreshold(threshold.getThreshold());
+            exercise.addThreshold(thresholdNew);
         }
         return exercise;
     }

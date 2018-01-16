@@ -3,11 +3,10 @@ package exerciseCreator.databaseProvider.dataProvider;
 import exerciseCreator.databaseProvider.dao.IStudentDAO;
 import exerciseCreator.databaseProvider.dao.impl.StudentHibernateDAO;
 import exerciseCreator.databaseProvider.entity.Student;
-import exerciseCreator.databaseProvider.session.HibernateSession;
 
 public class StudentDataProvider {
 
-    IStudentDAO studentDAO = new StudentHibernateDAO(HibernateSession.getSession());
+    IStudentDAO studentDAO = new StudentHibernateDAO();
 
     public Student getStudentByIndexNumber(String indexNumber) {
         return studentDAO.findByIndexNumber(indexNumber);

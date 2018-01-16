@@ -5,6 +5,7 @@ import exerciseCreator.EntityModel.EntityToModel;
 import exerciseCreator.EntityModel.ModelToEntity;
 import exerciseCreator.command.TestCaseCommand.CommandRegistry;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
+import exerciseCreator.databaseProvider.dataProvider.StudentDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.TestCaseDataProvider;
 import exerciseCreator.model.Account;
 import exerciseCreator.model.Task;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -24,15 +26,14 @@ public class TaskManagingController {
     private final Stage primaryStage ;
     private ExerciseDataProvider exerciseDataProvider = new ExerciseDataProvider();
     private TestCaseDataProvider testCaseDataProvider = new TestCaseDataProvider();
+    private StudentDataProvider studentDataProvider = new StudentDataProvider();
     private ModelToEntity modelToEntity = new ModelToEntity(testCaseDataProvider, exerciseDataProvider);
     private EntityToModel entityToModel = new EntityToModel(testCaseDataProvider, exerciseDataProvider);
     private CommandRegistry commandRegistry = new CommandRegistry();
 
-
     public TaskManagingController(Stage primaryStage){
         this.primaryStage = primaryStage;
     }
-
 
     public void initRootLayout() {
         try {
@@ -50,16 +51,22 @@ public class TaskManagingController {
             controller.setData(account);
             controller.setModelToEntity(modelToEntity);
             controller.setExerciseDataProvider(exerciseDataProvider);
+            controller.setStudentDataProvider(studentDataProvider);
             controller.setDialogStage(primaryStage);
-
 
             primaryStage.show();
         } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Oops, coś poszło nie tak");
+            alert.setContentText("Komunikat: " + e.getMessage());
+
+            alert.showAndWait();
             e.printStackTrace();
         }
 
     }
-
 
     public boolean showTestCaseAction(TestCase testcase) {
         try{
@@ -75,7 +82,6 @@ public class TaskManagingController {
             presenter.setDialogStage(stage);
             presenter.setData(testcase);
 
-
             stage.showAndWait();
             return presenter.isApproved();
 
@@ -90,7 +96,6 @@ public class TaskManagingController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ThresholdPane.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
-
             Stage stage = new Stage();
             stage.setTitle("Garcode - dodaj zadanie");
             stage.setScene(new Scene(root1));
@@ -98,9 +103,7 @@ public class TaskManagingController {
             ThresholdConroller controller = fxmlLoader.getController();
             controller.setAppController(this);
             controller.setData(task);
-            controller.setCommandRegistry(commandRegistry);
             controller.setDialogStage(stage);
-
 
             stage.showAndWait();
 
@@ -117,8 +120,6 @@ public class TaskManagingController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../AddTaskPane.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
-
-
             Stage stage = new Stage();
             stage.setTitle("Garcode - dodaj zadanie");
             stage.setScene(new Scene(root1));
@@ -129,7 +130,6 @@ public class TaskManagingController {
             controller.setCommandRegistry(commandRegistry);
             controller.setDialogStage(stage);
 
-
             stage.showAndWait();
 
             return controller.isApproved();
@@ -139,8 +139,6 @@ public class TaskManagingController {
             return false;
         }
     }
-
-
 
     public void setThresholds(ActionEvent event) {
     }

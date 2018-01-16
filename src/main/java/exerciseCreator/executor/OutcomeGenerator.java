@@ -1,6 +1,8 @@
 package exerciseCreator.executor;
 
+import exerciseCreator.databaseProvider.dataProvider.CheckedExerciseDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.StudentDataProvider;
+import exerciseCreator.databaseProvider.entity.CheckedExercise;
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.entity.TestCase;
 import exerciseCreator.databaseProvider.entity.Threshold;
@@ -18,6 +20,8 @@ public class OutcomeGenerator {
     private String studentIndexNumber;
 
     private StudentDataProvider studentDataProvider = new StudentDataProvider();
+
+    private CheckedExerciseDataProvider checkedExerciseDataProvider = new CheckedExerciseDataProvider();
 
     private Exercise exercise;
 
@@ -47,6 +51,8 @@ public class OutcomeGenerator {
         }
         outcome.setPoints(pointsForExercise);
         outcome.setGrade(calculateGrade(pointsForExercise));
+        System.out.println("[Create Outcome]: " + outcome.toString());
+        saveCheckedExercise(pointsForExercise);
         return outcome;
     }
 
@@ -67,5 +73,11 @@ public class OutcomeGenerator {
             }
         }
         return "2.0";
+    }
+
+    private void saveCheckedExercise(Integer pointsForExercise){
+        CheckedExercise checkedExercise = new CheckedExercise(studentDataProvider.getStudentByIndexNumber(studentIndexNumber), exercise, pointsForExercise);
+        checkedExerciseDataProvider.createCheckedExercise(checkedExercise);
+        exercise.getCheckedExercises().add(checkedExercise);
     }
 }

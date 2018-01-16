@@ -1,4 +1,4 @@
-package exerciseCreator.command;
+package exerciseCreator.command.command;
 
 import exerciseCreator.command.TestCaseCommand.AddTestCaseCommand;
 import exerciseCreator.command.TestCaseCommand.CommandRegistry;

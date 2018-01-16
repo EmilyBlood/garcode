@@ -2,18 +2,18 @@ package exerciseCreator.controller;
 
 import exerciseCreator.EntityModel.ModelToEntity;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
+import exerciseCreator.databaseProvider.dataProvider.StudentDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
-import exerciseCreator.executor.mock.StudentsPopulator;
+import exerciseCreator.databaseProvider.entity.Student;
 import exerciseCreator.model.Account;
 import exerciseCreator.model.Task;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.*;
 
 public class AccountOverViewController {
 
@@ -22,7 +22,10 @@ public class AccountOverViewController {
     private TaskManagingController appController;
 
     private ModelToEntity modelToEntity;
+
     private ExerciseDataProvider exerciseDataProvider;
+
+    private StudentDataProvider studentDataProvider;
 
     private Stage dialogStage;
 
@@ -38,7 +41,7 @@ public class AccountOverViewController {
     private TableColumn<Task, String> descriptionColumn;
 
     @FXML
-    private Button handleAddTaskPaneButton;
+    private Button showAddTaskPaneButton;
 
     @FXML
     private Button editTaskButton;
@@ -47,7 +50,7 @@ public class AccountOverViewController {
     private  Button deleteTaskButton;
 
     @FXML
-    private  Button gradeTaskButton;
+    private  Button loadStudentDataButton;
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
@@ -74,11 +77,6 @@ public class AccountOverViewController {
                         .getSelectedItems()));
 
         editTaskButton.disableProperty().bind(
-                Bindings.size(
-                        tasksTable.getSelectionModel()
-                                .getSelectedItems()).isNotEqualTo(1));
-
-        gradeTaskButton.disableProperty().bind(
                 Bindings.size(
                         tasksTable.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
@@ -114,16 +112,53 @@ public class AccountOverViewController {
     private void handleAddTaskAction(ActionEvent event) {
         Task task = Task.newTask();
 
-        if (appController.showAddTaskAction(task)) {
-            modelToEntity.addTaskAndTestCasesToDatabase(task);
-            account.addtask(task);
+        try {
+            if (appController.showAddTaskAction(task)) {
+                modelToEntity.addTaskAndTestCasesToDatabase(task);
+                account.addtask(task);
+            }
+        } catch (Exception e) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Oops, coś poszło nie tak!");
+            alert.setContentText("Komunikat: " + e.getMessage());
+            alert.showAndWait();
+            e.printStackTrace();
         }
     }
 
     @FXML
-    private void handleGradeTaskAction(ActionEvent event) {
-        StudentsPopulator populator = new StudentsPopulator();
-        populator.populateStudents();
+    private void handleStudentDataAction(ActionEvent event) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File csvFile = new File(classLoader.getResource("students.csv").getFile());
+        BufferedReader buffer = null;
+        String line;
+        try {
+            buffer = new BufferedReader(new FileReader(csvFile));
+            while ((line = buffer.readLine()) != null) {
+                String[] studentCSV = line.split(",");
+                Student student = new Student();
+                student.setFirstName(studentCSV[0]);
+                student.setLastName(studentCSV[1]);
+                student.setIndexNumber(studentCSV[2]);
+                student.setEmail(studentCSV[3]);
+                student.setPhoneNumber(studentCSV[4]);
+                studentDataProvider.createStudent(student);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (buffer != null) {
+                try {
+                    buffer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
@@ -132,11 +167,9 @@ public class AccountOverViewController {
         tasksTable.setItems(account.getTasks());
     }
 
-    public void setAppController(TaskManagingController
-                                         appController) {
+    public void setAppController(TaskManagingController appController) {
         this.appController = appController;
     }
-
 
     public void setModelToEntity(ModelToEntity modelToEntity) {
         this.modelToEntity = modelToEntity;
@@ -144,5 +177,9 @@ public class AccountOverViewController {
 
     public void setExerciseDataProvider(ExerciseDataProvider exerciseDataProvider) {
         this.exerciseDataProvider = exerciseDataProvider;
+    }
+
+    public void setStudentDataProvider(StudentDataProvider studentDataProvider) {
+        this.studentDataProvider = studentDataProvider;
     }
 }

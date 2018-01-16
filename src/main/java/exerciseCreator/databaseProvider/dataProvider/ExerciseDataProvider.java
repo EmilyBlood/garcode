@@ -4,13 +4,12 @@ import exerciseCreator.databaseProvider.dao.IExerciseDAO;
 import exerciseCreator.databaseProvider.dao.impl.ExerciseHibernateDAO;
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.entity.TestCase;
-import exerciseCreator.databaseProvider.session.HibernateSession;
 
 import java.util.List;
 
 public class ExerciseDataProvider {
 
-    IExerciseDAO exerciseDAO = new ExerciseHibernateDAO(HibernateSession.getSession());
+    IExerciseDAO exerciseDAO = new ExerciseHibernateDAO();
 
     public List<Exercise> getAllExercises() {
         return exerciseDAO.findAll();

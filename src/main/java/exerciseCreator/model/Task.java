@@ -15,7 +15,7 @@ public class Task {
 
     private StringProperty description;
 
-    private StringProperty pathToStudentAnswers;
+   // private StringProperty pathToStudentAnswers;
 
     private ObservableList<TestCase> testCases;
 
@@ -26,7 +26,7 @@ public class Task {
         this.description = new SimpleStringProperty(description);
         this.testCases = FXCollections.observableArrayList();
         this.thresholds = FXCollections.observableArrayList();
-        this.pathToStudentAnswers = new SimpleStringProperty("");
+       // this.pathToStudentAnswers = new SimpleStringProperty("");
         this.id = -1;
     }
 
@@ -42,7 +42,7 @@ public class Task {
         this.description = new SimpleStringProperty("");
         this.testCases = FXCollections.observableArrayList();
         this.thresholds = FXCollections.observableArrayList();
-        this.pathToStudentAnswers = new SimpleStringProperty("");
+       // this.pathToStudentAnswers = new SimpleStringProperty("");
         this.id = -1;
     }
 
@@ -101,15 +101,15 @@ public class Task {
         this.id = id;
     }
 
-    public String getPathToStudentAnswers() {
-        return pathToStudentAnswers.get();
-    }
-
-    public StringProperty pathToStudentAnswersProperty() {
-        return pathToStudentAnswers;
-    }
-
-    public void setPathToStudentAnswers(String pathToStudentAnswers) {
-        this.pathToStudentAnswers.set(pathToStudentAnswers);
-    }
+//    public String getPathToStudentAnswers() {
+//        return pathToStudentAnswers.get();
+//    }
+//
+//    public StringProperty pathToStudentAnswersProperty() {
+//        return pathToStudentAnswers;
+//    }
+//
+//    public void setPathToStudentAnswers(String pathToStudentAnswers) {
+//        this.pathToStudentAnswers.set(pathToStudentAnswers);
+//    }
 }
