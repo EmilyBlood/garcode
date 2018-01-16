@@ -1,5 +1,8 @@
 package exerciseCreator.databaseProvider.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,17 +22,20 @@ public class Exercise {
     private String description;
 
     //public static final String pathToExercises = "/home/kevin/SemesterV/TO2/Projekt/WprostDoGit/garcode/src/main/resources/studentExercises/";
-    public static final String pathToExercises =  "../../../src/main/resources/exerciseCreator/";
+    public String pathToExercises =  "../../../src/main/resources/exerciseCreator/";
     ///main/resources/studentExercises/
     ///main/java/exerciseCreator/databaseProvider/entity/Exercise.java
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<TestCase> testCases = new ArrayList<>();
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exercise", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private Set<CheckedExercise> checkedExercises;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "EXERCISE_FK")
     private List<Threshold> thresholds = new ArrayList<>();
 
@@ -70,9 +76,9 @@ public class Exercise {
         return pathToExercises;
     }
 
-//    public void setPathToExercises(String pathToExercises) {
-//        this.pathToExercises = pathToExercises;
-//    }
+    public void setPathToExercises(String pathToExercises) {
+        this.pathToExercises = pathToExercises;
+    }
 
     public List<TestCase> getTestCases() {
         return testCases;
@@ -91,6 +97,4 @@ public class Exercise {
     }
 
     public List<Threshold> getThresholds() { return thresholds;}
-
-    public void setThresholds(List<Threshold> thresholds) { this.thresholds = thresholds; }
 }

@@ -4,10 +4,9 @@ package exerciseCreator;
 import exerciseCreator.controller.TaskManagingController;
 import exerciseCreator.databaseProvider.session.HibernateSession;
 import javafx.application.Application;
-import javafx.stage.DirectoryChooser;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
-
-import java.io.File;
+import javafx.stage.WindowEvent;
 
 
 public class Main extends Application {
@@ -28,8 +27,10 @@ public class Main extends Application {
         this.taskManagingController = new TaskManagingController(primaryStage);
         this.taskManagingController.initRootLayout();
 
-       // HibernateSession.closeSession();
+        this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent we) {
+                 HibernateSession.closeSession();
+            }
+        });
     }
-
-
 }
