@@ -4,6 +4,7 @@ import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -48,17 +49,49 @@ public class ThresholdConroller {
 
     public void setThresholds(ActionEvent event) {
 
-        ArrayList<Threshold> thresholds = new ArrayList<>();
-        thresholds.add(new Threshold("3", Float.parseFloat(grade3TextField.getText())));
-        thresholds.add(new Threshold("3.5", Float.parseFloat(grade35TextField.getText())));
-        thresholds.add(new Threshold("4", Float.parseFloat(grade4TextField.getText())));
-        thresholds.add(new Threshold("4.5", Float.parseFloat(grade45TextField.getText())));
-        thresholds.add(new Threshold("5", Float.parseFloat(grade5TextField.getText())));
 
-        thresholds.forEach(t -> task.addThreshold(t));
+        try {
+            ArrayList<Threshold> thresholds = new ArrayList<>();
+            thresholds.add(new Threshold("3", Float.parseFloat(grade3TextField.getText())));
+            thresholds.add(new Threshold("3.5", Float.parseFloat(grade35TextField.getText())));
+            thresholds.add(new Threshold("4", Float.parseFloat(grade4TextField.getText())));
+            thresholds.add(new Threshold("4.5", Float.parseFloat(grade45TextField.getText())));
+            thresholds.add(new Threshold("5", Float.parseFloat(grade5TextField.getText())));
 
-        dialogStage.close();
+            if(!isInputValid(thresholds)){
+                throw new Exception();
+            }
+
+            thresholds.forEach(t -> task.addThreshold(t));
+
+            dialogStage.close();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Niepoprawne dane");
+            alert.setContentText("Wprowadzone dane są niepoprawne!");
+
+            alert.showAndWait();
+        }
     }
+
+    private boolean isInputValid(ArrayList<Threshold> thresholds) {
+
+        float thresholdToCompare = 0.0f ;
+
+        for (Threshold tr : thresholds){
+            if(0 > tr.getThreshold() && tr.getThreshold() > 100){
+                return false;
+            }
+
+            if(thresholdToCompare >= tr.getThreshold())
+                return false;
+            thresholdToCompare = tr.getThreshold();
+
+        }
+        return true;
+    }
+
 
     public void onCancelAction(ActionEvent event) {dialogStage.close();  }
 
@@ -91,7 +124,5 @@ public class ThresholdConroller {
         }
 
     }
-
-
 }
 
