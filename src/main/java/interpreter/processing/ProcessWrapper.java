@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 
 public class ProcessWrapper{
@@ -18,11 +19,11 @@ public class ProcessWrapper{
     private final Optional<String> stdErr;
 
 
-    public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout) throws ProcessException {
+    public ProcessWrapper(List<String> command, Duration timeout) throws ProcessException {
         long startTime = System.nanoTime();
 
         try {
-            process = processBuilder.start();
+            process = new ProcessBuilder(command).start();
 
             new Thread(() -> {
                 try {
@@ -41,7 +42,7 @@ public class ProcessWrapper{
             throw new ProcessIOException();
         } catch (InterruptedException e) {
             throw new ProcessTimeoutException();
-       } finally {
+        } finally {
             this.executionTime = Duration.ofNanos(System.nanoTime() - startTime);
             this.stdOut = Optional.ofNullable(process).map(p -> this.extractBuffer(p.getInputStream()));
             this.stdErr = Optional.ofNullable(process).map(p -> this.extractBuffer(p.getErrorStream()));

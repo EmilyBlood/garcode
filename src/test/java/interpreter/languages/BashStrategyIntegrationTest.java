@@ -24,7 +24,7 @@ class BashStrategyIntegrationTest {
 //    private BashInterpreter interpreter;
     private InterpretingStrategy strategy = new BashStrategy();
     private String testCodes = "src/test/resources/testCodes/bash/";
-    private TestCase testCaseMock = new TestCase("", "", 1, 0);
+    private TestCase testCaseMock = new TestCase("2", "2", 1, 0);
 
     @BeforeEach
     void setUp() {
@@ -56,5 +56,11 @@ class BashStrategyIntegrationTest {
     @Test
     void timeoutTest() throws ProcessException {
         assertThrows(ProcessTimeoutException.class, () -> {strategy.testCaseResult(new File(testCodes + "bash_infinite.sh"), testCaseMock);});
+    }
+
+    @Test
+    void cmdTest() throws ProcessException {
+        Result result = strategy.testCaseResult(new File(testCodes + "bash_cmd.sh"), testCaseMock);
+        assertEquals(testCaseMock.getResultOutputWithNewLine(), result.getStdOut().get());
     }
 }
