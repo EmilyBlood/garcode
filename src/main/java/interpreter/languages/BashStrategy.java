@@ -9,6 +9,9 @@ import interpreter.processing.exceptions.ProcessException;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BashStrategy implements InterpretingStrategy {
 
@@ -26,7 +29,11 @@ public class BashStrategy implements InterpretingStrategy {
                 shellPath,
                 binary.getAbsolutePath()
         );
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+
+        List<String> command = new ArrayList<>(Arrays.asList("/usr/bin/env", shellPath, binary.getAbsolutePath()));
+        command.addAll(testCase.getParametersList());
+
+        ProcessWrapper wrapper = new ProcessWrapper(command, Duration.ofSeconds(testCase.getTimeLimit()));
         return new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
     }
 

@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class IconStrategy implements InterpretingStrategy{
@@ -33,8 +36,10 @@ public class IconStrategy implements InterpretingStrategy{
                 sourceCode.getAbsolutePath()
         );
 
+        List<String> command = Arrays.asList("icont", "-o", binaryPath, sourceCode.getAbsolutePath());
+
         try {
-            new ProcessWrapper(processBuilder, Duration.ofHours(1));
+            new ProcessWrapper(command, Duration.ofHours(1));
         } catch (ProcessCommonException e) {
             throw new SetupException(e.getStdErr());
         } catch (ProcessException ignored) {}
@@ -46,11 +51,10 @@ public class IconStrategy implements InterpretingStrategy{
 
         //iconx binary
 
-        ProcessBuilder processBuilder = new ProcessBuilder(
-                shellPath,
-                binary.getAbsolutePath()
-        );
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+        List<String> command = new ArrayList<>(Arrays.asList(shellPath, binary.getAbsolutePath()));
+        command.addAll(testCase.getParametersList());
+
+        ProcessWrapper wrapper = new ProcessWrapper(command, Duration.ofSeconds(testCase.getTimeLimit()));
         return new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
     }
 

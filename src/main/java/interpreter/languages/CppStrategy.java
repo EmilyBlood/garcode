@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CppStrategy extends CStrategy{
@@ -28,8 +30,10 @@ public class CppStrategy extends CStrategy{
                 binaryPath
         );
 
+        List<String> command = Arrays.asList("g++", sourceCode.getAbsolutePath(), "-o", binaryPath);
+
         try {
-            new ProcessWrapper(processBuilder, Duration.ofHours(1));
+            new ProcessWrapper(command, Duration.ofHours(1));
         } catch (ProcessCommonException e) {
             throw new SetupException(e.getStdErr());
         } catch (ProcessException ignored) {}
