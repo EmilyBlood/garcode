@@ -14,9 +14,9 @@ class FileMessageComposerTest {
 
     @Test
     void composeMessage() {
-        assertEquals("Użytkownik Adam Adamiak,\n" +
-                "Ocena: 10,\n" +
-                "Komentarze: Excellent,\n", fileMessageComposer.composeMessage().substring(0, 59));
+        assertEquals("Użytkownik Adam Adamiak, " +
+                "Ocena: 10, " +
+                "Komentarze: Excellent, ", fileMessageComposer.composeMessage().substring(0, 59));
     }
 
     @Test
