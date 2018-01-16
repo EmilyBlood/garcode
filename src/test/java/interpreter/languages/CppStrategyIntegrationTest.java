@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class CppStrategyIntegrationTest {
     private Interpreter interpreter;
     private String testCodes = "src/test/resources/testCodes/Cpp/";
-    private TestCase testCaseMock = new TestCase("", "", 1, 0);
+    private TestCase testCaseMock = new TestCase("", "", 1);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
     private String example = "Cpp-example.cpp";

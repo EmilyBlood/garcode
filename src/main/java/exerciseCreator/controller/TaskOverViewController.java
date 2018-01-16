@@ -4,13 +4,17 @@ import exerciseCreator.command.TestCaseCommand.AddTestCaseCommand;
 import exerciseCreator.command.TestCaseCommand.CommandRegistry;
 import exerciseCreator.command.TestCaseCommand.EditTestCaseCommand;
 import exerciseCreator.command.TestCaseCommand.RemoveTestCaseCommand;
+import exerciseCreator.databaseProvider.entity.Threshold;
 import exerciseCreator.model.Task;
 import exerciseCreator.model.TestCase;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 
 public class TaskOverViewController {
@@ -23,6 +27,9 @@ public class TaskOverViewController {
 
     @FXML
     private TextField titleTextField;
+
+    @FXML
+    private TextField pathTextField;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -44,6 +51,12 @@ public class TaskOverViewController {
 
     @FXML
     private Button editTestCaseButton;
+
+    @FXML
+    private Button pathButton;
+
+    @FXML
+    public Button thresholdButton;
 
     @FXML
     private Button addTestCaseButton;
@@ -98,6 +111,16 @@ public class TaskOverViewController {
     }
 
     @FXML
+    private void handlePathSettingAction(ActionEvent event){
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("JavaFX Projects");
+        File defaultDirectory = new File("/");
+        chooser.setInitialDirectory(defaultDirectory);
+        File selectedDirectory = chooser.showDialog(new Stage());
+        pathTextField.setText(selectedDirectory.getAbsolutePath());
+    }
+
+    @FXML
     private void handleDeleteTestCaseAction(ActionEvent event) {
         for (TestCase testCase : testCasesTable.getSelectionModel()
                 .getSelectedItems()) {
@@ -124,6 +147,14 @@ public class TaskOverViewController {
         if (appController.showTestCaseAction(testCase)) {
             AddTestCaseCommand addTestCaseCommand = new AddTestCaseCommand(testCase, task);
             commandRegistry.executeCommand(addTestCaseCommand);
+        }
+    }
+
+    @FXML
+    private void handleAddThresholdAction(ActionEvent event) {
+        Threshold threshold = new Threshold();
+        if (appController.showAddThresholdAction(task)) {
+
         }
     }
 
@@ -159,13 +190,14 @@ public class TaskOverViewController {
 
     @FXML
     private void handleCancelAction(ActionEvent event) {
+        //cofnij wszystkie dodane przypadki testowe
         dialogStage.close();
     }
 
     private boolean isInputValid() {
         if(!titleTextField.getText().isEmpty() &&
                 !descriptionTextArea.getText().isEmpty() &&
-                task.getTestCases().size() >= 2)
+                task.getTestCases().size() >= 0)
             return true;
         return false;
     }
@@ -173,12 +205,13 @@ public class TaskOverViewController {
     private void updateModel() {
         task.setTitle(titleTextField.getText());
         task.setDescription(descriptionTextArea.getText());
-
+        task.setPathToStudentAnswers(pathTextField.getText());
 
     }
 
     private void updateControls() {
         titleTextField.setText(task.getTitle());
         descriptionTextArea.setText(task.getDescription());
+        pathTextField.setText(task.getPathToStudentAnswers());
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="327.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.ThresholdConroller">
+    <center>
+        <SplitPane dividerPositions="0.608433734939759" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="283.0">
+                    <children>
+                        <Label layoutX="29.0" layoutY="73.0" prefHeight="28.0" prefWidth="23.0" text="3.0">
+                            <font>
+                                <Font size="17.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="grade3TextField" layoutX="76.0" layoutY="75.0" />
+                  <Label layoutX="28.0" layoutY="109.0" prefHeight="30.0" prefWidth="25.0" text="3.5">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Label>
+                  <Label layoutX="29.0" layoutY="150.0" text="4.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Label>
+                  <Label layoutX="29.0" layoutY="193.0" text="4.5">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Label>
+                  <Label layoutX="29.0" layoutY="235.0" text="5.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font></Label>
+                  <TextField fx:id="grade35TextField" layoutX="76.0" layoutY="112.0" />
+                  <TextField fx:id="grade4TextField"  layoutX="76.0" layoutY="150.0" />
+                  <TextField fx:id="grade45TextField"  layoutX="76.0" layoutY="194.0" />
+                  <TextField fx:id="grade5TextField" layoutX="76.0" layoutY="236.0" />
+                  <Label layoutX="18.0" layoutY="34.0" prefHeight="26.0" prefWidth="56.0" text="Ocena">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="79.0" layoutY="34.0" text="Próg punktowy [%]">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+
+                    </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="302.0">
+                    <children>
+                        <Button fx:id="finalAddTestCaseButton" layoutX="38.0" layoutY="170.0" mnemonicParsing="false" onAction="#setThresholds" prefHeight="68.0" prefWidth="115.0" text="Dodaj" textAlignment="CENTER" wrapText="true" />
+                        <Button layoutX="38.0" layoutY="68.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="70.0" prefWidth="116.0" text="Wróć" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>

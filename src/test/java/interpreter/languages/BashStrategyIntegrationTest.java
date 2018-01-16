@@ -1,19 +1,17 @@
 package interpreter.languages;
 
 import exerciseCreator.databaseProvider.entity.TestCase;
-import interpreter.Interpreter;
+import interpreter.ExitValue;
 import interpreter.InterpretingStrategy;
 import interpreter.Result;
-
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
-
-import interpreter.ExitValue;
 import interpreter.processing.exceptions.ProcessException;
 import interpreter.processing.exceptions.ProcessTimeoutException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
+import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag("IntegrationTest")
 class BashStrategyIntegrationTest {
 
-//    private BashInterpreter interpreter;
     private InterpretingStrategy strategy = new BashStrategy();
     private String testCodes = "src/test/resources/testCodes/bash/";
     private TestCase testCaseMock = new TestCase("2", "2", 1, 0);
+
 
     @BeforeEach
     void setUp() {

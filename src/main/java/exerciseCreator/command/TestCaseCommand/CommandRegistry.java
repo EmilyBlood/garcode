@@ -39,4 +39,8 @@ public class CommandRegistry {
 	public ObservableList<Command> getCommandStack() {
 		return commandStack;
 	}
+
+	public ObservableList<Command> getUndoCommandStack() {
+		return undoCommandStack;
+	}
 }

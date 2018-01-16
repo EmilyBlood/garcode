@@ -1,0 +1,4 @@
+Użytkownik %name% %surname%,
+Ocena: %grade%,
+Komentarze: %comment%,
+%fileInfo%;

@@ -18,11 +18,17 @@ public class Exercise {
     @Column(length = 1024)
     private String description;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    private String pathToExercises;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<TestCase> testCases = new ArrayList<>();
 
     @OneToMany(mappedBy = "exercise")
     private Set<CheckedExercise> checkedExercises;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "EXERCISE_FK")
+    private List<Threshold> thresholds = new ArrayList<>();
 
     public Exercise(){
     }
@@ -57,6 +63,14 @@ public class Exercise {
         this.description = description;
     }
 
+    public String getPathToExercises() {
+        return pathToExercises;
+    }
+
+    public void setPathToExercises(String pathToExercises) {
+        this.pathToExercises = pathToExercises;
+    }
+
     public List<TestCase> getTestCases() {
         return testCases;
     }
@@ -65,7 +79,15 @@ public class Exercise {
         this.testCases.add(testCase);
     }
 
+    public void addThreshold(Threshold threshold) {
+        this.thresholds.add(threshold);
+    }
+
     public Set<CheckedExercise> getCheckedExercises() {
         return checkedExercises;
     }
+
+    public List<Threshold> getThresholds() { return thresholds;}
+
+    public void setThresholds(List<Threshold> thresholds) { this.thresholds = thresholds; }
 }
