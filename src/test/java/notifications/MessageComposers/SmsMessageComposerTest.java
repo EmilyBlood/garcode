@@ -20,7 +20,7 @@ public class SmsMessageComposerTest {
 
     @Test
     void composeMessage() {
-        assertEquals("Adam Adamiak,\nOcena: 10,\n", smsMessageComposer.composeMessage());
+        assertEquals("Adam Adamiak,\nOcena: 10\n", smsMessageComposer.composeMessage());
     }
 
 }

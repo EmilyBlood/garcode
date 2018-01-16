@@ -1,30 +1,51 @@
 package notifications;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.*;
+import java.util.Properties;
 
 public class FileConfiguration {
-    private Path filepath;
-    private String filename;
+    private String filepath = null;
+    private InputStream inputStream = null;
+    private Properties prop = new Properties();
 
-    public FileConfiguration(String name, String desc) {
-        this.filename = name.trim() + desc.trim() + "_results.txt"; // config
-        this.filepath = Paths.get(filename);
+    public FileConfiguration() {
+        this.filepath = getFilepath();
     }
 
-    public Path getFilepath() {
+    public FileConfiguration(String specialFilename) {
+        this.filepath = specialFilename;
+    }
+
+    public String getFilepath() {
+        if(filepath == null)
+            try {
+                filepath = fetchFilepath();
+            } catch (IOException e) {
+                filepath = "resultsException.txt";
+            }
         return filepath;
     }
 
-    public void setFilepath(Path filepath) {
+    public void setFilepath(String filepath) {
         this.filepath = filepath;
     }
 
-    public String getFilename() {
-        return filename;
+    protected String fetchFilepath() throws IOException{
+        String filepathString;
+        try{
+            inputStream = new FileInputStream("src/main/resources/config.properties");
+            prop.load(inputStream);
+            filepathString = prop.getProperty("recordsPath");
+        } finally {
+            if(inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return filepathString;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
 }

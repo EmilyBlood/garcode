@@ -33,10 +33,10 @@ public class Sender implements Notifier{
         mailSender.configure(mailConfiguration, instructorFetcher.getMail(), mailMessageComposer);
         mailSender.sendResults(outcome);
 
-        FileConfiguration fileConfiguration = new FileConfiguration(outcome.getLastName(), outcome.getTitleDesc());
+        FileConfiguration fileConfiguration = new FileConfiguration();
         FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
 
-        fileExporter.configure(fileConfiguration.getFilepath(), fileConfiguration.getFilename(), fileMessageComposer);
+        fileExporter.configure(fileConfiguration.getFilepath(), fileMessageComposer);
         fileExporter.sendResults(outcome);
 
         if(outcome.getPhoneNumber() != null) {

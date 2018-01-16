@@ -15,9 +15,9 @@ public class FileMessageComposer extends MessageComposer {
         return super.composeMessage(Paths.get("src/main/resources/messageContent/fileMessageContent.txt"));
     }
 
-//    @Override
-//    protected String formatMessageText(String line) {
-//        line = line.replaceAll("%fileInfo%", "Wygenerowano " + LocalDateTime.now().toString());
-//        return super.formatMessageText(line);
-//    }
+    @Override
+    protected String formatMessageText(String line) {
+        line = line.replaceAll("%fileInfo%", "Wygenerowano " + LocalDateTime.now().toString());
+        return super.formatMessageText(line);
+    }
 }

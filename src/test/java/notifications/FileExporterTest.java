@@ -17,12 +17,11 @@ class FileExporterTest {
 
     @BeforeEach
     void setUp() {
-        String filename = "results.txt";
-        Path filepath = Paths.get(filename);
+        String filename = "testresults.txt";
         outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
         FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
         fileExporter = new FileExporter();
-        fileExporter.configure(filepath, filename, fileMessageComposer);
+        fileExporter.configure(filename, fileMessageComposer);
     }
 
     @Test

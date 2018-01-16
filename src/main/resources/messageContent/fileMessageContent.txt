@@ -1,4 +1,1 @@
-Użytkownik %name% %surname%,
-Ocena: %grade%,
-Komentarze: %comment%,
-%fileInfo%;
+Użytkownik %name% %surname%, Ocena: %grade%, Komentarze: %comment%, %fileInfo%;
