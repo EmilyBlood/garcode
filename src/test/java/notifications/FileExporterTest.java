@@ -21,7 +21,8 @@ class FileExporterTest {
         Path filepath = Paths.get(filename);
         outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
         FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
-        fileExporter = new FileExporter(filepath, filename, fileMessageComposer);
+        fileExporter = new FileExporter();
+        fileExporter.configure(filepath, filename, fileMessageComposer);
     }
 
     @Test

@@ -10,7 +10,7 @@ public class SmsSenderMockTest {
     SmsSender smsSender;
 
     @Test
-    public void test1() {
+    public void sendResults() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
 
         ArgumentCaptor<Outcome> outcomeCaptor = ArgumentCaptor.forClass(Outcome.class);

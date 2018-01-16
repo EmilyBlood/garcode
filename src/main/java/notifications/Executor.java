@@ -6,12 +6,18 @@ package notifications;
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.MailMessageComposer;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class Executor {
 
     public static void main(String[] args) throws Exception {
-//        SmsSender smsSender = new SmsSender();
-//        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "xxx", "test@test.com", "Excellent", "Title", 16, 20);
-//        smsSender.sendResults(outcome);
+        MailSender mailSender = new MailSender();
+        FileExporter fileExporter = new FileExporter();
+        SmsSender smsSender = new SmsSender();
+        InstructorFetcher instructorFetcher = new InstructorFetcher();
+        Sender sender = new Sender(mailSender, smsSender, fileExporter, instructorFetcher);
+        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
+        sender.sendResults(outcome);
 
 //        InstructorFetcher instructorFetcher = new InstructorFetcher();
 //        System.out.println(instructorFetcher.getMail());

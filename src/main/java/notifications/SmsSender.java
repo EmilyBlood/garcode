@@ -15,7 +15,7 @@ import notifications.MessageComposers.SmsMessageComposer;
 public class SmsSender implements Notifier {
     private MessageComposer messageComposer;
 
-    public SmsSender(MessageComposer messageComposer) {
+    public void configure(MessageComposer messageComposer) {
         this.messageComposer = messageComposer;
     }
 

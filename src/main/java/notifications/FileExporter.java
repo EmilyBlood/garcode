@@ -16,7 +16,7 @@ public class FileExporter implements Notifier {
     String filename;
     private MessageComposer messageComposer;
 
-    public FileExporter(Path path, String filename, MessageComposer mC) {
+    public void configure(Path path, String filename, MessageComposer mC) {
         this.path = path;
         this.filename = filename;
         this.messageComposer = mC;

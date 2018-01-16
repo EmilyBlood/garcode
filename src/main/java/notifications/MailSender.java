@@ -17,10 +17,22 @@ public class MailSender implements Notifier {
     private String participantEmail;
     private MessageComposer messageComposer;
 
-    public MailSender(MailConfiguration mConf, String participantEmail, MessageComposer mC){
+    public void configure(MailConfiguration mConf, String participantEmail, MessageComposer mC){
         this.mailConfiguration = mConf;
         this.participantEmail = participantEmail;
         this.messageComposer = mC;
+    }
+
+    public void setMailConfiguration(MailConfiguration mailConfiguration) {
+        this.mailConfiguration = mailConfiguration;
+    }
+
+    public void setParticipantEmail(String participantEmail) {
+        this.participantEmail = participantEmail;
+    }
+
+    public void setMessageComposer(MessageComposer messageComposer) {
+        this.messageComposer = messageComposer;
     }
 
     public void sendResults(Outcome outcome) {
