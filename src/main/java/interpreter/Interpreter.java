@@ -36,7 +36,7 @@ public class Interpreter {
             return results;
 
         } catch (SetupException e) {
-            return testCases.stream().map(testCase -> new Result(Optional.empty(), Optional.empty(), Duration.ZERO, ExitValue.COMPILATION_ERR)).collect(Collectors.toList());
+            return testCases.stream().map(testCase -> Result.badResult(Optional.empty(), ExitValue.COMPILATION_ERR)).collect(Collectors.toList());
         }
     }
 }
