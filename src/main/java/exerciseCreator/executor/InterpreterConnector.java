@@ -2,9 +2,8 @@ package exerciseCreator.executor;
 
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.entity.TestCase;
-import exerciseCreator.executor.mock.InterpreterMock;
-import interpreter.Interpreter;
 import interpreter.Result;
+import interpreter.TestCaseRunner;
 
 import java.io.File;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public class InterpreterConnector {
 
-    private Interpreter interpreter;
+    private TestCaseRunner interpreter;
 
     private List<TestCase> testCases;
 
@@ -21,14 +20,12 @@ public class InterpreterConnector {
 
     public InterpreterConnector(Exercise exercise, File sourceCode){
         this.testCases = exercise.getTestCases();
-        this.interpreter = new InterpreterMock();
-//        this.interpreter = ;
-        //TODO dodac instancje interpretera
+        this.interpreter = new TestCaseRunner();
         sendExerciseToInterpreter(sourceCode);
     }
 
     private void sendExerciseToInterpreter(File sourceCode){
-        this.result = interpreter.executeSolution(sourceCode, testCases);
+        this.result = interpreter.runTestCases(sourceCode, testCases);
     }
 
     public Map<TestCase, Result> getResultsMap() {

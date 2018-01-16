@@ -1,6 +1,8 @@
 package exerciseCreator.databaseProvider.entity;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "TEST_CASE")
@@ -19,17 +21,13 @@ public class TestCase {
     @Column(name = "TIME_LIMIT", nullable = false)
     private Integer timeLimit;
 
-    @Column(name = "POINTS_FOR_TEST")
-    private Integer pointsForTest;
-
     public TestCase(){
     }
 
-    public TestCase(String parametersInput, String resultOutput, Integer timeLimit, Integer pointsForTest) {
+    public TestCase(String parametersInput, String resultOutput, Integer timeLimit) {
         this.parametersInput = parametersInput;
         this.resultOutput = resultOutput;
         this.timeLimit = timeLimit;
-        this.pointsForTest = pointsForTest;
     }
 
     public Integer getId() {
@@ -44,6 +42,8 @@ public class TestCase {
         return parametersInput;
     }
 
+    public List<String> getParametersList(){return Arrays.asList(parametersInput.split(" "));}
+
     public void setParametersInput(String parametersInput) {
         this.parametersInput = parametersInput;
     }
@@ -51,6 +51,7 @@ public class TestCase {
     public String getResultOutput() {
         return resultOutput;
     }
+    public String getResultOutputWithNewLine() { return resultOutput + "\n"; }
 
     public void setResultOutput(String resultOutput) {
         this.resultOutput = resultOutput;
@@ -62,13 +63,5 @@ public class TestCase {
 
     public void setTimeLimit(Integer timeLimit) {
         this.timeLimit = timeLimit;
-    }
-
-    public Integer getPointsForTest() {
-        return pointsForTest;
-    }
-
-    public void setPointsForTest(Integer pointsForTest) {
-        this.pointsForTest = pointsForTest;
     }
 }

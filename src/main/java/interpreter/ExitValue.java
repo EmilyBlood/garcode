@@ -22,5 +22,13 @@ public enum ExitValue {
      */
     IO_ERR,
 
+    /*
+    For files which need compilation, if it fails.
+    */
+    COMPILATION_ERR,
+
+    /*
+    Something else has happened - perhaps stdErr will give more insight?
+     */
     UNKNOWN
 }

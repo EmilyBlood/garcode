@@ -1,31 +1,29 @@
 package interpreter.processing;
 
-import interpreter.ExitValue;
 import interpreter.processing.exceptions.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 
 public class ProcessWrapper{
 
     private Process process;
 
-
-
     private final Duration executionTime;
-    private final ExceptionUtilities trigger = new ExceptionUtilities();
     private final Optional<String> stdOut;
     private final Optional<String> stdErr;
 
 
-    public ProcessWrapper(ProcessBuilder processBuilder, Duration timeout) throws ProcessException {
+    public ProcessWrapper(List<String> command, Duration timeout) throws ProcessException {
         long startTime = System.nanoTime();
 
         try {
-            process = processBuilder.start();
+            process = new ProcessBuilder(command).start();
 
             new Thread(() -> {
                 try {
@@ -39,24 +37,21 @@ public class ProcessWrapper{
 
             }).start();
             process.waitFor();
+
         } catch (IOException e){
             throw new ProcessIOException();
         } catch (InterruptedException e) {
             throw new ProcessTimeoutException();
-       } finally {
+        } finally {
             this.executionTime = Duration.ofNanos(System.nanoTime() - startTime);
-            BufferedReader outBufferedReader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
+            this.stdOut = Optional.ofNullable(process).map(p -> this.extractBuffer(p.getInputStream()));
+            this.stdErr = Optional.ofNullable(process).map(p -> this.extractBuffer(p.getErrorStream()));
 
-            this.stdOut = extractBuffer(outBufferedReader);
-            BufferedReader errBufferedReader = new BufferedReader(
-                    new InputStreamReader(process.getErrorStream())
-            );
-            this.stdErr = extractBuffer(errBufferedReader);
-            trigger.trigger(process.exitValue(), stdErr);
-
+            // java y u not let into checked exceptions in lambdas :/
+            if(process != null){
+                ProcessException.throwOnExitValue(process.exitValue(), stdErr);
+            }
         }
-
     }
 
     public Optional<String> getStdOut(){
@@ -71,22 +66,18 @@ public class ProcessWrapper{
         return executionTime;
     }
 
-    private Optional<String> extractBuffer(BufferedReader reader){
-
+    private String extractBuffer(InputStream stream){
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(stream));
         StringBuilder builder = new StringBuilder();
-
         String line;
-
         try{
             while ((line = reader.readLine()) != null){
                 builder.append(line).append("\n");
             }
-            return Optional.of(builder.toString());
+            return builder.toString();
         } catch (IOException e){
-            return Optional.empty();
+            return null;
         }
-
-
     }
-
 }

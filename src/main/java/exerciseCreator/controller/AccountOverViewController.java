@@ -3,16 +3,17 @@ package exerciseCreator.controller;
 import exerciseCreator.EntityModel.ModelToEntity;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
+import exerciseCreator.executor.mock.StudentsPopulator;
 import exerciseCreator.model.Account;
 import exerciseCreator.model.Task;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class AccountOverViewController {
 
@@ -121,7 +122,8 @@ public class AccountOverViewController {
 
     @FXML
     private void handleGradeTaskAction(ActionEvent event) {
-        
+        StudentsPopulator populator = new StudentsPopulator();
+        populator.populateStudents();
     }
 
 

@@ -2,8 +2,8 @@ package exerciseCreator.executor;
 
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
-import exerciseCreator.executor.mock.SenderMock;
 import notifications.Notifier;
+import notifications.Sender;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -26,9 +26,7 @@ public class Main {
         InterpreterConnector interpreterConnector = new InterpreterConnector(exercise, pathToSourceCode);
         OutcomeGenerator outcomeGenerator = new OutcomeGenerator(interpreterConnector.getResultsMap(), pathToSourceCode, exercise);
         Outcome outcome = outcomeGenerator.generateOutcome();
-        Notifier senderMock = new SenderMock();
-//        Notifier sender = new Sender();
-//        senderMock.sendResults(outcome);
-        //TODO dodac instacje sendera
+        Notifier sender = new Sender();
+        sender.sendResults(outcome);
     }
 }

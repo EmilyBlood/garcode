@@ -2,7 +2,6 @@ package exerciseCreator.executor;
 
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.entity.Student;
-import exerciseCreator.databaseProvider.entity.TestCase;
 
 public class OutcomeBuilder {
 
@@ -23,7 +22,7 @@ public class OutcomeBuilder {
     public OutcomeBuilder exercise(Exercise exercise){
         this.outcome.setExerciseDesc(exercise.getDescription());
         this.outcome.setTitleDesc(exercise.getTitle());
-        this.outcome.setMaxPoints(exercise.getTestCases().stream().mapToInt(TestCase::getPointsForTest).sum());
+        this.outcome.setMaxPoints(exercise.getTestCases().size());
         return this;
     }
 
