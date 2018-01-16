@@ -1,6 +1,8 @@
 package exerciseCreator.databaseProvider.entity;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "TEST_CASE")
@@ -40,6 +42,8 @@ public class TestCase {
         return parametersInput;
     }
 
+    public List<String> getParametersList(){return Arrays.asList(parametersInput.split(" "));}
+
     public void setParametersInput(String parametersInput) {
         this.parametersInput = parametersInput;
     }
@@ -47,6 +51,7 @@ public class TestCase {
     public String getResultOutput() {
         return resultOutput;
     }
+    public String getResultOutputWithNewLine() { return resultOutput + "\n"; }
 
     public void setResultOutput(String resultOutput) {
         this.resultOutput = resultOutput;

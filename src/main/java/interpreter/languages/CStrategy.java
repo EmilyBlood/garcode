@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class CStrategy implements InterpretingStrategy{
@@ -28,8 +32,10 @@ public class CStrategy implements InterpretingStrategy{
                 binaryPath
         );
 
+        List<String> command = Arrays.asList("gcc", sourceCode.getAbsolutePath(), "-o", binaryPath);
+
         try {
-            new ProcessWrapper(processBuilder, Duration.ofHours(1));
+            new ProcessWrapper(command, Duration.ofHours(1));
         } catch (ProcessCommonException e) {
             throw new SetupException(e.getStdErr());
         } catch (ProcessException ignored) {}
@@ -39,8 +45,10 @@ public class CStrategy implements InterpretingStrategy{
     @Override
     public Result testCaseResult(File binary, TestCase testCase) throws ProcessException {
 
-        ProcessBuilder processBuilderCase = new ProcessBuilder(binary.getAbsolutePath());
-        ProcessWrapper wrapper = new ProcessWrapper(processBuilderCase, Duration.ofSeconds(testCase.getTimeLimit()));
+        List<String> command = new ArrayList<>(Collections.singletonList(binary.getAbsolutePath()));
+        command.addAll(testCase.getParametersList());
+
+        ProcessWrapper wrapper = new ProcessWrapper(command, Duration.ofSeconds(testCase.getTimeLimit()));
         return new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
     }
 

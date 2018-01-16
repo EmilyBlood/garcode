@@ -10,6 +10,9 @@ import interpreter.processing.exceptions.ProcessException;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +34,10 @@ public class PythonStrategy implements InterpretingStrategy {
 
         ProcessWrapper wrapper;
         try{
-            wrapper = new ProcessWrapper(processBuilder, Duration.ofSeconds(testCase.getTimeLimit()));
+            List<String> command = new ArrayList<>(Arrays.asList("/usr/bin/env", shellPath, binary.getAbsolutePath()));
+            command.addAll(testCase.getParametersList());
+
+            wrapper = new ProcessWrapper(command, Duration.ofSeconds(testCase.getTimeLimit()));
             return new Result(wrapper.getStdOut(), wrapper.getStdErr(), wrapper.getExecutionTime(), ExitValue.NORMAL_EXECUTION);
 
         }  catch (ProcessCommonException e){
