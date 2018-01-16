@@ -4,6 +4,7 @@ import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.ExitValue;
 import interpreter.InterpretingStrategy;
 import interpreter.Result;
+import interpreter.processing.exceptions.ProcessCommonException;
 import interpreter.processing.exceptions.ProcessException;
 import interpreter.processing.exceptions.ProcessTimeoutException;
 import org.junit.jupiter.api.AfterEach;
@@ -23,6 +24,11 @@ class BashStrategyIntegrationTest {
     private String testCodes = "src/test/resources/testCodes/bash/";
     private TestCase testCaseMock = new TestCase("2", "2", 1);
 
+    private String example = "bash_example.sh";
+    private String infinite = "bash_infinite.sh";
+    private String syntaxErr = "bash_syntaxerr.sh";
+    private String cmd = "bash_cmd.sh";
+
 
     @BeforeEach
     void setUp() {
@@ -34,31 +40,42 @@ class BashStrategyIntegrationTest {
 
 
     @Test
-    void interpretationResultStdOut() throws ProcessException {
-        Result result = strategy.testCaseResult(new File(testCodes + "bash_test.sh"), testCaseMock);
+    void interpretationResultStdOutTest() throws ProcessException {
+        Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
         assertTrue(result.getStdOut().orElse("").contains("garcode"));
     }
 
     @Test
-    void interpretationResultStdErr() throws ProcessException {
-        Result result = strategy.testCaseResult(new File(testCodes + "bash_test.sh"),testCaseMock);
+    void interpretationResultStdErrTest() throws ProcessException {
+        Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
         assertTrue(result.getStdErr().orElse("").contains("error!"));
     }
 
     @Test
-    void interpretationResultErrno() throws ProcessException {
-        Result result = strategy.testCaseResult(new File(testCodes + "bash_test.sh"), testCaseMock);
+    void interpretationExecutionTimeTest() throws ProcessException {
+        Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
+        assertTrue(result.getExecutionTime().toMillis()/1000 < testCaseMock.getTimeLimit());
+    }
+
+    @Test
+    void interpretationResultErrnoNormalExecutionTest() throws ProcessException {
+        Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
         assertEquals(ExitValue.NORMAL_EXECUTION, result.getExitValue());
     }
 
     @Test
+    void syntaxErrorTest() throws ProcessException {
+        assertThrows(ProcessCommonException.class, () -> {strategy.testCaseResult(new File(testCodes + syntaxErr), testCaseMock);});
+    }
+
+    @Test
     void timeoutTest() throws ProcessException {
-        assertThrows(ProcessTimeoutException.class, () -> {strategy.testCaseResult(new File(testCodes + "bash_infinite.sh"), testCaseMock);});
+        assertThrows(ProcessTimeoutException.class, () -> {strategy.testCaseResult(new File(testCodes + infinite), testCaseMock);});
     }
 
     @Test
     void cmdTest() throws ProcessException {
-        Result result = strategy.testCaseResult(new File(testCodes + "bash_cmd.sh"), testCaseMock);
+        Result result = strategy.testCaseResult(new File(testCodes + cmd), testCaseMock);
         assertEquals(testCaseMock.getResultOutputWithNewLine(), result.getStdOut().get());
     }
 }
