@@ -1,4 +1,4 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import com.nexmo.client.NexmoClient;
 import com.nexmo.client.auth.AuthMethod;
@@ -8,6 +8,7 @@ import com.nexmo.client.sms.messages.TextMessage;
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.MessageComposer;
 import notifications.MessageComposers.SmsMessageComposer;
+import notifications.Notifier;
 
 /**
  * Created by michal on 09/01/18.

@@ -4,6 +4,9 @@ import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
 import notifications.MessageComposers.MailMessageComposer;
 import notifications.MessageComposers.SmsMessageComposer;
+import notifications.SpecializedSenders.*;
+import notifications.SpecializedSenders.Configuration.FileConfiguration;
+import notifications.SpecializedSenders.Configuration.MailConfiguration;
 
 public class Sender implements Notifier{
     private InstructorFetcher instructorFetcher;

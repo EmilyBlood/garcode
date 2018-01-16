@@ -1,10 +1,10 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.MailMessageComposer;
+import notifications.SpecializedSenders.Configuration.MailConfiguration;
+import notifications.SpecializedSenders.MailSender;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MailSenderTest {
     private MailSender sender;

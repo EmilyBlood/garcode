@@ -1,4 +1,4 @@
-package notifications;
+package notifications.SpecializedSenders.Configuration;
 
 import java.io.*;
 import java.util.Properties;
@@ -30,7 +30,7 @@ public class FileConfiguration {
         this.filepath = filepath;
     }
 
-    protected String fetchFilepath() throws IOException{
+    private String fetchFilepath() throws IOException{
         String filepathString;
         try{
             inputStream = new FileInputStream("src/main/resources/config.properties");

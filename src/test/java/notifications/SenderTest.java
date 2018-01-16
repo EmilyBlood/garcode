@@ -1,6 +1,9 @@
 package notifications;
 
 import exerciseCreator.executor.Outcome;
+import notifications.SpecializedSenders.FileExporter;
+import notifications.SpecializedSenders.MailSender;
+import notifications.SpecializedSenders.SmsSender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;

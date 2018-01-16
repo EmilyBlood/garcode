@@ -1,15 +1,10 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
+import notifications.SpecializedSenders.FileExporter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FileExporterTest {
     FileExporter fileExporter;

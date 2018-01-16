@@ -1,9 +1,10 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
 import notifications.MessageComposers.MailMessageComposer;
 import notifications.MessageComposers.MessageComposer;
+import notifications.Notifier;
 
 import java.io.*;
 import java.nio.file.Files;

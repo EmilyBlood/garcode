@@ -1,6 +1,7 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
+import notifications.SpecializedSenders.SmsSender;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
