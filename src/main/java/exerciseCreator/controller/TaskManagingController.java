@@ -40,7 +40,7 @@ public class TaskManagingController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../OverviewPane.fxml"));
             BorderPane rootLayout = (BorderPane) loader.load();
 
-            Scene scene = new Scene(rootLayout, 600, 600);
+            Scene scene = new Scene(rootLayout, 800, 600);
 
             primaryStage.setTitle("FXML Welcome");
             primaryStage.setScene(scene);

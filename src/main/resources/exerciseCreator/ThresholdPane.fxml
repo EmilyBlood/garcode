@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="327.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.ThresholdConroller">
+<BorderPane prefHeight="327.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.ThresholdConroller">
     <center>
-        <SplitPane dividerPositions="0.608433734939759" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.5278276481149012" prefHeight="327.0" prefWidth="538.0" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="283.0">
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="347.0">
                     <children>
-                        <Label layoutX="29.0" layoutY="73.0" prefHeight="28.0" prefWidth="23.0" text="3.0">
+                        <Label layoutX="29.0" layoutY="73.0" prefHeight="28.0" prefWidth="38.0" text="3.0">
                             <font>
                                 <Font size="17.0" />
                             </font>
                         </Label>
                         <TextField fx:id="grade3TextField" layoutX="76.0" layoutY="75.0" text="50" />
-                  <Label layoutX="28.0" layoutY="109.0" prefHeight="30.0" prefWidth="25.0" text="3.5">
+                  <Label layoutX="28.0" layoutY="109.0" prefHeight="30.0" prefWidth="34.0" text="3.5">
                      <font>
                         <Font size="17.0" />
                      </font></Label>
@@ -52,7 +52,7 @@
                   </Label>
 
                     </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="525.0" prefWidth="302.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="325.0" prefWidth="174.0">
                     <children>
                         <Button fx:id="finalAddTestCaseButton" layoutX="38.0" layoutY="170.0" mnemonicParsing="false" onAction="#setThresholds" prefHeight="68.0" prefWidth="115.0" text="Dodaj" textAlignment="CENTER" wrapText="true" />
                         <Button layoutX="38.0" layoutY="68.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="70.0" prefWidth="116.0" text="Wróć" />
