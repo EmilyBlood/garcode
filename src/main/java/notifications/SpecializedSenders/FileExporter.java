@@ -1,31 +1,32 @@
-package notifications;
+package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
 import notifications.MessageComposers.MailMessageComposer;
 import notifications.MessageComposers.MessageComposer;
+import notifications.Notifier;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FileExporter implements Notifier {
-    Path path;
-    String filename;
+    private String path;
     private MessageComposer messageComposer;
 
-    public FileExporter(Path path, String filename, MessageComposer mC) {
+    public void configure(String path, MessageComposer mC) {
         this.path = path;
-        this.filename = filename;
         this.messageComposer = mC;
     }
 
     @Override
     public void sendResults(Outcome outcome) {
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(messageComposer.composeMessage());
+        System.out.println(path);
+        try (FileWriter fileWriter = new FileWriter(path, true);
+             BufferedWriter writer = new BufferedWriter(fileWriter);
+             PrintWriter printWriter = new PrintWriter(writer)) {
+            //writer.write(messageComposer.composeMessage());
+            printWriter.print(messageComposer.composeMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

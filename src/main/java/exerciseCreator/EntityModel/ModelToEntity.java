@@ -34,8 +34,12 @@ public class ModelToEntity {
         for (TestCase testCase : task.getTestCases()) {
             exercise.addTestCase(convertModelTestCaseToEntityTestCase(testCase));
         }
+        exercise.getThresholds().clear();
         for (Threshold threshold : task.getThresholds()) {
-            exercise.addThreshold(threshold);
+            Threshold thresholdNew = new Threshold();
+            thresholdNew.setGrade(threshold.getGrade());
+            thresholdNew.setThreshold(threshold.getThreshold());
+            exercise.addThreshold(thresholdNew);
         }
         return exercise;
     }

@@ -3,11 +3,10 @@ package exerciseCreator.databaseProvider.dataProvider;
 import exerciseCreator.databaseProvider.dao.ITestCaseDAO;
 import exerciseCreator.databaseProvider.dao.impl.TestCaseHibernateDAO;
 import exerciseCreator.databaseProvider.entity.TestCase;
-import exerciseCreator.databaseProvider.session.HibernateSession;
 
 public class TestCaseDataProvider {
 
-    ITestCaseDAO testCaseDAO = new TestCaseHibernateDAO(HibernateSession.getSession());
+    ITestCaseDAO testCaseDAO = new TestCaseHibernateDAO();
 
     public TestCase getTestCaseById(Integer testCaseId) {
         return testCaseDAO.findById(testCaseId);

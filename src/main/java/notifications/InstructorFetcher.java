@@ -4,14 +4,11 @@ import java.io.*;
 import java.util.Properties;
 
 public class InstructorFetcher {
-    InputStream inputStream = null;
-    OutputStream outputStream = null;
-    Properties prop = new Properties();
-    String mail = null;
+    private InputStream inputStream = null;
+    private OutputStream outputStream = null;
+    private Properties prop = new Properties();
+    private String mail = null;
 
-    public InstructorFetcher() {
-
-    }
 
     private String fetchMail() {
         String mail = null;
