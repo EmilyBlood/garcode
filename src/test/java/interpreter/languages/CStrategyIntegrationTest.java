@@ -4,7 +4,9 @@ import exerciseCreator.databaseProvider.entity.TestCase;
 import interpreter.ExitValue;
 import interpreter.Interpreter;
 import interpreter.Result;
+import interpreter.processing.exceptions.ProcessException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -12,16 +14,17 @@ import java.util.Collections;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Tag("IntegrationTest")
 public class CStrategyIntegrationTest {
     private Interpreter interpreter;
     private String testCodes = "src/test/resources/testCodes/C/";
-    private TestCase testCaseMock = new TestCase("", "", 1);
+    private TestCase testCaseMock = new TestCase("2", "2", 3);
     private List<TestCase> caseMocks = Collections.singletonList(testCaseMock);
 
-    private String example = "C-example.c";
-    private String syntaxErr = "C-syntaxerr.c";
-    private String infinite = "C-infinite.c";
+    private String example = "C_example.c";
+    private String syntaxErr = "C_syntaxerr.c";
+    private String infinite = "C_infinite.c";
+    private String cmd = "C_cmd.c";
 
     @BeforeEach
     void setUp() {
@@ -29,21 +32,45 @@ public class CStrategyIntegrationTest {
     }
 
     @Test
-    void interpretationsResultsCount() {
+    void interpretationsResultsCountTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
         assertEquals(caseMocks.size(), results.size());
     }
 
     @Test
-    void interpretationResultErrno1() {
+    void interpretationResultStdOutTest() throws ProcessException {
+        List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
+        assertTrue(results.get(0).getStdOut().orElse("").contains("garcode"));
+    }
+
+    @Test
+    void interpretationResultStdErrTest() throws ProcessException {
+        List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
+        assertTrue(results.get(0).getStdErr().orElse("").contains("error!"));
+    }
+
+    @Test
+    void interpretationExecutionTimeTest() throws ProcessException {
+        List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
+        assertTrue(results.get(0).getExecutionTime().toMillis()/1000 < testCaseMock.getTimeLimit());
+    }
+
+    @Test
+    void interpretationResultErrnoNormalExecutionTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
         assertEquals(ExitValue.NORMAL_EXECUTION, results.get(0).getExitValue());
     }
 
     @Test
-    void interpretationResultErrno2() {
+    void interpretationResultErrnoCompilationErrorTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
         assertEquals(ExitValue.COMPILATION_ERR, results.get(0).getExitValue());
+    }
+
+    @Test
+    void timeoutErrnoTest() {
+        List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
+        assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
     }
 
     @Test
@@ -53,11 +80,10 @@ public class CStrategyIntegrationTest {
     }
 
     @Test
-    void timeoutTestErrno() {
-        List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
-        assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
+    void cmdTest() throws ProcessException {
+        List<Result> results = interpreter.executeSolution(new File(testCodes + cmd), caseMocks);
+        assertEquals(testCaseMock.getResultOutputWithNewLine(), results.get(0).getStdOut().get());
     }
-
 }
 
 
