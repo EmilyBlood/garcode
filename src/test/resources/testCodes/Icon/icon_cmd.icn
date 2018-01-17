@@ -1,0 +1,4 @@
+procedure main(args)
+	k := integer(args[1]) | 1
+    write(k)
+end

@@ -2,6 +2,7 @@ package interpreter;
 
 
 import exerciseCreator.databaseProvider.entity.TestCase;
+import interpreter.processing.exceptions.ProcessCommonException;
 import interpreter.processing.exceptions.ProcessException;
 import interpreter.processing.exceptions.ProcessTimeoutException;
 
@@ -27,6 +28,8 @@ public class Interpreter {
                     return strategy.testCaseResult(binary, testCase);
                 } catch (ProcessTimeoutException e){
                     return Result.badResult(Optional.empty(), ExitValue.TERMINATED);
+                } catch (ProcessCommonException e) {
+                    return Result.badResult(e.getStdErr(), ExitValue.UNKNOWN);
                 } catch (ProcessException e){
                     return Result.badResult(Optional.empty(), ExitValue.UNKNOWN);
                 }

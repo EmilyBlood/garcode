@@ -1,0 +1,3 @@
+procedure main()
+     write ( "I am code, garcode" );
+end
