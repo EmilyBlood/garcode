@@ -14,9 +14,9 @@ class FileExporterTest {
     void setUp() {
         String filename = "testresults.txt";
         outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
-        FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
-        fileExporter = new FileExporter();
-        fileExporter.configure(filename, fileMessageComposer);
+        FileMessageComposer fileMessageComposer = new FileMessageComposer();
+//        fileExporter = new FileExporter();
+//        fileExporter.configure(filename, fileMessageComposer);
     }
 
     @Test

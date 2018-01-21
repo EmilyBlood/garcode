@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 public abstract class MessageComposer {
     private Outcome outcome;
 
-    public MessageComposer(Outcome outcome) {
-        this.outcome = outcome;
-    }
+//    public MessageComposer(Outcome outcome) {
+//        this.outcome = outcome;
+//    }
 
     public Outcome getOutcome() {
         return outcome;

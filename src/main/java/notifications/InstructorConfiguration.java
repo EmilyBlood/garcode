@@ -1,13 +1,16 @@
 package notifications;
 
+import exerciseCreator.executor.Outcome;
+
 import java.io.*;
 import java.util.Properties;
 
-public class InstructorFetcher {
+public class InstructorConfiguration {
     private InputStream inputStream = null;
     private OutputStream outputStream = null;
     private Properties prop = new Properties();
     private String mail = null;
+    private String number = null;
 
 
     private String fetchMail() {
@@ -37,6 +40,13 @@ public class InstructorFetcher {
         return mail;
     }
 
+    public String getNumber() {
+        if(this.number == null) {
+            this.number = fetchMail();
+        }
+        return number;
+    }
+
     public void setMail(String mail) {
         try{
             outputStream = new FileOutputStream("config.properties");
@@ -54,5 +64,12 @@ public class InstructorFetcher {
                 }
             }
         }
+    }
+
+    public Outcome getInstructorOutcome(Outcome outcomeSource) {
+        Outcome outcome = new Outcome(outcomeSource);
+        outcome.setPhoneNumber(number);
+        outcome.setEmail(mail);
+        return outcome;
     }
 }

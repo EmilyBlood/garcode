@@ -16,7 +16,7 @@ public class SmsMessageComposerTest {
     SmsMessageComposer smsMessageComposer;
 
     @BeforeEach
-    void setUp() {smsMessageComposer = new SmsMessageComposer(outcome);}
+    void setUp() {smsMessageComposer = new SmsMessageComposer();}
 
     @Test
     void composeMessage() {

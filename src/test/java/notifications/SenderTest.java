@@ -1,5 +1,6 @@
 package notifications;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import exerciseCreator.executor.Outcome;
 import notifications.SpecializedSenders.FileExporter;
 import notifications.SpecializedSenders.MailSender;
@@ -11,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.LinkedList;
+import java.util.List;
+
 
 class SenderTest {
     @Mock
@@ -20,7 +24,7 @@ class SenderTest {
     @Mock
     private SmsSender smsSender;
     @Mock
-    private InstructorFetcher instructorFetcher;
+    private InstructorConfiguration instructorConfiguration;
 
     private Sender sender;
 
@@ -30,20 +34,28 @@ class SenderTest {
 
     @BeforeEach
     public void setUp() {
-        this.sender = new Sender(mailSender, smsSender, fileExporter, instructorFetcher);
+        List<Notifier> senders = new LinkedList<>();
+        senders.add(mailSender);
+        senders.add(smsSender);
+        senders.add(fileExporter);
+        this.sender = new Sender(senders);
 
         Mockito.doNothing().when(mailSender).sendResults(Matchers.anyObject());
         Mockito.doNothing().when(fileExporter).sendResults(Matchers.anyObject());
         Mockito.doNothing().when(smsSender).sendResults(Matchers.anyObject());
-        Mockito.when(instructorFetcher.getMail()).thenReturn("test@example.com");
+        Mockito.when(instructorConfiguration.getMail()).thenReturn("test@example.com");
+        Mockito.when(instructorConfiguration.getNumber()).thenReturn("123456789");
     }
 
     @Test
     void sendResultsAll() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
         sender.sendResults(outcome);
-
-        Mockito.verify(mailSender, Mockito.times(2)).sendResults(Matchers.anyObject());
+        Outcome outcomeInst = new Outcome(outcome);
+        Mockito.when(instructorConfiguration.getInstructorOutcome(outcome)).thenReturn(outcomeInst);
+        //Mockito.verify(mailSender, Mockito.times(2)).sendResults(Matchers.anyObject());
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcomeInst);
         Mockito.verify(smsSender, Mockito.times(1)).sendResults(Matchers.anyObject());
         Mockito.verify(fileExporter, Mockito.times(1)).sendResults(Matchers.anyObject());
     }
@@ -100,3 +112,7 @@ class SenderTest {
     }
 
 }
+
+
+// SenderTest.java - sprawdzać czy konkretnie dobre maile się wysyłają w Mockito.verify(mailSender, Mockito.times(2)).sendResults(Matchers.anyObject());
+// (Zmienić Matchers.anyObject() na konkret i sprawdzać czy się wysłało
