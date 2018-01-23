@@ -41,6 +41,7 @@ public class ModelToEntity {
             thresholdNew.setThreshold(threshold.getThreshold());
             exercise.addThreshold(thresholdNew);
         }
+        //task.setId(exercise.getId());
         return exercise;
     }
 
