@@ -16,12 +16,15 @@ import javax.mail.internet.MimeMessage;
 
 public class MailSender implements Notifier {
     private MailConfiguration mailConfiguration;
-    private String participantEmail;
     private MessageComposer messageComposer;
 
-    public void configure(MailConfiguration mConf, String participantEmail, MessageComposer mC){
-        this.mailConfiguration = mConf;
-        this.participantEmail = participantEmail;
+    private MailSender(MailSenderBuilder mailSenderBuilder) {
+        this.mailConfiguration = mailSenderBuilder.mailConfiguration;
+        this.messageComposer = mailSenderBuilder.messageComposer;
+    }
+
+    public void configure(String participantEmail, MessageComposer mC){
+        this.mailConfiguration = mailConfiguration;
         this.messageComposer = mC;
     }
 
@@ -29,21 +32,20 @@ public class MailSender implements Notifier {
         this.mailConfiguration = mailConfiguration;
     }
 
-    public void setParticipantEmail(String participantEmail) {
-        this.participantEmail = participantEmail;
-    }
-
     public void setMessageComposer(MessageComposer messageComposer) {
         this.messageComposer = messageComposer;
     }
 
     public void sendResults(Outcome outcome) {
+        if(outcome.getEmail() == null) return;
+
+        messageComposer.setOutcome(outcome);
         MailConnector mailConnector = new MailConnector(mailConfiguration);
         Session session = mailConnector.getSession();
         MimeMessage message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress(mailConfiguration.getUsername()));
-            InternetAddress toAddress = new InternetAddress(participantEmail);
+            InternetAddress toAddress = new InternetAddress(outcome.getEmail());
             message.addRecipient(Message.RecipientType.TO, toAddress);
             message.setSubject("Garcode - zgłoszenie");
             message.setText(messageComposer.composeMessage());
@@ -54,6 +56,29 @@ public class MailSender implements Notifier {
         }
         catch (Exception me) {
             me.printStackTrace();
+        }
+    }
+    public static class MailSenderBuilder {
+        private MailConfiguration mailConfiguration;
+        private MessageComposer messageComposer;
+
+        public MailSenderBuilder (MailConfiguration mailConfiguration, MessageComposer messageComposer) {
+            this.mailConfiguration = mailConfiguration;
+            this.messageComposer = messageComposer;
+        }
+
+        public MailSenderBuilder mailConfiguration(MailConfiguration mailConfiguration) {
+            this.mailConfiguration = mailConfiguration;
+            return this;
+        }
+
+        public MailSenderBuilder messageComposer(MessageComposer messageComposer) {
+            this.messageComposer = messageComposer;
+            return this;
+        }
+
+        public MailSender build() {
+            return new MailSender(this);
         }
     }
 }

@@ -16,11 +16,18 @@ import notifications.Notifier;
 public class SmsSender implements Notifier {
     private MessageComposer messageComposer;
 
-    public void configure(MessageComposer messageComposer) {
-        this.messageComposer = messageComposer;
+    public SmsSender(SmsSenderBuilder smsSenderBuilder) {
+        this.messageComposer = smsSenderBuilder.messageComposer;
     }
 
+//    public void configure(MessageComposer messageComposer) {
+//        this.messageComposer = messageComposer;
+//    }
+
     public void sendResults(Outcome outcome) {
+        if(outcome.getPhoneNumber() == null) return;
+
+        messageComposer.setOutcome(outcome);
         String apiKey = "xxx"; // nie umieszczam tu swoich danych, bo sa powiazane z moim numerem telefonu - nie chcialbym tego wrzucac na publiczne repo
         String apiSecret = "xxx";
         AuthMethod auth = new TokenAuthMethod(apiKey, apiSecret);
@@ -37,5 +44,17 @@ public class SmsSender implements Notifier {
         }
         catch (Exception e) {}
 
+    }
+
+    public static class SmsSenderBuilder {
+        private MessageComposer messageComposer;
+
+        public SmsSenderBuilder(MessageComposer messageComposer) {
+            this.messageComposer = messageComposer;
+        }
+
+        public SmsSender build() {
+            return new SmsSender(this);
+        }
     }
 }

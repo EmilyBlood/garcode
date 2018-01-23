@@ -5,9 +5,9 @@ import exerciseCreator.executor.Outcome;
 import java.nio.file.Paths;
 
 public class MailMessageComposer extends MessageComposer {
-    public MailMessageComposer(Outcome outcome) {
-        super(outcome);
-    }
+//    public MailMessageComposer(Outcome outcome) {
+//        super(outcome);
+//    }
 
     @Override
     public String composeMessage() {

@@ -29,6 +29,19 @@ public class Outcome {
         this.errorDesc = errorDesc;
     }
 
+    public Outcome(Outcome outcome) {
+        this.grade = outcome.grade;
+        this.firstName = outcome.firstName;
+        this.lastName = outcome.lastName;
+        this.phoneNumber = outcome.phoneNumber;
+        this.email = outcome.email;
+        this.exerciseDesc = outcome.exerciseDesc;
+        this.titleDesc = outcome.titleDesc;
+        this.points = outcome.points;
+        this.maxPoints = outcome.maxPoints;
+        this.errorDesc = outcome.errorDesc;
+    }
+
     public String getGrade() {
         return grade;
     }

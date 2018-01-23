@@ -13,7 +13,8 @@ class MailMessageComposerTest {
 
     @BeforeEach
     void setUp() {
-        mailMessageComposer = new MailMessageComposer(outcome);
+        mailMessageComposer = new MailMessageComposer();
+        mailMessageComposer.setOutcome(outcome);
     }
 
     @Test
