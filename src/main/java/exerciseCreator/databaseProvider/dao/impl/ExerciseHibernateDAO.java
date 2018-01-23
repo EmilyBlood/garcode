@@ -45,6 +45,8 @@ public class ExerciseHibernateDAO implements IExerciseDAO{
             session.save(exercise);
             tx.commit();
             String path = exercise.pathToExercises + exercise.getId().toString();
+            //System.out.println(path);
+
             File file = new File(path);
             if (!file.exists()) {
                 if (file.mkdir()) {

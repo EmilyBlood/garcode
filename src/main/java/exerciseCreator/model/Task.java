@@ -1,6 +1,5 @@
 package exerciseCreator.model;
 
-
 import exerciseCreator.databaseProvider.entity.Threshold;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -9,7 +8,7 @@ import javafx.collections.ObservableList;
 
 public class Task {
 
-    private int id;
+    private StringProperty Id = new SimpleStringProperty("-1");
 
     private StringProperty title;
 
@@ -27,7 +26,7 @@ public class Task {
         this.testCases = FXCollections.observableArrayList();
         this.thresholds = FXCollections.observableArrayList();
        // this.pathToStudentAnswers = new SimpleStringProperty("");
-        this.id = -1;
+       // this.Id = new SimpleStringProperty("-1");
     }
 
     public ObservableList<Threshold> getThresholds() {
@@ -42,8 +41,9 @@ public class Task {
         this.description = new SimpleStringProperty("");
         this.testCases = FXCollections.observableArrayList();
         this.thresholds = FXCollections.observableArrayList();
+        //this.Id = new SimpleStringProperty("-1");
        // this.pathToStudentAnswers = new SimpleStringProperty("");
-        this.id = -1;
+       // this.id = -1;
     }
 
 
@@ -92,24 +92,16 @@ public class Task {
         this.testCases.remove(testCase);
     }
 
-
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
-        this.id = id;
+        this.Id.setValue(Integer.toString(id));
     }
 
-//    public String getPathToStudentAnswers() {
-//        return pathToStudentAnswers.get();
-//    }
-//
-//    public StringProperty pathToStudentAnswersProperty() {
-//        return pathToStudentAnswers;
-//    }
-//
-//    public void setPathToStudentAnswers(String pathToStudentAnswers) {
-//        this.pathToStudentAnswers.set(pathToStudentAnswers);
-//    }
+    public final int getId() {
+        return Integer.parseInt(Id.getValue());
+    }
+
+    public final StringProperty getIdProperty() {
+        return Id;
+    }
+
 }

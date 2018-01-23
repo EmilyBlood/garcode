@@ -21,10 +21,8 @@ public class Exercise {
     @Column(length = 1024)
     private String description;
 
-    //public static final String pathToExercises = "/home/kevin/SemesterV/TO2/Projekt/WprostDoGit/garcode/src/main/resources/studentExercises/";
-    public String pathToExercises =  "../../../src/main/resources/exerciseCreator/";
-    ///main/resources/studentExercises/
-    ///main/java/exerciseCreator/databaseProvider/entity/Exercise.java
+    public String pathToExercises =  "src/main/resources/studentExercises/";
+
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)

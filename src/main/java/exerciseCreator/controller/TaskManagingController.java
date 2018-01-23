@@ -37,7 +37,7 @@ public class TaskManagingController {
 
     public void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../OverviewPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/OverviewPane.fxml"));
             BorderPane rootLayout = (BorderPane) loader.load();
 
             Scene scene = new Scene(rootLayout, 800, 600);
@@ -70,8 +70,7 @@ public class TaskManagingController {
 
     public boolean showTestCaseAction(TestCase testcase) {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NewTestCasePane.fxml"));
-         //   fxmlLoader.setLocation(getClass().getResource("../NewTestCasePane.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/NewTestCasePane.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -93,7 +92,7 @@ public class TaskManagingController {
 
     public boolean showAddThresholdAction(Task task) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ThresholdPane.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/ThresholdPane.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -117,7 +116,7 @@ public class TaskManagingController {
 
     public boolean showAddTaskAction(Task task) {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../AddTaskPane.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/AddTaskPane.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
 
             Stage stage = new Stage();

@@ -35,6 +35,9 @@ public class AccountOverViewController {
     private TableView<Task> tasksTable;
 
     @FXML
+    private TableColumn<Task, String> idColumn;
+
+    @FXML
     private TableColumn<Task, String> titleColumn;
 
     @FXML
@@ -71,6 +74,8 @@ public class AccountOverViewController {
                 .getTitleProperty());
         descriptionColumn.setCellValueFactory(dataValue -> dataValue.getValue()
                 .getDescriptionProperty());
+        idColumn.setCellValueFactory(dataValue -> dataValue.getValue()
+                .getIdProperty());
         
         deleteTaskButton.disableProperty().bind(
                 Bindings.isEmpty(tasksTable.getSelectionModel()

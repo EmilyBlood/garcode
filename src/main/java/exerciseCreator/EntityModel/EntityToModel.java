@@ -34,7 +34,7 @@ public class EntityToModel {
 
     private Task convertExerciseToTask(Exercise exercise) {
         Task task = new Task();
-        task.setId(exercise.getId().intValue());
+        task.setId(exercise.getId());
         task.setDescription(exercise.getDescription());
         task.setTitle(exercise.getTitle());
        // task.setPathToStudentAnswers(exercise.getPathToExercises());
@@ -44,6 +44,7 @@ public class EntityToModel {
         for (Threshold threshold: exercise.getThresholds()){
             task.addThreshold(threshold);
         }
+
         return task;
     }
 
