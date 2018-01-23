@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 
 @Tag("IntegrationTest")
@@ -42,25 +44,25 @@ class BashStrategyIntegrationTest {
     @Test
     void interpretationResultStdOutTest() throws ProcessException {
         Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
-        assertTrue(result.getStdOut().orElse("").contains("garcode"));
+        assertThat(result.getStdOut().orElse(""), containsString("garcode"));
     }
 
     @Test
     void interpretationResultStdErrTest() throws ProcessException {
         Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
-        assertTrue(result.getStdErr().orElse("").contains("error!"));
+        assertThat(result.getStdErr().orElse(""), containsString("error!"));
     }
 
     @Test
     void interpretationExecutionTimeTest() throws ProcessException {
         Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
-        assertTrue(result.getExecutionTime().toMillis()/1000 < testCaseMock.getTimeLimit());
+        assertThat((int) result.getExecutionTime().toMillis(), lessThan(testCaseMock.getTimeLimit() * 1000));
     }
 
     @Test
     void interpretationResultErrnoNormalExecutionTest() throws ProcessException {
         Result result = strategy.testCaseResult(new File(testCodes + example), testCaseMock);
-        assertEquals(ExitValue.NORMAL_EXECUTION, result.getExitValue());
+        assertThat(result.getExitValue(), is(ExitValue.NORMAL_EXECUTION));
     }
 
     @Test
@@ -76,6 +78,7 @@ class BashStrategyIntegrationTest {
     @Test
     void cmdTest() throws ProcessException {
         Result result = strategy.testCaseResult(new File(testCodes + cmd), testCaseMock);
-        assertEquals(testCaseMock.getResultOutputWithNewLine(), result.getStdOut().get());
+        assertThat(testCaseMock.getResultOutputWithNewLine(), is(result.getStdOut().get()));
     }
 }
+

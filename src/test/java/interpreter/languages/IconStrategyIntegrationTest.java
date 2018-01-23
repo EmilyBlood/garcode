@@ -16,6 +16,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @Tag("IntegrationTest")
 public class IconStrategyIntegrationTest {
@@ -38,45 +40,42 @@ public class IconStrategyIntegrationTest {
     @Test
     void interpretationsResultsCountTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertEquals(caseMocks.size(), results.size());
+        assertThat(caseMocks.size(), is(results.size()));
     }
 
     @Test
     void interpretationResultStdOutTest() throws ProcessException {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertTrue(results.get(0).getStdOut().orElse("").contains("garcode"));
+        assertThat(results.get(0).getStdOut().orElse(""), containsString("garcode"));
     }
 
     @Test
     void interpretationResultStdErrTest() throws ProcessException {
         List<Result> results = interpreter.executeSolution(new File(testCodes + runtimeErr), caseMocks);
-        System.out.println(results.get(0).getStdErr().orElse("nostdErr"));
-        System.out.println(results.get(0).getStdOut().orElse("nostdOut"));
-        System.out.println(results.get(0).getExitValue());
-        assertTrue(results.get(0).getStdErr().orElse("").contains("error"));
+        assertThat(results.get(0).getStdErr().orElse(""), containsString("error"));
     }
 
     @Test
     void interpretationExecutionTimeTest() throws ProcessException {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertTrue(results.get(0).getExecutionTime().toMillis()/1000 < testCaseMock.getTimeLimit());
+        assertThat((int) results.get(0).getExecutionTime().toMillis(), lessThan(testCaseMock.getTimeLimit() * 1000));
     }
 
     @Test
     void interpretationResultErrnoNormalExecutionTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + example), caseMocks);
-        assertEquals(ExitValue.NORMAL_EXECUTION, results.get(0).getExitValue());
+        assertThat(results.get(0).getExitValue(), is(ExitValue.NORMAL_EXECUTION));
     }
 
     @Test
     void interpretationResultErrnoCompilationErrorTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + syntaxErr), caseMocks);
-        assertEquals(ExitValue.COMPILATION_ERR, results.get(0).getExitValue());
+        assertThat(results.get(0).getExitValue(), is(ExitValue.COMPILATION_ERR));
     }
     @Test
     void timeoutErrnoTest() {
         List<Result> results = interpreter.executeSolution(new File(testCodes + infinite), caseMocks);
-        assertEquals(ExitValue.TERMINATED, results.get(0).getExitValue());
+        assertThat(results.get(0).getExitValue(), is(ExitValue.TERMINATED));
     }
 
     @Test
@@ -88,7 +87,7 @@ public class IconStrategyIntegrationTest {
     @Test
     void cmdTest() throws ProcessException {
         List<Result> results = interpreter.executeSolution(new File(testCodes + cmd), caseMocks);
-        assertEquals(testCaseMock.getResultOutputWithNewLine(), results.get(0).getStdOut().get());
+        assertThat(results.get(0).getStdOut().get(), is(testCaseMock.getResultOutputWithNewLine()));
     }
 }
 
