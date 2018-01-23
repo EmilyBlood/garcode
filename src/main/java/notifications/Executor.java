@@ -28,7 +28,7 @@ public class Executor {
 //        instructorSender.sendResults(outcome);
 
         Sender sender = new Sender();
-        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456788", "blaszkiewiczmilosz@interia.eu", "Excellent", "Title", 16, 20, "OK");
+        Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456781", "test@example.com", "Excellent", "Title", 16, 20, "OK");
         sender.sendResults(outcome);
     }
 }

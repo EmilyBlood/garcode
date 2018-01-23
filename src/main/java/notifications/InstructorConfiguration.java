@@ -33,6 +33,26 @@ public class InstructorConfiguration {
         return mail;
     }
 
+    private String fetchNumber() {
+        String num = null;
+        try{
+            inputStream = new FileInputStream("src/main/resources/config.properties");
+            prop.load(inputStream);
+            num = prop.getProperty("userphone");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return num;
+    }
+
     public String getMail() {
         if(this.mail == null) {
             this.mail = fetchMail();
@@ -42,7 +62,7 @@ public class InstructorConfiguration {
 
     public String getNumber() {
         if(this.number == null) {
-            this.number = fetchMail();
+            this.number = fetchNumber();
         }
         return number;
     }
@@ -68,8 +88,8 @@ public class InstructorConfiguration {
 
     public Outcome getInstructorOutcome(Outcome outcomeSource) {
         Outcome outcome = new Outcome(outcomeSource);
-        outcome.setPhoneNumber(number);
-        outcome.setEmail(mail);
+        outcome.setPhoneNumber(getNumber());
+        outcome.setEmail(getMail());
         return outcome;
     }
 }

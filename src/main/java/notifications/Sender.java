@@ -1,5 +1,6 @@
 package notifications;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
 import notifications.MessageComposers.MailMessageComposer;
@@ -42,34 +43,23 @@ public class Sender implements Notifier{
 
     @Override
     public void sendResults(Outcome outcome) {
-//        MailMessageComposer mailMessageComposer = new MailMessageComposer(outcome);
-//
-//        mailSender.configure(instructorConfiguration.getMail(), mailMessageComposer);
-//        mailSender.sendResults(outcome);
-//
-//        FileConfiguration fileConfiguration = new FileConfiguration();
-//        FileMessageComposer fileMessageComposer = new FileMessageComposer(outcome);
-//
-//        fileExporter.configure(fileConfiguration.getFilepath(), fileMessageComposer);
-//        fileExporter.sendResults(outcome);
-//
-//        if(outcome.getPhoneNumber() != null) {
-//            SmsMessageComposer smsMessageComposer = new SmsMessageComposer(outcome);
-//            smsSender.configure(smsMessageComposer);
-//            smsSender.sendResults(outcome);
-//        }
-//        if(outcome.getEmail() != null) {
-//            mailSender.configure(outcome.getEmail(), mailMessageComposer);
-//            mailSender.sendResults(outcome);
-//        }
-
-
         Outcome outcomeForInstructor = instructorConfiguration.getInstructorOutcome(outcome);
         for(Notifier notifier : specificSenders) {
             notifier.sendResults(outcome);
             notifier.sendResults(outcomeForInstructor);
         }
+    }
 
+    public void sendResults(Outcome outcome, Boolean inst) {
+        for(Notifier notifier : specificSenders) {
+            notifier.sendResults(outcome);
+        }
+        if(inst) {
+            Outcome outcomeForInstructor = instructorConfiguration.getInstructorOutcome(outcome);
+            for (Notifier notifier : specificSenders) {
+                notifier.sendResults(outcomeForInstructor);
+            }
+        }
     }
 
 }
