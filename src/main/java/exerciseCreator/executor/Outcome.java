@@ -11,7 +11,7 @@ public class Outcome {
     private String grade;
     private int points;
     private int maxPoints;
-    private String errorDesc;
+    private String errorDesc = "";
 
     public Outcome(){
     }
@@ -141,7 +141,26 @@ public class Outcome {
         builder.append(", ");
         builder.append("Error description: ");
         builder.append(errorDesc);
-        builder.append(", ");
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Outcome outcome = (Outcome) o;
+
+        if (points != outcome.points) return false;
+        if (maxPoints != outcome.maxPoints) return false;
+        if (firstName != null ? !firstName.equals(outcome.firstName) : outcome.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(outcome.lastName) : outcome.lastName != null) return false;
+        if (phoneNumber != null ? !phoneNumber.equals(outcome.phoneNumber) : outcome.phoneNumber != null) return false;
+        if (email != null ? !email.equals(outcome.email) : outcome.email != null) return false;
+        if (titleDesc != null ? !titleDesc.equals(outcome.titleDesc) : outcome.titleDesc != null) return false;
+        if (exerciseDesc != null ? !exerciseDesc.equals(outcome.exerciseDesc) : outcome.exerciseDesc != null)
+            return false;
+        if (grade != null ? !grade.equals(outcome.grade) : outcome.grade != null) return false;
+        return errorDesc != null ? errorDesc.equals(outcome.errorDesc) : outcome.errorDesc == null;
     }
 }

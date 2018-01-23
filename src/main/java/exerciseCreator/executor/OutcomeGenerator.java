@@ -6,6 +6,7 @@ import exerciseCreator.databaseProvider.entity.CheckedExercise;
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.entity.TestCase;
 import exerciseCreator.databaseProvider.entity.Threshold;
+import interpreter.ExitValue;
 import interpreter.Result;
 
 import java.io.File;
@@ -19,18 +20,20 @@ public class OutcomeGenerator {
 
     private String studentIndexNumber;
 
-    private StudentDataProvider studentDataProvider = new StudentDataProvider();
+    private StudentDataProvider studentDataProvider;
 
-    private CheckedExerciseDataProvider checkedExerciseDataProvider = new CheckedExerciseDataProvider();
+    private CheckedExerciseDataProvider checkedExerciseDataProvider;
 
     private Exercise exercise;
 
     private Outcome outcome;
 
-    public OutcomeGenerator(Map<TestCase, Result> testCaseResultMap, File sourceCode, Exercise exercise){
+    public OutcomeGenerator(Map<TestCase, Result> testCaseResultMap, File sourceCode, Exercise exercise, StudentDataProvider studentDataProvider, CheckedExerciseDataProvider checkedExerciseDataProvider){
         this.testCaseResultMap = testCaseResultMap;
         this.studentIndexNumber = sourceCode.getName().replaceFirst("[.][^.]+$", "");
         this.exercise = exercise;
+        this.studentDataProvider = studentDataProvider;
+        this.checkedExerciseDataProvider = checkedExerciseDataProvider;
     }
 
     public Outcome generateOutcome(){
@@ -38,15 +41,13 @@ public class OutcomeGenerator {
         outcome = outcomeBuilder.student(studentDataProvider.getStudentByIndexNumber(studentIndexNumber)).exercise(exercise).build();
         Integer pointsForExercise = 0;
         for(TestCase testCase: testCaseResultMap.keySet()){
-            if(testCaseResultMap.get(testCase).getStdOut().isPresent()){
-                String result = testCaseResultMap.get(testCase).getStdOut().get();
+            if(testCaseResultMap.get(testCase).getExitValue().equals(ExitValue.NORMAL_EXECUTION)){
+                String result = testCaseResultMap.get(testCase).getStdOut().orElse("");
                 if(abs(Double.parseDouble(result) - Double.parseDouble(testCase.getResultOutput())) < 10e-6){
                     pointsForExercise += 1;
                 }
             } else {
-                if(testCaseResultMap.get(testCase).getStdErr().isPresent()){
-                    outcome.setErrorDesc(testCaseResultMap.get(testCase).getStdErr().get());
-                }
+                outcome.setErrorDesc(testCaseResultMap.get(testCase).getStdErr().orElse(""));
             }
         }
         outcome.setPoints(pointsForExercise);
@@ -72,7 +73,7 @@ public class OutcomeGenerator {
                 return threshold.getGrade();
             }
         }
-        return "2.0";
+        return "2";
     }
 
     private void saveCheckedExercise(Integer pointsForExercise){
