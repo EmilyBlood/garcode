@@ -18,9 +18,9 @@ public class InterpreterConnector {
 
     private List<Result> result;
 
-    public InterpreterConnector(Exercise exercise, File sourceCode){
+    public InterpreterConnector(Exercise exercise, File sourceCode, TestCaseRunner testCaseRunner){
         this.testCases = exercise.getTestCases();
-        this.interpreter = new TestCaseRunner();
+        this.interpreter = testCaseRunner;
         sendExerciseToInterpreter(sourceCode);
     }
 

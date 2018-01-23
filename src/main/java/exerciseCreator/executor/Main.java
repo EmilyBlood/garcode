@@ -1,8 +1,11 @@
 package exerciseCreator.executor;
 
+import exerciseCreator.databaseProvider.dataProvider.CheckedExerciseDataProvider;
 import exerciseCreator.databaseProvider.dataProvider.ExerciseDataProvider;
+import exerciseCreator.databaseProvider.dataProvider.StudentDataProvider;
 import exerciseCreator.databaseProvider.entity.Exercise;
 import exerciseCreator.databaseProvider.session.HibernateSession;
+import interpreter.TestCaseRunner;
 import notifications.Notifier;
 import notifications.Sender;
 
@@ -11,6 +14,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
+
+    private static StudentDataProvider studentDataProvider = new StudentDataProvider();
+
+    private static CheckedExerciseDataProvider checkedExerciseDataProvider = new CheckedExerciseDataProvider();
 
     public static void main(String[] args) {
 
@@ -24,8 +31,8 @@ public class Main {
         Path path = Paths.get(exercise.getPathToExercises(), fileName);
         File pathToSourceCode = new File(path.toString());
 
-        InterpreterConnector interpreterConnector = new InterpreterConnector(exercise, pathToSourceCode);
-        OutcomeGenerator outcomeGenerator = new OutcomeGenerator(interpreterConnector.getResultsMap(), pathToSourceCode, exercise);
+        InterpreterConnector interpreterConnector = new InterpreterConnector(exercise, pathToSourceCode, new TestCaseRunner());
+        OutcomeGenerator outcomeGenerator = new OutcomeGenerator(interpreterConnector.getResultsMap(), pathToSourceCode, exercise, studentDataProvider, checkedExerciseDataProvider);
         Outcome outcome = outcomeGenerator.generateOutcome();
         Notifier sender = new Sender();
         sender.sendResults(outcome);

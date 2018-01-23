@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="695.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.TaskOverViewController">
+<BorderPane prefHeight="695.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="exerciseCreator.controller.TaskOverViewController">
     <top>
         <Label text="Dodaj zadanie" BorderPane.alignment="CENTER">
             <font>
@@ -22,7 +22,7 @@
     <center>
         <SplitPane dividerPositions="0.7" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="532.0" prefWidth="395.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="632.0" prefWidth="602.0">
                <children>
                   <TextField fx:id="titleTextField" layoutX="39.0" layoutY="60.0" prefHeight="25.0" prefWidth="335.0" />
                   <Label layoutX="164.0" layoutY="31.0" text="Tytuł zadania">
@@ -43,19 +43,19 @@
                       <TableColumn fx:id="maxTimeColumn" prefWidth="111.0" text="Max Czas" />
                     </columns>
                   </TableView>
-                  <Button fx:id="addTestCaseButton" layoutX="398.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleAddTestCaseAction" prefHeight="52.0" prefWidth="131.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
-                  <Button fx:id="editTestCaseButton" layoutX="398.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleEditTestCaseAction" prefHeight="54.0" prefWidth="131.0" text="Edytuj przypadek testowy" />
-                  <Button fx:id="deleteTestCaseButton" layoutX="397.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="132.0" text="Usun przypadek testowy" />
+                  <Button fx:id="addTestCaseButton" layoutX="398.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleAddTestCaseAction" prefHeight="52.0" prefWidth="193.0" text="Dodaj przypadek testowy" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="editTestCaseButton" layoutX="398.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleEditTestCaseAction" prefHeight="54.0" prefWidth="195.0" text="Edytuj przypadek testowy" />
+                  <Button fx:id="deleteTestCaseButton" layoutX="397.0" layoutY="298.0" mnemonicParsing="false" onAction="#handleDeleteTestCaseAction" prefHeight="57.0" prefWidth="197.0" text="Usun przypadek testowy" />
                   <Button fx:id="undoButton" layoutX="128.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleUndoAction" prefHeight="26.0" prefWidth="73.0" text="Cofnij" />
                   <Button fx:id="redoButton" layoutX="215.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleRedoAction" text="Odcofnij" />
                   <!--<Button fx:id="pathButton" layoutX="398.0" layoutY="296.0" mnemonicParsing="false" onAction="#handlePathSettingAction" prefHeight="26.0" prefWidth="128.0" text="Przegladaj" />-->
-                   <Button fx:id="addThresholdButton" layoutX="397.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleAddThresholdAction" prefHeight="58.0" prefWidth="132.0" text="Progi punktowe ocen" />
+                   <Button fx:id="addThresholdButton" layoutX="397.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleAddThresholdAction" prefHeight="58.0" prefWidth="201.0" text="Progi punktowe ocen" />
                   <!--<TextField fx:id="pathTextField" layoutX="43.0" layoutY="296.0" prefHeight="26.0" prefWidth="333.0" />-->
                </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="537.0" prefWidth="198.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="632.0" prefWidth="206.0">
                     <children>
-                        <Button fx:id="addTaskButton" layoutX="56.0" layoutY="235.0" mnemonicParsing="false" onAction="#onfinalAddTaskAction" prefHeight="68.0" prefWidth="121.0" text="Dodaj zadanie" />
+                        <Button fx:id="addTaskButton" layoutX="69.0" layoutY="282.0" mnemonicParsing="false" onAction="#onfinalAddTaskAction" prefHeight="68.0" prefWidth="121.0" text="Dodaj zadanie" />
                     </children>
                 </AnchorPane>
 
