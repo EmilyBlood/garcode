@@ -35,8 +35,8 @@ public class Sender implements Notifier{
         specificSenders.add(fileExporter);
     }
 
-    public Sender(List<Notifier> specificSenders) {
-        this.instructorConfiguration = new InstructorConfiguration();
+    public Sender(List<Notifier> specificSenders, InstructorConfiguration instructorConfiguration) {
+        this.instructorConfiguration = instructorConfiguration;
         this.specificSenders = specificSenders;
     }
 

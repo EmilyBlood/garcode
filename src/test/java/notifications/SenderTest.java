@@ -38,7 +38,7 @@ class SenderTest {
         senders.add(mailSender);
         senders.add(smsSender);
         senders.add(fileExporter);
-        this.sender = new Sender(senders);
+        this.sender = new Sender(senders, instructorConfiguration);
 
         Mockito.doNothing().when(mailSender).sendResults(Matchers.anyObject());
         Mockito.doNothing().when(fileExporter).sendResults(Matchers.anyObject());
@@ -50,44 +50,65 @@ class SenderTest {
     @Test
     void sendResultsAll() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
-        sender.sendResults(outcome);
         Outcome outcomeInst = new Outcome(outcome);
+
         Mockito.when(instructorConfiguration.getInstructorOutcome(outcome)).thenReturn(outcomeInst);
-        //Mockito.verify(mailSender, Mockito.times(2)).sendResults(Matchers.anyObject());
+        sender.sendResults(outcome);
+
         Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcome);
         Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcomeInst);
-        Mockito.verify(smsSender, Mockito.times(1)).sendResults(Matchers.anyObject());
-        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(Matchers.anyObject());
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcomeInst);
     }
 
     @Test
     void sendResultsOnlyMail() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", null, "test@test.com", "Excellent", "Title", 16, 20, "OK");
+        Outcome outcomeInst = new Outcome(outcome);
+
+        Mockito.when(instructorConfiguration.getInstructorOutcome(outcome)).thenReturn(outcomeInst);
         sender.sendResults(outcome);
 
-        Mockito.verify(mailSender, Mockito.times(2)).sendResults(Matchers.anyObject());
-        Mockito.verify(smsSender, Mockito.times(0)).sendResults(Matchers.anyObject());
-        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(Matchers.anyObject());
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcomeInst);
     }
 
     @Test
     void sendResultsOnlyPhone() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", "123456789", null, "Excellent", "Title", 16, 20, "OK");
+        Outcome outcomeInst = new Outcome(outcome);
+
+        Mockito.when(instructorConfiguration.getInstructorOutcome(outcome)).thenReturn(outcomeInst);
         sender.sendResults(outcome);
 
-        Mockito.verify(mailSender, Mockito.times(1)).sendResults(Matchers.anyObject());
-        Mockito.verify(smsSender, Mockito.times(1)).sendResults(Matchers.anyObject());
-        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(Matchers.anyObject());
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcomeInst);
     }
 
     @Test
     void sendResultsNone() {
         Outcome outcome = new Outcome("10", "Adam", "Adamiak", null, null, "Excellent", "Title", 16, 20, "OK");
+        Outcome outcomeInst = new Outcome(outcome);
+
+        Mockito.when(instructorConfiguration.getInstructorOutcome(outcome)).thenReturn(outcomeInst);
         sender.sendResults(outcome);
 
-        Mockito.verify(mailSender, Mockito.times(1)).sendResults(Matchers.anyObject());
-        Mockito.verify(smsSender, Mockito.times(0)).sendResults(Matchers.anyObject());
-        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(Matchers.anyObject());
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(mailSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(smsSender, Mockito.times(1)).sendResults(outcomeInst);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcome);
+        Mockito.verify(fileExporter, Mockito.times(1)).sendResults(outcomeInst);
     }
 
     @Test
@@ -106,9 +127,9 @@ class SenderTest {
         sender.sendResults(outcome5);
         sender.sendResults(outcome6);
 
-        Mockito.verify(mailSender, Mockito.times(9)).sendResults(Matchers.anyObject());
-        Mockito.verify(smsSender, Mockito.times(3)).sendResults(Matchers.anyObject());
-        Mockito.verify(fileExporter, Mockito.times(6)).sendResults(Matchers.anyObject());
+        Mockito.verify(mailSender, Mockito.times(12)).sendResults(Matchers.anyObject());
+        Mockito.verify(smsSender, Mockito.times(12)).sendResults(Matchers.anyObject());
+        Mockito.verify(fileExporter, Mockito.times(12)).sendResults(Matchers.anyObject());
     }
 
 }

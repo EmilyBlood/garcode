@@ -2,6 +2,7 @@ package notifications.SpecializedSenders;
 
 import exerciseCreator.executor.Outcome;
 import notifications.MessageComposers.FileMessageComposer;
+import notifications.SpecializedSenders.Configuration.FileConfiguration;
 import notifications.SpecializedSenders.FileExporter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,8 @@ class FileExporterTest {
         String filename = "testresults.txt";
         outcome = new Outcome("10", "Adam", "Adamiak", "123456789", "test@test.com", "Excellent", "Title", 16, 20, "OK");
         FileMessageComposer fileMessageComposer = new FileMessageComposer();
-//        fileExporter = new FileExporter();
-//        fileExporter.configure(filename, fileMessageComposer);
+
+        fileExporter = new FileExporter(new FileExporter.FileExporterBuilder(new FileConfiguration(), fileMessageComposer));
     }
 
     @Test

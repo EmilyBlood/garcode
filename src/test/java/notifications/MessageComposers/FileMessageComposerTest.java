@@ -10,7 +10,10 @@ class FileMessageComposerTest {
     FileMessageComposer fileMessageComposer;
 
     @BeforeEach
-    void setUp() {fileMessageComposer = new FileMessageComposer();}
+    void setUp() {
+        fileMessageComposer = new FileMessageComposer();
+        fileMessageComposer.setOutcome(outcome);
+    }
 
     @Test
     void composeMessage() {
