@@ -28,7 +28,7 @@ public class FileExporter implements Notifier {
 
     @Override
     public void sendResults(Outcome outcome) {
-        String path = fileConfiguration.getFilepath() + outcome.getPhoneNumber() + ".txt";
+        String path = fileConfiguration.getFilepath() + outcome.getLastName() + outcome.getFirstName() + outcome.getPhoneNumber() + "_data.txt";
         messageComposer.setOutcome(outcome);
         try(FileWriter fileWriter = new FileWriter(path, true);
              BufferedWriter writer = new BufferedWriter(fileWriter);

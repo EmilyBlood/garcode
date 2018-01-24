@@ -11,14 +11,16 @@ public class InstructorConfiguration {
     private Properties prop = new Properties();
     private String mail = null;
     private String number = null;
+    private String name = null;
+    private String lastname = null;
 
 
-    private String fetchMail() {
-        String mail = null;
+    private String fetchProperty(String propName) {
+        String propVal = null;
         try{
             inputStream = new FileInputStream("src/main/resources/config.properties");
             prop.load(inputStream);
-            mail = prop.getProperty("usermail");
+            propVal = prop.getProperty(propName);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -30,41 +32,36 @@ public class InstructorConfiguration {
                 }
             }
         }
-        return mail;
+        return propVal;
     }
 
-    private String fetchNumber() {
-        String num = null;
-        try{
-            inputStream = new FileInputStream("src/main/resources/config.properties");
-            prop.load(inputStream);
-            num = prop.getProperty("userphone");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return num;
-    }
 
     public String getMail() {
         if(this.mail == null) {
-            this.mail = fetchMail();
+            this.mail = fetchProperty("usermail");
         }
-        return mail;
+        return this.mail;
     }
 
     public String getNumber() {
         if(this.number == null) {
-            this.number = fetchNumber();
+            this.number = fetchProperty("userphone");
         }
-        return number;
+        return this.number;
+    }
+
+    public String getName() {
+        if(this.name == null) {
+            this.name = fetchProperty("username");
+        }
+        return this.name;
+    }
+
+    public String getLastName() {
+        if(this.lastname == null) {
+            this.lastname = fetchProperty("userlastname");
+        }
+        return this.lastname;
     }
 
     public void setMail(String mail) {
